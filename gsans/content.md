@@ -33,25 +33,25 @@ Perform the following steps to find your client credentials. Save these credenti
 1.  Sign in to your Oracle Cloud account by accessing the link from your welcome email.
 2.  The Oracle Cloud My Services page opens up for you.
 
-    ![My Services page](img/cloud_my_services.png)
+    ![My Services page](img/cloud_my_services.png "My Services page")
 
 3.  To access the Identity Console, click ![Navigation icon](img/navigation_icon.png) and then click Users. In the User Management page, click Identity Console.
 
-    ![IDCS page](img/idcs_page.png)
+    ![IDCS page](img/idcs_page.png "IDCS page")
 
 4.  In the Oracle Identity Cloud Services page, click ![Navigation icon](img/navigation_icon.png) and then click Applications.
 
-    ![Applications page](img/applications_page.png)
+    ![Applications page](img/applications_page.png "Applications page")
 
 5.  In the Applications page, click **NoSQLClient**.
 
-    ![NoSQLClient application](img/nosqlclient.png)
+    ![NoSQLClient application](img/nosqlclient.png "NoSQLClient application")
 
     If **NoSQLClient** is not listed in the applications page, you must perform the steps in the Access Client Credentials section of the [Get Started with Oracle NoSQL Database Cloud Service tutorial](https://docs.oracle.com/en/cloud/paas/nosql-cloud/gsans/index.html#AccessClientCredentials).
 
 6.  In the NoSQLClient application page, click **Configuration**. From the **General Information** section, obtain the **Client ID** and **Client Secret** credentials.
 
-    ![NoSQLClient credentials](img/nosqlclient_credentials.png)
+    ![NoSQLClient credentials](img/nosqlclient_credentials.png "NoSQLClient credentials")
 
 7.  Next, copy the IDCS URL from the browser’s address bar. Copy up to **_https://idcs-xxx.identity.oraclecloud.com_**. Paste the URL to the text file for use in the next step.
 
@@ -271,7 +271,7 @@ Table HelloWorldTable has been dropped
 
     **Note:** Each table that you create in Oracle NoSQL Database Cloud Service will be prefixed with `'ANDC_'` in the Applications page.
 
-    ![Table created](img/table_created.png)
+    ![Table created](img/table_created.png "Table created")
 
 5.  Delete the table by specifying the end point and the `-drop` option.
 
