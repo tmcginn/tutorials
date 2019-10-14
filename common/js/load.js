@@ -25,10 +25,10 @@ $(function () {
             });
 
             //moving the pre elements a layer up for stylesheet matching
-            /*
-            var all_pre = $(tmpElement).find('pre');
-            $(all_pre).appendTo($(all_pre).prev()); 
-            */
+            $(tmpElement).find('pre').each(function() {
+	            $(this).appendTo($(this).prev()); 
+            });
+            
             //changing document head based on the manifest
             document.title = json.workshop.title;
             document.getElementsByTagName('meta').contentid.content = json.workshop.contentid;
