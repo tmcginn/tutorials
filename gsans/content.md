@@ -45,13 +45,9 @@ Perform the following steps to find your client credentials. Save these credenti
 
 5.  In the Applications page, click **NoSQLClient**.
 
-    ![NoSQLClient application](img/nosqlclient.png "NoSQLClient application")
-
     If **NoSQLClient** is not listed in the applications page, you must perform the steps in the Access Client Credentials section of the [Get Started with Oracle NoSQL Database Cloud Service tutorial](https://docs.oracle.com/en/cloud/paas/nosql-cloud/gsans/index.html#AccessClientCredentials).
 
 6.  In the NoSQLClient application page, click **Configuration**. From the **General Information** section, obtain the **Client ID** and **Client Secret** credentials.
-
-    ![NoSQLClient credentials](img/nosqlclient_credentials.png "NoSQLClient credentials")
 
 7.  Next, copy the IDCS URL from the browser’s address bar. Copy up to **_https://idcs-xxx.identity.oraclecloud.com_**. Paste the URL to the text file for use in the next step.
 
