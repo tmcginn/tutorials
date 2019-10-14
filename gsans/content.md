@@ -267,8 +267,6 @@ Table HelloWorldTable has been dropped
 
     **Note:** Each table that you create in Oracle NoSQL Database Cloud Service will be prefixed with `'ANDC_'` in the Applications page.
 
-    ![Table created](img/table_created.png "Table created")
-
 5.  Delete the table by specifying the end point and the `-drop` option.
 
 ```
