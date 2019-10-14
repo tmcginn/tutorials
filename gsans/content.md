@@ -243,13 +243,13 @@ HelloWorld.java
 $ java -cp ".:oracle-nosql-cloud-java-driver-XX.X/lib/*" \
 HelloWorld <endpoint URL>
 ```
-    For example:
+For example:
 ```
 $ java -cp ".:oracle-nosql-cloud-java-driver-19.4/lib/*" \
 HelloWorld ndcs.uscom-east-1.oraclecloud.com
 ```
 
-    Expected output:
+ Expected output:
 
 ```
 Using endpoint: <endpoint URL>
@@ -274,14 +274,13 @@ $ java -cp ".:oracle-nosql-cloud-java-driver-XX.X/lib/*" \
 HelloWorld <endpoint URL> -drop
 ```
 
-    For example:
+For example:
 
 ```
 $ java -cp ".:oracle-nosql-cloud-java-driver-19.4/lib/*" \
 HelloWorld ndcs.uscom-east-1.oraclecloud.com -drop
 ```
-
-    Expected Output:
+   Expected Output:
 
 ```
 Using endpoint: <endpoint URL>
