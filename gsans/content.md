@@ -1,5 +1,5 @@
 # Create a Table in Oracle NoSQL Database Cloud Service Using Java
-## ![section 0](img/32_begin.png)Before You Begin
+## Before You Begin
 
 This 15-minute tutorial walks you through the steps to connect to Oracle NoSQL Database Cloud Service and create a table using a sample application.
 
@@ -24,7 +24,7 @@ After you subscribe to Oracle Cloud, you can easily populate a table in the Orac
 
 * * *
 
-## ![section 1](img/32_1.png)Access Client Credentials
+## Access Client Credentials
 
 To connect your application to the Oracle NoSQL Database Cloud Service, you should obtain the client id, client secret, and IDCS URL.
 
@@ -53,7 +53,7 @@ Perform the following steps to find your client credentials. Save these credenti
 
 * * *
 
-## ![section 2](img/32_2.png)Update the Sample Application
+## Update the Sample Application
 
 1.  Copy the `HelloWorld.java` application to an editor of your choice. You will be using this application to connect to Oracle NoSQL Database Cloud Service and create a table.
 
@@ -119,7 +119,7 @@ public class HelloWorld {
 
 * * *
 
-## ![section 3](img/32_3.png)Execute the Sample Application and Create a Table
+## Execute the Sample Application and Create a Table
 
 1.  Open Command Prompt.
 2.  Build the `HelloWorld.java` application. Update `oracle-nosql-cloud-java-driver-XX.XXX` with the Java driver version number that you have downloaded.
@@ -181,7 +181,7 @@ Table HelloWorldTable has been dropped
 ```
 
 * * *
-## ![more information](img/32_more.png)Want to Learn More?
+## Want to Learn More?
 
 *   [About Oracle NoSQL Database Cloud Service](http://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=CSNSD-GUID-E2D61A27-24A4-4EEB-863B-B6E6C94E0B08)
 *   [Oracle NoSQL Database Cloud Service page](https://cloud.oracle.com/en_US/nosql)
