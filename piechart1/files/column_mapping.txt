@@ -1,0 +1,1 @@
+This is the Create Chart dialog for column mapping. It shows the fields Table Name, Label Column and Value Column. In the Label Column field, LABEL is selected. And in the Value Column field, VALUE is selected. 

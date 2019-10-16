@@ -1,0 +1,1 @@
+This is the Create Chart dialog. It lists the different types of chart such as Donut, Funnel, Line, Line with Area, Pie, Polar, Pyramid and so on. This image has the Pie chart selected. 

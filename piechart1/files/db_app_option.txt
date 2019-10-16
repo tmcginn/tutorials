@@ -1,0 +1,1 @@
+This is the image of the App Builder home page. It has the drop down list under App Builder open. It has the menu item Database Application highlighted. 

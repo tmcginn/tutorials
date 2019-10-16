@@ -1,0 +1,1 @@
+This is the image of the Create App Wizard with the newly created page Project Tasks. It shows the pie chart with 12 slices on different tasks.

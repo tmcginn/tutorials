@@ -1,0 +1,13 @@
+{
+    "labs": [
+        {
+            "shortname": "piechart1",
+            "title": "Charts (1 of 3) - Adding a Pie Chart",
+            "description": "This tutorial shows you how to create a pie chart in a new page in an application.",
+            "partnumber": "E99846-01",
+            "publisheddate": "09/01/2018",
+            "contentid": "24551x",
+            "filename": "../piechart1/content.md"
+        }
+    ]
+}
