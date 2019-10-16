@@ -51,8 +51,8 @@ function dropDown(json) {
         //adding open button
         var openbtn = document.createElement('span');
         $(openbtn).attr("class", "openbtn");
-        $(openbtn).click(function() {
-            if($('#mySidenav').width() > 0)
+        $(openbtn).click(function () {
+            if ($('#mySidenav').width() > 0)
                 closeNav();
             else
                 openNav();
@@ -89,29 +89,26 @@ function dropDown(json) {
             if (query === labs[i].shortname)
                 $(entry).attr("class", "selected");
         }
-        if(!$(div).find('a').hasClass("selected")) {
+        if (!$(div).find('a').hasClass("selected")) {
             $(div).find('.labs_nav').first('a').addClass("selected");
         }
         $(div).appendTo('header');
     }
 }
 
-/*the follwoing function changes the relative path of images to the absolute path of the MD file,
+/*the following function changes the relative path of images to the absolute path of the MD file,
 so that the images and MD file can be in a different location that the manifest and still get displayed.
-This happens only when the MD file is in a different location.
 */
 function applyImageUrl(tmpElement, myUrl) {
     var pattern = /^https?:\/\/|^\/\//i;
 
-    if (pattern.test(myUrl)) { //checking if url is absolute
-        myUrl = myUrl.replace(/\/[^\/]+$/, "/"); //removing filename from the url        
-        $(tmpElement).find('img').each(function () {
-            if (!pattern.test($(this).attr("src"))) {//changing src only if path is relative                
-                $(this).attr("src", myUrl + $(this).attr("src"));
-            }
+    myUrl = myUrl.replace(/\/[^\/]+$/, "/"); //removing filename from the url        
+    $(tmpElement).find('img').each(function () {
+        if (!pattern.test($(this).attr("src"))) {//changing src only if path is relative                
+            $(this).attr("src", myUrl + $(this).attr("src"));
+        }
 
-        });
-    }
+    });
 }
 
 $(function () {
