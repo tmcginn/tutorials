@@ -133,6 +133,7 @@ $(function () {
         }).done(function () {
             $("#bookContainer").html(tmpElement);
             $.getScript("https://docs.oracle.com/en/cloud/paas/nosql-cloud/gsans/js/leftnav.js");
+			openNav();
         });
     });
 });
