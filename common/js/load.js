@@ -23,10 +23,27 @@ function movePreInsideLi(tmpElement) {
     });
 }
 
-function addH2Image(tmpElement) {
-    $(tmpElement).find('h2>img').addClass('num_circ');
-    $(tmpElement).find('h2>img').attr('height', '32');
-    $(tmpElement).find('h2>img').attr('width', '32');
+function addH2ImageIcons(tmpElement) {
+	var path = "https://ashwin-agarwal.github.io/tutorials/obe_template/img/32_";
+	var last;
+	$(tmpElement).find('h2').prepend(document.createElement('img'));
+	
+	$(tmpElement).find('h2>img').each(function(i) {		
+		alert(i);
+		$(this).attr({
+			class: 'num_circ',
+			height: '32',
+			width: '32',
+			src: path + i + '.png',
+			alt: 'section ' + i
+		});
+		last = $(this);
+	});
+	$(last).attr({
+		src: path + "more.png",
+		alt: 'more information'
+	});
+	    
 }
 function replaceH1Title(tmpElement) {
     $("#content>h1").html($("#content>h1").html().replace($("#content>h1").text(), $(tmpElement).find('h1').text()));
@@ -124,7 +141,7 @@ $(function () {
             $(tmpElement).html(new showdown.Converter().makeHtml(markdown));
 
             replaceH1Title(tmpElement); //replacing the h1 title in the OBE
-            addH2Image(tmpElement); //Adding class, width, and height to the h2 title
+            addH2ImageIcons(tmpElement); //Adding image, class, width, and height to the h2 title img
             wrapImgWithFigure(tmpElement); //Wrapping with figure, adding figcaption to all those images that have title in the MD
             movePreInsideLi(tmpElement); //moving the pre elements a layer up for stylesheet matching
             applyImageUrl(tmpElement, myUrl); //adds the path for the image based on the filename in JSON
