@@ -1,5 +1,5 @@
 # Oracle Application Express 18: Charts (1 of 3) - Adding a Pie Chart
-## ![section 0](./img/32_begin.png)Before You Begin
+## Before You Begin
 
 This 5 minute tutorial shows you how to create a pie chart in a new page in an application. This is the first tutorial in the series _Oracle Application Express 18: Charts._
 
@@ -48,7 +48,7 @@ Note your Application ID may be different when compared to the screenshots in th
 
 * * *
 
-## ![section 1](./img/32_1.png)Add a Chart in an Application
+## Add a Chart in an Application
 
 To add a new chart to the Create App Wizard application:
 
@@ -108,13 +108,7 @@ sample$project_tasks t where p.id = t.project_id group by p.name
 
 * * *
 
-## ![next step](./img/32_next.png)Next Tutorial
-
-[Oracle Application Express 18: Charts (2 of 3) - Adding a Bar Chart](?barchart)
-
-* * *
-
-## ![more information](./img/32_more.png)Want to Learn More?
+## Want to Learn More?
 
 *   [Adding a Chart in Page Designer](http://www.oracle.com/pls/topic/lookup?ctx=E89503-01&id=HTMDB-GUID-0CC50B5B-1353-4C3E-B54E-092C18F4E22C)
 

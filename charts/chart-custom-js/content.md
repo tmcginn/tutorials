@@ -1,6 +1,6 @@
 # Oracle Application Express 18: Charts (3 of 3) - Changing Chart Appearance with JavaScript
 
-## ![section 0](./img/32_begin.png)Before You Begin
+## Before You Begin
 
 This 5 -minute tutorial shows you how to create a custom JavaScript to change the appearance of a chart. This is the third and the last tutorial in the series _Oracle Application Express 18: Charts._
 
@@ -41,7 +41,7 @@ Note your Application ID may be different when compared to the screenshots in th
 
 * * *
 
-## ![section 1](./img/32_1.png)Using a Custom JavaScript in the Chart
+## Using a Custom JavaScript in the Chart
 
 To change the appearance of the _Project Tasks Completion_ chart using a Javascript:
 
@@ -85,7 +85,7 @@ To change the appearance of the _Project Tasks Completion_ chart using a Javascr
 
 * * *
 
-## ![more information](./img/32_more.png)Want to Learn More?
+## Want to Learn More?
 
 *   [Creating Charts](http://www.oracle.com/pls/topic/lookup?ctx=E89503-01&id=HTMDB-GUID-50985225-4C89-489B-B019-E2D91E61428A)
 
