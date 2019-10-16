@@ -648,7 +648,7 @@ article ol ul li::before {
     This makes the class selector p.note unnecessary. 
     That is, you no longer have to use <p class="note">
 */
-/*
+
  article li p {
     margin: 7px 0px 7px -1px;
     text-indent: 0px;    
