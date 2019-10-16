@@ -653,11 +653,11 @@ article ol ul li::before {
     margin: 7px 0px 7px -1px;
     text-indent: 0px;    
 }
- 
+/*
 article ul  li > p {
 
     display: block;
-}
+}*/
 
 pre {
     -webkit-overflow-scrolling: touch ;
