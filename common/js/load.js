@@ -28,8 +28,7 @@ function addH2ImageIcons(tmpElement) {
 	var last;
 	$(tmpElement).find('h2').prepend(document.createElement('img'));
 	
-	$(tmpElement).find('h2>img').each(function(i) {		
-		alert(i);
+	$(tmpElement).find('h2>img').each(function(i) {				
 		$(this).attr({
 			class: 'num_circ',
 			height: '32',
