@@ -8,6 +8,15 @@
             "publisheddate": "09/01/2018",
             "contentid": "24551x",
             "filename": "./piechart1/content.md"
+        },
+		{
+            "shortname": "piechart2",
+            "title": "Charts (2 of 3) - Adding a Bar Chart",
+            "description": "This 15-minute tutorial shows you how to edit a chart.",
+            "partnumber": "E99848-01",
+            "publisheddate": "09/01/2018",
+            "contentid": "24552x",
+            "filename": "./piechart2/content.md"
         }
     ]
 }
