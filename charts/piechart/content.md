@@ -1,11 +1,7 @@
-#Oracle Application Express 18: Charts (1 of 3) - Adding a Pie Chart
+# Oracle Application Express 18: Charts (1 of 3) - Adding a Pie Chart
 ## ![section 0](./img/32_begin.png)Before You Begin
 
-This 5 minute tutorial shows you how to create a pie chart in a new page in an application. This is the first tutorial in the series _Oracle Application Express 18: Charts._ Read in the tutorials in sequence:
-
-*   Oracle Application Express 18: Charts (1 of 3) - Adding a Pie Chart
-*   [Oracle Application Express 18: Charts (2 of 3) - Adding a Bar Chart](?piechart2)
-*   [Oracle Application Express 18: Charts (3 of 3) - Changing Chart Appearance with JavaScript](?piechart3)
+This 5 minute tutorial shows you how to create a pie chart in a new page in an application. This is the first tutorial in the series _Oracle Application Express 18: Charts._
 
 ### Background
 
@@ -114,7 +110,7 @@ sample$project_tasks t where p.id = t.project_id group by p.name
 
 ## ![next step](./img/32_next.png)Next Tutorial
 
-[Oracle Application Express 18: Charts (2 of 3) - Adding a Bar Chart](?piechart2)
+[Oracle Application Express 18: Charts (2 of 3) - Adding a Bar Chart](?barchart)
 
 * * *
 

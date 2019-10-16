@@ -1,0 +1,1 @@
+This is the image of the Project Tasks Completion page in the Create App Wizard application. It shows the new look after running the javascript.

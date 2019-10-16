@@ -1,0 +1,1 @@
+This is the image of the Attribute tab in the right pane in Page Designer. It has the JazaScript Initialization Code field highlighted in the Advanced section.  

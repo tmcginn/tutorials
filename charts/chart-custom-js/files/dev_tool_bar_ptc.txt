@@ -1,0 +1,1 @@
+This is the image of the Project Tasks Completion page in the Create App Wizard applicaiton. At the bottom of the page, it has the Edit Page 11 option highlighted in the Developer tool.

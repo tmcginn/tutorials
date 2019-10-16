@@ -1,0 +1,1 @@
+This is the image of the Rendering tab for the Project Tasks Completion page. It has the attribute node selected. 

@@ -19,13 +19,13 @@
             "filename": "./barchart/content.md"
         },
 		{
-            "shortname": "chart-js",
+            "shortname": "chart-custom-js",
             "title": "Charts (3 of 3) - Changing Chart Appearance with JavaScript",
             "description": "This 5-minute tutorial shows you how to create a custom JavaScript to change the appearance of a chart.",
             "partnumber": "E99849-01",
             "publisheddate": "09/01/2018",
             "contentid": "24553x",
-            "filename": "./chart-js/content.md"
+            "filename": "./chart-custom-js/content.md"
         }
     ]
 }

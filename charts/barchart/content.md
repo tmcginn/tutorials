@@ -1,11 +1,7 @@
 # Oracle Application Express 18: Charts (2 of 3) - Adding a Bar Chart
 ## ![section 0](./img/32_begin.png)Before You Begin
 
-This 15-minute tutorial shows you how to edit a chart. This is the second tutorial in the series ___Oracle Application Express 18:_ Charts.__ Read the tutorials in sequence:
-
-*   [Oracle Application Express 18: Charts (1 of 3) - Adding a Pie Chart](?piechart1)
-*   Oracle Application Express 18: Charts (2 of 3) - Adding a Bar Chart
-*   [Oracle Application Express 18: Charts (3 of 3) - Changing Chart Appearance with JavaScript](?piechart3)
+This 15-minute tutorial shows you how to edit a chart. This is the second tutorial in the series _Oracle Application Express 18: Charts._
 
 ### Background
 
@@ -153,7 +149,7 @@ from sample$projects p
 
 ## ![next step](./img/32_next.png)Next Tutorial
 
-[Oracle Application Express 18: Charts (3 of 3) - Changing Chart Appearance with JavaScript](?piechart3)
+[Oracle Application Express 18: Charts (3 of 3) - Changing Chart Appearance with JavaScript](?chart-custom-js)
 
 * * *
 
