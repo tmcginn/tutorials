@@ -45,7 +45,7 @@ Once the VM is installed, start the VM:
 Note your Application ID may be different when compared to the screenshots in this tutorial. Your Application ID is assigned automatically when you create the application.
 
 
-* * *
+
 
 ## Adding a Bar Chart to an Existing Page
 
@@ -145,10 +145,8 @@ from sample$projects p
 
     ![Bar chart](./img/bar_chart_project_task_completion.png "Bar chart")
 
-* * *
+
 
 ## Want to Learn More?
 
 *   [Creating Charts](http://www.oracle.com/pls/topic/lookup?ctx=E89503-01&id=HTMDB-GUID-50985225-4C89-489B-B019-E2D91E61428A)
-
-* * *

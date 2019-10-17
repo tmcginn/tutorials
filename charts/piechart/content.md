@@ -46,8 +46,6 @@ Once the VM is installed, start the VM:
 Note your Application ID may be different when compared to the screenshots in this tutorial. Your Application ID is assigned automatically when you create the application.
 
 
-* * *
-
 ## Add a Chart in an Application
 
 To add a new chart to the Create App Wizard application:
@@ -106,10 +104,7 @@ sample$project_tasks t where p.id = t.project_id group by p.name
 
     **Note:** You can also add charts using Page Designer.
 
-* * *
 
 ## Want to Learn More?
 
 *   [Adding a Chart in Page Designer](http://www.oracle.com/pls/topic/lookup?ctx=E89503-01&id=HTMDB-GUID-0CC50B5B-1353-4C3E-B54E-092C18F4E22C)
-
-* * *

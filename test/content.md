@@ -16,7 +16,6 @@ Next paragraph of background information
 * Item no 1.
 * Item no 2 with url - [URL Text](https://www.oracle.com).
 
-* * *
 
 ## Section 1 title
 
@@ -37,7 +36,6 @@ One line with code example `HelloWorld.java`.
 
 Section conclusion can come here.
 
-* * *
 
 ## Section 2 title
 
@@ -52,10 +50,7 @@ One more line
 ```
 Conclusion of section 2 here.
 
-* * *
 ## Want to Learn More?
 
 * [URL text 1](http://docs.oracle.com)
 * [URL text 2](http://docs.oracle.com)
-
-* * *

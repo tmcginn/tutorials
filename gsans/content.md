@@ -22,8 +22,6 @@ After you subscribe to Oracle Cloud, you can easily populate a table in the Orac
 *   Have an Oracle Cloud subscription with account administrator or application administrator privilege. You can either create a [free trial account](https://cloud.oracle.com/en_US/tryit) or buy a [paid subscription](https://myservices.us.oraclecloud.com/mycloud/signup?selectedPlan=PAYG&language=en&sourceType=_ref_coc-asset-opcHome) by navigating to [cloud.oracle.com](https://cloud.oracle.com/en_US/nosql).
 *   Perform the steps in the [Get Started with Oracle NoSQL Database Cloud Service tutorial](https://apexapps.oracle.com/pls/apex/f?p=44785:112:::NO::P112_CONTENT_ID:24207).
 
-* * *
-
 ## Access Client Credentials
 
 To connect your application to the Oracle NoSQL Database Cloud Service, you should obtain the client id, client secret, and IDCS URL.
@@ -50,8 +48,6 @@ Perform the following steps to find your client credentials. Save these credenti
 6.  In the NoSQLClient application page, click **Configuration**. From the **General Information** section, obtain the **Client ID** and **Client Secret** credentials.
 
 7.  Next, copy the IDCS URL from the browser’s address bar. Copy up to **_https://idcs-xxx.identity.oraclecloud.com_**. Paste the URL to the text file for use in the next step.
-
-* * *
 
 ## Update the Sample Application
 
@@ -117,8 +113,6 @@ public class HelloWorld {
     *   `getUserCredentials` with your user name and password
 3.  Save the application as `HelloWorld.java` in your local system.
 
-* * *
-
 ## Execute the Sample Application and Create a Table
 
 1.  Open Command Prompt.
@@ -180,11 +174,8 @@ Waiting for HelloWorldTable to be dropped
 Table HelloWorldTable has been dropped
 ```
 
-* * *
 ## Want to Learn More?
 
 *   [About Oracle NoSQL Database Cloud Service](http://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=CSNSD-GUID-E2D61A27-24A4-4EEB-863B-B6E6C94E0B08)
 *   [Oracle NoSQL Database Cloud Service page](https://cloud.oracle.com/en_US/nosql)
 *   [Java API Reference Guide](https://docs.oracle.com/en/cloud/paas/nosql-cloud/csnjv/index.html)
-
-* * *

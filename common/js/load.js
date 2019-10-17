@@ -124,9 +124,35 @@ function applyImageUrl(tmpElement, myUrl) {
             if (!pattern.test($(this).attr("src"))) {//changing src only if path is relative                
                 $(this).attr("src", myUrl + $(this).attr("src"));
             }
-
         });
     }
+}
+
+function addSectionTag(tmpElement) {
+	var pattern = /<h2.*>/g;
+	var h2s = $(tmpElement).html().match(pattern);
+	var index = [];
+	var substr = [];
+
+	//get index of each h2
+	for(var i=0; i<h2s.length; i++) {
+		index.push($(tmpElement).html().indexOf(h2s[i]));
+	}
+	index.push($(tmpElement).html().length);
+
+	//get all substring as per the index
+	for(var i=0; i<index.length-1; i++) {	
+		substr.push($(tmpElement).html().substr(index[i], (index[i+1]-index[i])));		
+	}
+
+	//wrap substrings with section tag
+	for(var i=0; i<substr.length; i++) {
+		$(tmpElement).html($(tmpElement).html().replace(substr[i], "<section>" + substr[i] + "</section>"));				
+	}
+}
+
+function addHorizontalLine(tmpElement) {
+	$(tmpElement).find('section').append(document.createElement('hr'));	
 }
 
 $(function () {
@@ -140,6 +166,8 @@ $(function () {
             $(tmpElement).html(new showdown.Converter().makeHtml(markdown));
 
             replaceH1Title(tmpElement); //replacing the h1 title in the OBE
+			addSectionTag(tmpElement); //putting each section in section tag
+			addHorizontalLine(tmpElement); //add horizontal line after each section
             addH2ImageIcons(tmpElement); //Adding image, class, width, and height to the h2 title img
             wrapImgWithFigure(tmpElement); //Wrapping with figure, adding figcaption to all those images that have title in the MD
             movePreInsideLi(tmpElement); //moving the pre elements a layer up for stylesheet matching

@@ -39,8 +39,6 @@ Once the VM is installed, start the VM:
 Note your Application ID may be different when compared to the screenshots in this tutorial. Your Application ID is assigned automatically when you create the application.
 
 
-* * *
-
 ## Using a Custom JavaScript in the Chart
 
 To change the appearance of the _Project Tasks Completion_ chart using a Javascript:
@@ -83,10 +81,7 @@ To change the appearance of the _Project Tasks Completion_ chart using a Javascr
 
     ![chart new look](./img/chart_new_appearance_ptc.png "chart new look")
 
-* * *
 
 ## Want to Learn More?
 
 *   [Creating Charts](http://www.oracle.com/pls/topic/lookup?ctx=E89503-01&id=HTMDB-GUID-50985225-4C89-489B-B019-E2D91E61428A)
-
-* * *
