@@ -1,0 +1,40 @@
+{
+    "labs": [
+        {
+            "shortname": "l100",
+            "title": "Lab 100: Introduction",
+            "description": "Create and access an Autonomous Database Cloud Service.",
+            "partnumber": "Ennnnn_01",
+            "publisheddate": "10/14/2019",
+            "contentid": "12nnnn",
+            "filename": "https://raw.githubusercontent.com/oracle/learning-library/master/workshops/adwc4dev/L100.md"
+        },
+		{
+            "shortname": "l200",
+            "title": "Lab 200: Review Query Performance",
+            "description": "Run sample queries against a 100 million row current data set and a six billion row historic data set.",
+            "partnumber": "Ennnnn_01",
+            "publisheddate": "10/14/2019",
+            "contentid": "12nnnn",
+            "filename": "https://raw.githubusercontent.com/oracle/learning-library/master/workshops/adwc4dev/L200.md"
+        },
+		{
+            "shortname": "l300",
+            "title": "Lab 300: Machine Learning",
+            "description": "Work with an Apache Zepplin notebook and create a Machine Learning model to predict customer good credit.",
+            "partnumber": "Ennnnn_01",
+            "publisheddate": "10/14/2019",
+            "contentid": "12nnnn",
+            "filename": "https://raw.githubusercontent.com/oracle/learning-library/master/workshops/adwc4dev/L300.md"
+        },
+		{
+            "shortname": "l400",
+            "title": "Lab 400: Create Data Visualizations",
+            "description": "Create data visualizations with Oracle Analytics Cloud to review sales performance and better understand the factors that affect good credit.",
+            "partnumber": "Ennnnn_01",
+            "publisheddate": "10/14/2019",
+            "contentid": "12nnnn",
+            "filename": "https://raw.githubusercontent.com/oracle/learning-library/master/workshops/adwc4dev/L400.md"
+        }
+    ]
+}
