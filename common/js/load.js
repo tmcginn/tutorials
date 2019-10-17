@@ -144,7 +144,8 @@ $(function () {
             wrapImgWithFigure(tmpElement); //Wrapping with figure, adding figcaption to all those images that have title in the MD
             movePreInsideLi(tmpElement); //moving the pre elements a layer up for stylesheet matching
             applyImageUrl(tmpElement, myUrl); //adds the path for the image based on the filename in JSON
-
+			$(tmpElement).find('ul li p:first-child').contents().unwrap(); //remove the p tag from first li child as CSS changes the formatting
+			
             updateHead(jsonEntry); //changing document head based on the manifest
         }).done(function () {
             $("#bookContainer").html(tmpElement);
