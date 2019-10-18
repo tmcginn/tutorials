@@ -244,5 +244,12 @@ $(function () {
         download("manifest.json", JSON.stringify(manifest_data, null, "\t"));
     });
 
+	$('#download_html').click(function() {
+		$.get("https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/template/index.html", function(content) {
+			alert("The OBE HTML file will download now. Place this file in the same location as the manifest.json file and upload it to GitHub or Jarvis.");
+			download("index.html", content);	
+		});
+		
+	});
     showMdInHtml();
 });
