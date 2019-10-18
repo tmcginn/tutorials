@@ -1,0 +1,78 @@
+.row {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.card {
+    height: 100%;            
+}
+
+.navbar {
+    margin-bottom: 20px;
+}
+
+.btn {
+    font-size: 0.7rem;
+    line-height: 0.7;
+    border-radius: 0;
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+}
+
+#import,
+#preview,
+#download_md,
+#download_html,
+#configure_manifest,
+#save_manifest,
+#download_manifest,
+#close_modal {
+    font-size: 0.9rem;
+    line-height: 0.9;
+}
+
+#shortcuts {
+    float: right;
+    margin-bottom: 5px;
+    background-color: white;
+}
+
+.checkbox-inline {        
+    font-size: 0.85rem;        
+    margin-right:15px;
+    margin-top:0;
+    margin-bottom:0;
+}
+
+#mdBox,
+#htmlBox {
+    overflow-y:auto;
+    height: 70vh;
+    vertical-align: top;
+}
+#previewIframe, #htmlElement {
+    width:100%;
+    height:100%;
+    border:none;
+}
+
+.float-right {
+    float: right;
+}
+
+#previewBox {
+    padding:0;
+}
+
+#show_images, #simple_view {
+    margin-right:4px;
+}
+
+nav>p {
+    font-size: 0.65rem;
+}
+
+.modal-body * {
+    -webkit-appearance: none !important;
+}

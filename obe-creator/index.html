@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- Defines the local stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Show down is a plugin used to convert MD to HTML -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="template.js"></script>
+    <title>OBE Creator</title>
+</head>
+
+<body>
+    <!-- Top menu -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand">OBE Creator <small>v0.1</small></a>
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0"></ul>
+        <p>Last updated: <strong><span id="lastmodified"></span></strong> | Works best on Google Chrome!</p>
+    </nav>
+
+    <!-- The Modal -->
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Configure Manifest File</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <form id="manifestForm" autocomplete="off">
+                    <!-- Modal body -->
+                    <div class="modal-body">
+
+                        <div class="input-group mb-3 input-group-sm">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Short Name</span>
+                            </div>
+                            <input type="text" class="form-control" name="shortname" maxlength="30">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Part Number</span>
+                            </div>
+                            <input type="text" class="form-control" name="partnumber" maxlength="9">
+                        </div>
+                        <div class="input-group mb-3 input-group-sm">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Published Date</span>
+                            </div>
+                            <input type="date" class="form-control" name="publisheddate" maxlength="20">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Content ID</span>
+                            </div>
+                            <input type="text" class="form-control" name="contentid" maxlength="6">
+                        </div>
+                        <div class="input-group mb-3 input-group-sm">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Title</span>
+                            </div>
+                            <input type="text" class="form-control" name="title" maxlength="100">
+                        </div>
+                        <div class="input-group mb-3 input-group-sm">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Description</span>
+                            </div>
+                            <input type="text" class="form-control" name="description" maxlength="400">
+                        </div>
+                        <div class="input-group mb-3 input-group-sm">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">MD File Name or Complete Path</span>
+                            </div>
+                            <input type="text" class="form-control" name="filename">
+
+                        </div>
+
+
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="submit" id="save_manifest" class="btn btn-primary"
+                            data-dismiss="modal">Save</button>
+                        <button type="button" id="download_manifest" class="btn btn-primary"
+                            data-dismiss="modal">Download</button>
+                        <button type="button" id="close_modal" class="btn btn-secondary"
+                            data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- !PAGE CONTENT! -->
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    Markdown
+                    <button type="button" id="import" class="btn btn-primary float-right">Import HTML File</button>
+                    <!-- Button to Open the Modal -->
+                    <button type="button" id="configure_manifest" class="btn btn-primary float-right"
+                        data-toggle="modal" data-target="#myModal">
+                        Configure Manifest File
+                    </button>
+                    <button type="button" id="download_md" class="btn btn-primary float-right">Download MD File</button>
+                </div>
+                <div class="card-body">
+                    <span id="shortcuts"></span>
+                    <textarea id="mdBox" class="form-control"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <div id="rightBox" class="card">
+                <div class="card-header">
+                    HTML Preview
+                    <button type="button" id="preview" class="btn btn-primary float-right">Preview in HTML</button>
+                    <button type="button" id="download_html" class="btn btn-primary float-right">Download HTML
+                        Template</button>
+                    <form class="float-right">
+                        <label class="checkbox-inline" id="show_images_label"><input type="checkbox"
+                                id="show_images">Show Images</label>
+                        <label class="checkbox-inline" id="simple_view_label"><input type="checkbox" id="simple_view"
+                                checked>Simple
+                            View</label>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
