@@ -7,43 +7,57 @@
     right: 0;
     background-color: #E4F0FA;
     overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 60px;
+    transition: 0.5s;    
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
-  }
+}
   
-  .sidenav a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 16px;
-    color: #145C93;
-    display: block;
-    transition: 0.3s;
-  }
+.sidenav a {
+	padding: 8px 8px 8px 32px;
+	text-decoration: none;
+	font-size: 16px;
+	color: #145C93;
+	display: block;
+	transition: 0.3s;
+}
   
-  .sidenav a:hover {
-    color: #818181;
-  }
+.sidenav a:hover {
+	color: #818181;
+}
   
-  .sidenav .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
-  }
+.sidenav .closebtn {
+	position: absolute;
+	top: 0;
+	right: 25px;
+	font-size: 36px;	
+}
 
-  .openbtn {
-    font-size:25px;
-    cursor:pointer;
-    float:right;
-  }
+.openbtn {
+	font-size:25px;
+	cursor:pointer;
+	float:right;
+}
   
-  @media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 12px;}
-  }
+@media screen and (max-height: 450px) {	
+	.sidenav a {font-size: 12px;}
+	.sidenav .closebtn {font-size: 30px; }
+	#nav_header h3 {font-size: 18px; }
+	
+}
   
-  .selected {
-    font-weight: bold;    
-  }
+.selected {
+	font-weight: bold;    
+}
+  
+#nav_header {
+	background-color: #E4F0FA;
+	top: 0;
+	position:sticky;
+	padding-top: 8px;
+	padding-left: 5px;
+	padding-bottom: 1px;
+}
+
+#nav_header h3 {
+	margin-left: 25px;
+	transition: 0.3s;
+}

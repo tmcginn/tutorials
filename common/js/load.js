@@ -76,13 +76,21 @@ function dropDown(json) {
         $(openbtn).html("&#9776;");
         $(openbtn).appendTo('header>.w1024');
 
-        //populating side navigation content
+		
+        //creating side nav div
         var div = document.createElement('div');
         $(div).attr({
             id: "mySidenav",
             class: "sidenav"
         });
-
+		
+		//adding title for sidenav
+		var header = document.createElement('div');
+		$(header).attr("id", "nav_header");
+		var nav_title = document.createElement('h3');
+		$(nav_title).text("Menu");
+		$(nav_title).appendTo(header);
+		
         //creating close button
         var closebtn = document.createElement('a');
         $(closebtn).attr({
@@ -91,8 +99,9 @@ function dropDown(json) {
         });
         $(closebtn).click(closeNav);
         $(closebtn).html("&times;");
-        $(closebtn).appendTo(div);
-
+        $(closebtn).appendTo(header);
+		$(header).appendTo(div);
+		
         //adding labs from JSON
         for (var i = 0; i < labs.length; i++) {
             var entry = document.createElement('a');
@@ -185,7 +194,7 @@ $(function () {
 
 //for side navigation
 function openNav() {
-    $('#mySidenav').attr("style", "width: 250px;");
+    $('#mySidenav').attr("style", "width: 280px;");
 }
 
 function closeNav() {
