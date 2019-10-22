@@ -16,7 +16,8 @@ var shortcutbtn_click = [
 
 var nav_pages = [
     { id: '#btn_home', html: 'home.html' },
-    { id: '#btn_manifest', html: 'manifest.html' }
+    { id: '#btn_manifest', html: 'manifest.html' },
+    { id: '#btn_templates', html: 'templates.html'}
 ];
 
 $(function () {
@@ -57,7 +58,7 @@ $(function () {
 
         $.each($('#manifestForm').serializeArray(), function (i, value) {
             indexed_array[value['name']] = value['value'];
-            if ((i + 1) % 7 == 0) {
+            if ((i + 1) % 6 == 0) {
                 labs_array.push(indexed_array);
                 indexed_array = {};
             }
@@ -194,7 +195,12 @@ $(function () {
     $('#main').on('click', '#btn_template', getTemplate);
 
     $('#main').on('click', '#preview', function () {
-        window.open("./preview/index.html", "preview");
+        if(window.localStorage.getItem('manifestValue') === null) {
+            alert('Enter at least Title in the manifest tab to preview in HTML.')
+            loadFile(nav_pages[1].html);
+        }
+        else
+            window.open("./preview/index.html", "_preview");
     });
 
     $('#main').on('click', '#download_md', function () {

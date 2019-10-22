@@ -28,14 +28,14 @@
 #preview,
 #download_md,
 #download_html,
-#download_manifest {
+#download_manifest,
+#save_manifest {
     font-size: 0.8rem;
     line-height: 0.8;
     padding: .5rem .7rem;
 }
 
-#shortcuts {
-    float: right;
+#shortcuts {    
     position: sticky;
     top: 0;
     margin-bottom: 5px;
@@ -99,3 +99,7 @@ nav>p {
     color: inherit;        
     cursor: pointer;
 }   
+
+#manifestForm * {
+    -webkit-appearance: none;
+}
