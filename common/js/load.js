@@ -186,7 +186,7 @@ $(function () {
             updateHead(jsonEntry); //changing document head based on the manifest
         }).done(function () {
             $("#bookContainer").html(tmpElement);
-            $.getScript("https://docs.oracle.com/en/cloud/paas/nosql-cloud/gsans/js/leftnav.js");
+            $.getScript("https://ashwin-agarwal.github.io/tutorials/obe_template/js/leftnav.js");
 			openNav();
         });
     });
