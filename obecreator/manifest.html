@@ -21,12 +21,7 @@
                         <div id="tab-content" class="tab-content">
 
                             <div class="tab-pane container active" id="lab1">
-                                <div class="form-row">
-                                    <div class="form-group col-md-4">
-                                        <label for="shortname" class="mr-sm-2">Short Name:</label>
-                                        <input type="text" class="form-control mb-2 mr-sm-2" name="shortname"
-                                            maxlength="30">
-                                    </div>
+                                <div class="form-row">                                    
                                     <div class="form-group col-md-4">
                                         <label for="partnumber" class="mr-sm-2">Part Number:</label>
                                         <input type="text" class="form-control mb-2 mr-sm-2" name="partnumber"
@@ -36,8 +31,12 @@
                                         <label for="publisheddate" class="mr-sm-2">Published Date:</label>
                                         <input type="date" class="form-control mb-2 mr-sm-2" name="publisheddate">
                                     </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="contentid" class="mr-sm-2">Content ID:</label>
+                                        <input type="text" class="form-control mb-2 mr-sm-2" name="contentid"
+                                            maxlength="6">
+                                    </div>
                                 </div>
-
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
                                         <label for="title" class="mr-sm-2">Title:</label>
@@ -45,7 +44,6 @@
                                             maxlength="100">
                                     </div>
                                 </div>
-
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
                                         <label for="description" class="mr-sm-2">Description:</label>
@@ -53,19 +51,13 @@
                                             maxlength="400"></textarea>
                                     </div>
                                 </div>
-
                                 <div class="form-row">
-                                    <div class="form-group col-md-8">
+                                    <div class="form-group col-md-12">
                                         <label for="filename" class="mr-sm-2">MD File Name or Complete Path: (default:
                                             content.md)</label>
                                         <input type="text" class="form-control mb-2 mr-sm-2" name="filename"
                                             maxlength="400">
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label for="contentid" class="mr-sm-2">Content ID:</label>
-                                        <input type="text" class="form-control mb-2 mr-sm-2" name="contentid"
-                                            maxlength="6">
-                                    </div>
+                                    </div>                                    
                                 </div>
                             </div>
                         </div>

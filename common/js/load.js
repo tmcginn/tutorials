@@ -170,7 +170,7 @@ function closeRightSideNav() {
 }
 /* The following function creates shortname from title */
 function createShortNameFromTitle(title) {
-    var removeFromTitle = ["-a-", "-in-", "-of-", "-the-", "-to-", "-an-", "-is-", "-your-", "-you-", "-and-", "-from-"];
+    var removeFromTitle = ["-a-", "-in-", "-of-", "-the-", "-to-", "-an-", "-is-", "-your-", "-you-", "-and-", "-from-", "-with-"];
     var shortname = title.toLowerCase().replace(/ /g, '-').trim().substr(0, 50);
     $.each(removeFromTitle, function(i, value) {
         shortname = shortname.replace(new RegExp(value, 'g'), '-');
