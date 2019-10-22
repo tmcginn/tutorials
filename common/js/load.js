@@ -173,14 +173,14 @@ $(function () {
         $.get(myUrl, function (markdown) {
             tmpElement = document.createElement('article');
             $(tmpElement).html(new showdown.Converter().makeHtml(markdown));
+			applyImageUrl(tmpElement, myUrl); //adds the path for the image based on the filename in JSON
 
             replaceH1Title(tmpElement); //replacing the h1 title in the OBE
 			addSectionTag(tmpElement); //putting each section in section tag
 			addHorizontalLine(tmpElement); //add horizontal line after each section
             addH2ImageIcons(tmpElement); //Adding image, class, width, and height to the h2 title img
             wrapImgWithFigure(tmpElement); //Wrapping with figure, adding figcaption to all those images that have title in the MD
-            movePreInsideLi(tmpElement); //moving the pre elements a layer up for stylesheet matching
-            applyImageUrl(tmpElement, myUrl); //adds the path for the image based on the filename in JSON
+            movePreInsideLi(tmpElement); //moving the pre elements a layer up for stylesheet matching          
 			$(tmpElement).find('ul li p:first-child').contents().unwrap(); //remove the p tag from first li child as CSS changes the formatting
 			
             updateHead(jsonEntry); //changing document head based on the manifest
