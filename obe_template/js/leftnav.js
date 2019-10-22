@@ -148,7 +148,7 @@ function sidebarfun(){
 
 
 //Opens OBE side bar
-var opensidebar = function(){
+function opensidebar(){
     // set width 
     $(".left-nav").css('display','block'); 
     $(".navback").css('width',160+'px');  
@@ -167,7 +167,7 @@ var opensidebar = function(){
 
 
 //Closes OBE side bar
-var closesidebar = function(){
+function closesidebar(){
     // set width
     $(".left-nav").css('display','none');
     $(".navback").css('width',40+'px');
