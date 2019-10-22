@@ -1,202 +1,170 @@
-function updateHead(json) {
-    document.title = json.title;
+var templateImagePath = "https://ashwin-agarwal.github.io/tutorials/obe_template/img/"; //path for all template images
+var rightSideNavTitle = "Menu";
 
-    $('meta[name=contentid]').attr("content", json.contentid);
-    $('meta[name=description').attr("content", json.description);
-    $('meta[name=partnumber').attr("content", json.partnumber);
-    $('meta[name=publisheddate').attr("content", json.publisheddate);
+/* Sets the title, contentid, description, partnumber, and publisheddate attributes in the HTML page. 
+The content is picked up from the manifest file entry*/
+function updateHeadContent(labEntryInManifest) {
+    document.title = labEntryInManifest.title;
+    $('meta[name=contentid]').attr("content", labEntryInManifest.contentid);
+    $('meta[name=description').attr("content", labEntryInManifest.description);
+    $('meta[name=partnumber').attr("content", labEntryInManifest.partnumber);
+    $('meta[name=publisheddate').attr("content", labEntryInManifest.publisheddate);
 }
-
-function wrapImgWithFigure(tmpElement) {
-    $(tmpElement).find("img").each(function () {
-        if ($(this).attr("title") !== undefined) {
-            $(this).wrap("<figure></figure>");
-            var filename = $(this).attr("src").split("/").pop().split('.').shift();
-            $(this).parent().append('<figcaption><a href="files/' + filename + '.txt">Description of illustration [' + filename + ']</figcaption>');
+/* Wrapping all images in the article element with Title in the MD, with figure tags, and adding figcaption dynamically.
+The figcaption is in the format Description of illustration [filename].
+The image description files must be added inside the files folder in the same location as the MD file.*/
+function wrapImgWithFigure(articleElement) {
+    $(articleElement).find("img").each(function () {
+        if ($(this).attr("title") !== undefined) { //only images with titles are wrapped with figure tags
+            $(this).wrap("<figure></figure>"); //wrapping image tags with figure tags
+            var imgFileNameWithoutExtn = $(this).attr("src").split("/").pop().split('.').shift(); //extracting the image filename without extension
+            $(this).parent().append('<figcaption><a href="files/' + imgFileNameWithoutExtn + '.txt">Description of illustration [' + imgFileNameWithoutExtn + ']</figcaption>');
         }
     });
 }
-
-function movePreInsideLi(tmpElement) {
-    $(tmpElement).find('pre').each(function () {
+/* When MD file is converted to HTML, the pre tags (all codeblocks) are usually outside the li tag due to which the output 
+of the pre tag doesn't have the correct indentation. The following function moves the pre tags inside the li.*/
+function movePreInsideLi(articleElement) {
+    $(articleElement).find('pre').each(function () {
         $(this).appendTo($(this).prev());
     });
 }
-
-function addH2ImageIcons(tmpElement) {
-	var path = "https://ashwin-agarwal.github.io/tutorials/obe_template/img/32_";
-	var last;
-	$(tmpElement).find('h2').prepend(document.createElement('img'));
-	
-	$(tmpElement).find('h2>img').each(function(i) {				
-		$(this).attr({
-			class: 'num_circ',
-			height: '32',
-			width: '32',
-			src: path + i + '.png',
-			alt: 'section ' + i
-		});
-		last = $(this);
-	});
-	$(last).attr({
-		src: path + "more.png",
-		alt: 'more information'
-	});
-	    
+/* The following function adds numbering icons before the h2 tag*/
+function addH2ImageIcons(articleElement) {
+    var lastH2;
+    $(articleElement).find('h2').prepend(document.createElement('img')); //adding img tags before h2
+    $(articleElement).find('h2>img').each(function (i) {
+        $(this).attr({
+            class: 'num_circ',
+            height: '32',
+            width: '32',
+            src: templateImagePath + "32_" + i + '.png',
+            alt: 'section ' + i
+        });
+        lastH2 = $(this);
+    });
+    //the last image src is in different format (32_more) while the others are in the format (32_n)
+    $(lastH2).attr({
+        src: templateImagePath + "32_more.png",
+        alt: 'more information'
+    });
 }
-function replaceH1Title(tmpElement) {
-    $("#content>h1").html($("#content>h1").html().replace($("#content>h1").text(), $(tmpElement).find('h1').text()));
-    $(tmpElement).find('h1').remove();
+/* The following function replaces the h1 title boiler plate in the HTML template with the h1 value in the MD file.
+Then it removes the h1 title from the HTML file generated from the MD. */
+function updateH1Title(articleElement) {
+    var templateH1Title = $("#content>h1").text();
+    var articleH1Title = $(articleElement).find('h1').text();
+    var replacedH1Html = $("#content>h1").html().replace(templateH1Title, articleH1Title);
+    $("#content>h1").html(replacedH1Html);
+    $(articleElement).find('h1').remove(); //Removing h1 from the articleElement as it has been added to the HTML file already
 }
-
-function selectMdFile(json) {
-    var query = window.location.search.split('?')[1];
-    var labs = json.labs;
-    for (var i = 0; i < labs.length; i++) {
-        if (labs[i].shortname == query) {
-            return labs[i];
+/* The following function selects the correct MD file based on what is specified in the query parameter of the URL.
+The query parameter is the parameter after the ? in the URL. The short name of the lab that matches with the query
+parameter is selected for display. If none of the short names are matching, then the 1st shortname is selected. */
+function selectMdFileToDisplay(manifestFileContent) {
+    var queryParam = window.location.search.split('?')[1];
+    var allLabs = manifestFileContent.labs;
+    for (var i = 0; i < allLabs.length; i++) {
+        if (allLabs[i].shortname == queryParam) { //if query parameter matches the short name specified in the manifest
+            return allLabs[i]; //returning the lab entry in the manifest file
         }
     }
-    return labs[0];
+    return allLabs[0]; //returning the first lab entry in the manifest file
 }
-//used for populating side navigation
-function dropDown(json) {
-    var labs = json.labs;
-    if (labs.length > 1) { //means it is LP
-        var query = window.location.search.split('?')[1];
+/* The following functions creates and populates the right side navigation including the open button that appears in the header.
+The navigation appears only when the manifest file has more than 1 lab. The title that appears in the side navigation 
+is picked up from the manifest file. */
+function populateRightSideNav(manifestFileContent) {
+    var allLabs = manifestFileContent.labs;
+    if (allLabs.length > 1) { //means it is a workshop            
         //adding open button
-        var openbtn = document.createElement('span');
-        $(openbtn).attr("class", "openbtn");
-        $(openbtn).click(function() {
-            if($('#mySidenav').width() > 0)
-                closeNav();
+        var openbtn = $(document.createElement('span')).attr("class", "openbtn");
+        $(openbtn).click(function () { //if right side navigation is open, then it closes it.
+            if ($('#mySidenav').width() > 0)
+                closeRightSideNav();
             else
-                openNav();
+                openRightSideNav();
         });
-        $(openbtn).html("&#9776;");
+        $(openbtn).html("&#9776;"); //this add the hamburger icon
         $(openbtn).appendTo('header>.w1024');
-
-		
-        //creating side nav div
-        var div = document.createElement('div');
-        $(div).attr({
+        //creating right side nav div
+        var sideNavDiv = $(document.createElement('div')).attr({
             id: "mySidenav",
             class: "sidenav"
         });
-		
-		//adding title for sidenav
-		var header = document.createElement('div');
-		$(header).attr("id", "nav_header");
-		var nav_title = document.createElement('h3');
-		$(nav_title).text("Menu");
-		$(nav_title).appendTo(header);
-		
+        //adding title for sidenav
+        var sideNavHeaderDiv = $(document.createElement('div')).attr("id", "nav_header");
+        var nav_title = $(document.createElement('h3')).text(rightSideNavTitle);
+        $(nav_title).appendTo(sideNavHeaderDiv);
         //creating close button
-        var closebtn = document.createElement('a');
-        $(closebtn).attr({
+        var closebtn = $(document.createElement('a')).attr({
             href: "javascript:void(0)",
             class: "closebtn"
         });
-        $(closebtn).click(closeNav);
-        $(closebtn).html("&times;");
-        $(closebtn).appendTo(header);
-		$(header).appendTo(div);
-		
-        //adding labs from JSON
-        for (var i = 0; i < labs.length; i++) {
-            var entry = document.createElement('a');
-            entry.href = "?" + labs[i].shortname;
-            $(entry).attr("class", "labs_nav");
-            $(entry).text(labs[i].title);
-            $(entry).appendTo(div);
-            var hr = document.createElement('hr');
-            $(hr).appendTo(div);
-            if (query === labs[i].shortname)
-                $(entry).attr("class", "selected");
+        $(closebtn).click(closeRightSideNav);
+        $(closebtn).html("&times;"); //adds a cross icon to the header
+        $(closebtn).appendTo(sideNavHeaderDiv);
+        $(sideNavHeaderDiv).appendTo(sideNavDiv);
+        //adding labs from JSON and linking them with ?shortnames
+        for (var i = 0; i < allLabs.length; i++) {
+            var sideNavEntry = $(document.createElement('a')).attr({
+                href: '?' + allLabs[i].shortname,
+                class: 'labs_nav'
+            });
+            $(sideNavEntry).text(allLabs[i].title); //The title specified in the manifest appears in the side nav as navigation
+            $(sideNavEntry).appendTo(sideNavDiv);
+            $(document.createElement('hr')).appendTo(sideNavDiv);
+            if (window.location.search.split('?')[1] === allLabs[i].shortname) //the selected class is added if the title is currently selected
+                $(sideNavEntry).attr("class", "selected");
         }
-        if(!$(div).find('a').hasClass("selected")) {
-            $(div).find('.labs_nav').first('a').addClass("selected");
+        if (!$(sideNavDiv).find('a').hasClass("selected")) { //if no title has selected class, selected class is added to the first class
+            $(sideNavDiv).find('.labs_nav').first('a').addClass("selected");
         }
-        $(div).appendTo('header');
+        $(sideNavDiv).appendTo('header'); //sideNavDiv is added to the HTML template header
     }
 }
-
-/*the following function changes the relative path of images to the absolute path of the MD file,
-so that the images and MD file can be in a different location that the manifest and still get displayed.
-*/
-function applyImageUrl(tmpElement, myUrl) {
+/*the following function changes the relative path of images to the absolute path of the MD file.
+This ensures that the images are picked up from the same location as the MD file.
+The manifest file can be in any location.*/
+function addPathToImageSrc(articleElement, myUrl) {
     var pattern = /^https?:\/\/|^\/\//i;
-
-	if (myUrl.indexOf("/") >= 0) { //checking if url is relative path is used
+    if (myUrl.indexOf("/") >= 0) { //checking if url is absolute path
         myUrl = myUrl.replace(/\/[^\/]+$/, "/"); //removing filename from the url        
-        $(tmpElement).find('img').each(function () {
+        $(articleElement).find('img').each(function () {
             if (!pattern.test($(this).attr("src"))) {//changing src only if path is relative                
                 $(this).attr("src", myUrl + $(this).attr("src"));
             }
         });
     }
 }
-
-function addSectionTag(tmpElement) {
-	var pattern = /<h2.*>/g;
-	var h2s = $(tmpElement).html().match(pattern);
-	var index = [];
-	var substr = [];
-
-	//get index of each h2
-	for(var i=0; i<h2s.length; i++) {
-		index.push($(tmpElement).html().indexOf(h2s[i]));
-	}
-	index.push($(tmpElement).html().length);
-
-	//get all substring as per the index
-	for(var i=0; i<index.length-1; i++) {	
-		substr.push($(tmpElement).html().substr(index[i], (index[i+1]-index[i])));		
-	}
-
-	//wrap substrings with section tag
-	for(var i=0; i<substr.length; i++) {
-		$(tmpElement).html($(tmpElement).html().replace(substr[i], "<section>" + substr[i] + "</section>"));				
-	}
+/* This function picks up the entire converted content in HTML, break them into sections, and then adds horizontal line in the
+end. It uses indexes to break content into sections. */
+function wrapSectionTagAndAddHorizonatalLine(articleElement) {
+    var pattern = /<h2.*>/g;
+    var h2s = $(articleElement).html().match(pattern);
+    var index = [];
+    var substr = [];
+    //get index of each h2
+    for (var i = 0; i < h2s.length; i++) {
+        index.push($(articleElement).html().indexOf(h2s[i]));
+    }
+    index.push($(articleElement).html().length); //adding the length of the article Element as the last index
+    //get all substring as per the index
+    for (var i = 0; i < index.length - 1; i++) {
+        substr.push($(articleElement).html().substr(index[i], (index[i + 1] - index[i])));
+    }
+    //wrap substrings with section tag
+    for (var i = 0; i < substr.length; i++) {
+        $(articleElement).html($(articleElement).html().replace(substr[i], "<section>" + substr[i] + "</section>"));
+    }
+    //add horizontal line at the end of each section
+    $(articleElement).find('section').append(document.createElement('hr'));
 }
-
-function addHorizontalLine(tmpElement) {
-	$(tmpElement).find('section').append(document.createElement('hr'));	
-}
-
-$(function () {
-    $.getJSON("manifest.json", function (json) {
-        dropDown(json);
-        var jsonEntry = selectMdFile(json); //selects with MD file to display
-        var myUrl = jsonEntry.filename;
-        var tmpElement;
-        $.get(myUrl, function (markdown) {
-            tmpElement = document.createElement('article');
-            $(tmpElement).html(new showdown.Converter().makeHtml(markdown));
-			applyImageUrl(tmpElement, myUrl); //adds the path for the image based on the filename in JSON
-
-            replaceH1Title(tmpElement); //replacing the h1 title in the OBE
-			addSectionTag(tmpElement); //putting each section in section tag
-			addHorizontalLine(tmpElement); //add horizontal line after each section
-            addH2ImageIcons(tmpElement); //Adding image, class, width, and height to the h2 title img
-            wrapImgWithFigure(tmpElement); //Wrapping with figure, adding figcaption to all those images that have title in the MD
-            movePreInsideLi(tmpElement); //moving the pre elements a layer up for stylesheet matching          
-			$(tmpElement).find('ul li p:first-child').contents().unwrap(); //remove the p tag from first li child as CSS changes the formatting
-			
-            updateHead(jsonEntry); //changing document head based on the manifest
-        }).done(function () {
-            $("#bookContainer").html(tmpElement);
-            $.getScript("https://ashwin-agarwal.github.io/tutorials/obe_template/js/leftnav.js");
-			openNav();
-        });
-    });
-});
-
-//for side navigation
-function openNav() {
+/* The following function increases the width of the side navigation div to open it. */
+function openRightSideNav() {
     $('#mySidenav').attr("style", "width: 280px;");
 }
-
-function closeNav() {
+/* The following function decreases the width of the side navigation div to close it. */
+function closeRightSideNav() {
     $('#mySidenav').attr("style", "width: 0px;");
 }
