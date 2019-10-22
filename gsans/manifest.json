@@ -1,7 +1,6 @@
 {
     "labs": [
-		{
-			"shortname": "get-started",
+		{			
 			"title": "Get Started with Oracle NoSQL Database Cloud Service",
 			"description": "This tutorial describes how to get started with the Oracle NoSQL Database Cloud Service.",
 			"partnumber": "E98132-03",

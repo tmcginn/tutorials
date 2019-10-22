@@ -1,7 +1,6 @@
 {
     "labs": [
-        {
-            "shortname": "piechart",
+        {            
             "title": "Charts (1 of 3) - Adding a Pie Chart",
             "description": "This tutorial shows you how to create a pie chart in a new page in an application.",
             "partnumber": "E99846-01",
@@ -9,8 +8,7 @@
             "contentid": "24551x",
             "filename": "./piechart/content.md"
         },
-		{
-            "shortname": "barchart",
+		{            
             "title": "Charts (2 of 3) - Adding a Bar Chart",
             "description": "This 15-minute tutorial shows you how to edit a chart.",
             "partnumber": "E99848-01",
@@ -18,8 +16,7 @@
             "contentid": "24552x",
             "filename": "./barchart/content.md"
         },
-		{
-            "shortname": "chart-custom-js",
+		{            
             "title": "Charts (3 of 3) - Changing Chart Appearance with JavaScript",
             "description": "This 5-minute tutorial shows you how to create a custom JavaScript to change the appearance of a chart.",
             "partnumber": "E99849-01",

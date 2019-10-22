@@ -1,7 +1,6 @@
 {
     "labs": [
-        {
-            "shortname": "main",
+        {            
             "title": "Enter OBE title here",
             "description": "This 15-minute tutorial walks you through the steps to...",
             "partnumber": "E12345_01",
@@ -9,8 +8,7 @@
             "contentid": "123456",
             "filename": "content.md"
         },
-        {
-            "shortname": "create-table",
+        {         
             "title": "Create a Table in Oracle NoSQL Database Cloud Service Using Java",
             "description": "Step-by-step workshop instructions",
             "partnumber": "E23456_01",
@@ -18,8 +16,7 @@
             "contentid": "234567",
             "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/gsans/content.md"
         },
-        {
-            "shortname": "template",
+        {            
             "title": "Load Template from Github",
             "description": "Step-by-step workshop instructions",
             "partnumber": "E34567_01",
@@ -27,8 +24,7 @@
             "contentid": "345678",
             "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/template/content.md"
         },
-		{
-            "shortname": "piechart",
+		{            
             "title": "Charts (1 of 3) - Adding a Pie Chart",
             "description": "This tutorial shows you how to create a pie chart in a new page in an application.",
             "partnumber": "E99846-01",
@@ -36,8 +32,7 @@
             "contentid": "24551x",
             "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/charts/piechart/content.md"
         },
-		{
-            "shortname": "barchart",
+		{         
             "title": "Charts (2 of 3) - Adding a Bar Chart",
             "description": "This 15-minute tutorial shows you how to edit a chart.",
             "partnumber": "E99848-01",
@@ -45,8 +40,7 @@
             "contentid": "24552x",
             "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/charts/barchart/content.md"
         },
-		{
-            "shortname": "chart-custom-js",
+		{         
             "title": "Charts (3 of 3) - Changing Chart Appearance with JavaScript",
             "description": "This 5-minute tutorial shows you how to create a custom JavaScript to change the appearance of a chart.",
             "partnumber": "E99849-01",
@@ -54,8 +48,7 @@
             "contentid": "24553x",
             "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/charts/chart-custom-js/content.md"
         },
-		{
-            "shortname": "adwc-lab-100",
+		{         
             "title": "ADWC Lab 100: Provisioning and Getting Started",
             "description": "Test.",
             "partnumber": "Ennnn-01",
