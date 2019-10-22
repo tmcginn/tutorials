@@ -136,7 +136,7 @@ function bindEvents() {
 
 
 //OBE side bar functions
-var sidebarfun = function(){
+function sidebarfun(){
 	if ($(window).width() > 769) { 
         opensidebar();
         $("#hidenav").css('display','none');
