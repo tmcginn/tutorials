@@ -65,7 +65,7 @@ function selectMdFileToDisplay(manifestFileContent) {
     var queryParam = window.location.search.split('?')[1];
     var allLabs = manifestFileContent.labs;
     for (var i = 0; i < allLabs.length; i++) {
-        if (allLabs[i].shortname == queryParam) { //if query parameter matches the short name specified in the manifest
+        if (createShortNameFromTitle(allLabs[i].title) == queryParam) { //if query parameter matches the short name specified in the manifest
             return allLabs[i]; //returning the lab entry in the manifest file
         }
     }
@@ -108,13 +108,13 @@ function populateRightSideNav(manifestFileContent) {
         //adding labs from JSON and linking them with ?shortnames
         for (var i = 0; i < allLabs.length; i++) {
             var sideNavEntry = $(document.createElement('a')).attr({
-                href: '?' + allLabs[i].shortname,
+                href: '?' + createShortNameFromTitle(allLabs[i].title),
                 class: 'labs_nav'
             });
             $(sideNavEntry).text(allLabs[i].title); //The title specified in the manifest appears in the side nav as navigation
             $(sideNavEntry).appendTo(sideNavDiv);
             $(document.createElement('hr')).appendTo(sideNavDiv);
-            if (window.location.search.split('?')[1] === allLabs[i].shortname) //the selected class is added if the title is currently selected
+            if (window.location.search.split('?')[1] === createShortNameFromTitle(allLabs[i].title)) //the selected class is added if the title is currently selected
                 $(sideNavEntry).attr("class", "selected");
         }
         if (!$(sideNavDiv).find('a').hasClass("selected")) { //if no title has selected class, selected class is added to the first class
@@ -167,4 +167,16 @@ function openRightSideNav() {
 /* The following function decreases the width of the side navigation div to close it. */
 function closeRightSideNav() {
     $('#mySidenav').attr("style", "width: 0px;");
+}
+/* The following function creates shortname from title */
+function createShortNameFromTitle(title) {
+    var removeFromTitle = ["-a-", "-in-", "-of-", "-the-", "-to-", "-an-", "-is-", "-your-", "-you-", "-and-", "-from-"];
+    var shortname = title.toLowerCase().replace(/ /g, '-').trim().substr(0, 50);
+    $.each(removeFromTitle, function(i, value) {
+        shortname = shortname.replace(new RegExp(value, 'g'), '-');
+    });    
+    if(shortname.length > 40) {
+        shortname = shortname.substr(0, shortname.lastIndexOf('-'));
+    }
+    return shortname;
 }

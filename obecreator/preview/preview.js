@@ -5,8 +5,8 @@ $(function () {
 	var localStorageManifest = JSON.parse(window.localStorage.getItem("manifestValue"));
 	populateRightSideNav(JSON.parse(localStorageManifest)); //populate side navigation based on content in the localstorage manifest
 	var labEntryInManifest = selectMdFileToDisplay(JSON.parse(localStorageManifest)); //selects which MD file to display	
-	var articleElement = document.createElement('article'); //creating an article that would contain MD to HTML converted content
-	if (labEntryInManifest.filename === defaultManifestFileName) {
+	var articleElement = document.createElement('article'); //creating an article that would contain MD to HTML converted content	
+	if (labEntryInManifest.filename === defaultManifestFileName || labEntryInManifest.filename.length == 0) {
 		prepareMd(localStorageMarkDown, labEntryInManifest, articleElement);
 		showMd(articleElement);
 	}
