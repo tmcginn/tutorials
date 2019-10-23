@@ -5,7 +5,7 @@
             "description": "This tutorial shows you how to create a pie chart in a new page in an application.",
             "partnumber": "E99846-01",
             "publisheddate": "09/01/2018",
-            "contentid": "24551x",
+            "contentid": "24551",
             "filename": "./piechart/content.md"
         },
 		{            
@@ -13,7 +13,7 @@
             "description": "This 15-minute tutorial shows you how to edit a chart.",
             "partnumber": "E99848-01",
             "publisheddate": "09/01/2018",
-            "contentid": "24552x",
+            "contentid": "24552",
             "filename": "./barchart/content.md"
         },
 		{            
@@ -21,7 +21,7 @@
             "description": "This 5-minute tutorial shows you how to create a custom JavaScript to change the appearance of a chart.",
             "partnumber": "E99849-01",
             "publisheddate": "09/01/2018",
-            "contentid": "24553x",
+            "contentid": "24553",
             "filename": "./chart-custom-js/content.md"
         }
     ]
