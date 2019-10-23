@@ -27,6 +27,7 @@ function prepareMd(markdownContent, labEntryInManifest, articleElement) {
 	wrapSectionTagAndAddHorizonatalLine(articleElement); //adding each section within section tag and adding HR line
 	addH2ImageIcons(articleElement); //Adding image, class, width, and height to the h2 title img
 	wrapImgWithFigure(articleElement); //Wrapping images with figure, adding figcaption to all those images that have title in the MD
+	addPathToAllRelativeHref(articleElement, labEntryInManifest.filename); //adding the path for all HREFs that are relative based on the filename in manifest
 	movePreInsideLi(articleElement); //moving the pre elements a layer up for stylesheet matching          
 	$(articleElement).find('ul li p:first-child').contents().unwrap(); //removing the p tag from first li child as CSS changes the formatting			
 	updateHeadContent(labEntryInManifest); //changing document head based on the manifest
