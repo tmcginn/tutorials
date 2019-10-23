@@ -18,7 +18,7 @@ function wrapImgWithFigure(articleElement) {
         if ($(this).attr("title") !== undefined) { //only images with titles are wrapped with figure tags
             $(this).wrap("<figure></figure>"); //wrapping image tags with figure tags
             var imgFileNameWithoutExtn = $(this).attr("src").split("/").pop().split('.').shift(); //extracting the image filename without extension
-            $(this).parent().append('<figcaption><a href="files/' + imgFileNameWithoutExtn + '.txt">Description of illustration [' + imgFileNameWithoutExtn + ']</figcaption>');
+            $(this).parent().append('<figcaption><a href="files/' + imgFileNameWithoutExtn + '.txt" target="_blank">Description of illustration [' + imgFileNameWithoutExtn + ']</figcaption>');
         }
     });
 }
@@ -126,16 +126,34 @@ function populateRightSideNav(manifestFileContent) {
 /*the following function changes the relative path of images to the absolute path of the MD file.
 This ensures that the images are picked up from the same location as the MD file.
 The manifest file can be in any location.*/
-function addPathToImageSrc(articleElement, myUrl) {
-    var pattern = /^https?:\/\/|^\/\//i;
+function addPathToImageSrc(articleElement, myUrl) {  
+	/*the following if condition is passed only when a path is specified in the filename of the manifest.
+	if "/" is not specified in the filename, it would mean that the index.html file is in the same location as the MD,
+	hence there is no need to replace relative images src */ 
     if (myUrl.indexOf("/") >= 0) { //checking if url is absolute path
         myUrl = myUrl.replace(/\/[^\/]+$/, "/"); //removing filename from the url        
-        $(articleElement).find('img').each(function () {
-            if (!pattern.test($(this).attr("src"))) {//changing src only if path is relative                
-                $(this).attr("src", myUrl + $(this).attr("src"));
+        $(articleElement).find('img').each(function () {			
+            if ($(this).attr("src").indexOf("://") == -1) {
+                $(this).attr("src", myUrl + $(this).attr("src"));				
             }
         });
     }
+}
+/*the following function changes the relative path of all relative HREFs to the absolute path of the MD file.
+This ensures that the files are linked correctly from the same location as the MD file.
+The manifest file can be in any location.*/
+function addPathToAllRelativeHref(articleElement, myUrl) {	
+	/*the following if condition is passed only when a path is specified in the filename of the manifest.
+	if "/" is not specified in the filename, it would mean that the index.html file is in the same location as the MD,
+	hence there is no need to replace relative hrefs */ 
+    if (myUrl.indexOf("/") >= 0) { //checking if url is absolute path
+	    myUrl = myUrl.replace(/\/[^\/]+$/, "/"); //removing filename from the url        
+		$(articleElement).find('a').each(function () {			
+			if($(this).attr("href").indexOf("://") == -1) {
+				$(this).attr("href", myUrl + $(this).attr("href"));				
+			}				
+		});
+	}
 }
 /* This function picks up the entire converted content in HTML, break them into sections, and then adds horizontal line in the
 end. It uses indexes to break content into sections. */
