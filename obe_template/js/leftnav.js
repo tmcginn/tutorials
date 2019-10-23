@@ -27,7 +27,7 @@ $(document).ready(function(){
         eventid        = getParameter("eventid",      location.href);
     } else {
         //Check to see if this OBE is associated with any learning paths on OLL
-        amIPartofALearningPath();
+        //amIPartofALearningPath();
     }
     
     var s_prefix = "OBE";
