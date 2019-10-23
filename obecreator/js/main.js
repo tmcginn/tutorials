@@ -29,6 +29,9 @@ $(function () {
         if (window.localStorage.getItem("mdValue") === null) { //template is set only if you open the tool for the first time
             getTemplate();
         }
+		if (window.localStorage.getItem("manifestValue") === null) {
+			window.localStorage.setItem('manifestValue', JSON.stringify('{\"labs\":[{\"title\":\"Enter OBE title here\",\"description\":\"\",\"filename\":\"content.md\",\"partnumber\":\"\",\"publisheddate\":\"\",\"contentid\":\"\"}]}'));
+		}
         showMdInHtml();
     }
 
