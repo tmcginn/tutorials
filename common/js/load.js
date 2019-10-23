@@ -18,7 +18,7 @@ function wrapImgWithFigure(articleElement) {
         if ($(this).attr("title") !== undefined) { //only images with titles are wrapped with figure tags
             $(this).wrap("<figure></figure>"); //wrapping image tags with figure tags
             var imgFileNameWithoutExtn = $(this).attr("src").split("/").pop().split('.').shift(); //extracting the image filename without extension
-            $(this).parent().append('<figcaption><a href="files/' + imgFileNameWithoutExtn + '.txt" target="_blank">Description of illustration [' + imgFileNameWithoutExtn + ']</figcaption>');
+            $(this).parent().append('<figcaption><a href="files/' + imgFileNameWithoutExtn + '.txt">Description of illustration [' + imgFileNameWithoutExtn + ']</figcaption>');
         }
     });
 }
@@ -148,7 +148,7 @@ function addPathToAllRelativeHref(articleElement, myUrl) {
 	hence there is no need to replace relative hrefs */ 
     if (myUrl.indexOf("/") >= 0) { //checking if url is absolute path
 	    myUrl = myUrl.replace(/\/[^\/]+$/, "/"); //removing filename from the url        
-		$(articleElement).find('a').each(function () {			
+		$(articleElement).find('a').each(function () {				
 			if($(this).attr("href").indexOf("://") == -1) {
 				$(this).attr("href", myUrl + $(this).attr("href"));				
 			}				
