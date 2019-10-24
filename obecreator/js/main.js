@@ -17,7 +17,7 @@ var shortcutbtn_click = [
 var nav_pages = [
     { id: '#btn_home', html: 'home.html' },
     { id: '#btn_manifest', html: 'manifest.html' },
-    { id: '#btn_templates', html: 'templates.html'}
+    { id: '#btn_templates', html: 'templates.html' }
 ];
 
 $(function () {
@@ -29,9 +29,9 @@ $(function () {
         if (window.localStorage.getItem("mdValue") === null) { //template is set only if you open the tool for the first time
             getTemplate();
         }
-		if (window.localStorage.getItem("manifestValue") === null) {
-			window.localStorage.setItem('manifestValue', JSON.stringify('{\"labs\":[{\"title\":\"Enter OBE title here\",\"description\":\"\",\"filename\":\"content.md\",\"partnumber\":\"\",\"publisheddate\":\"\",\"contentid\":\"\"}]}'));
-		}
+        if (window.localStorage.getItem("manifestValue") === null) {
+            window.localStorage.setItem('manifestValue', JSON.stringify('{\"labs\":[{\"title\":\"Enter OBE title here\",\"description\":\"\",\"filename\":\"content.md\",\"partnumber\":\"\",\"publisheddate\":\"\",\"contentid\":\"\"}]}'));
+        }
         showMdInHtml();
     }
 
@@ -111,6 +111,7 @@ $(function () {
             }
 
             $('#htmlBox').html(htmlElement);
+            $('#previewIframe').remove();
             $('#previewBox').remove();
         }
         else {
@@ -120,8 +121,18 @@ $(function () {
                 var previewBox = document.createElement('div');
                 $(previewBox).attr({ id: 'previewBox', class: 'card-body' });
 
-                var previewIframe = document.createElement('iframe');
-                $(previewIframe).attr({ id: 'previewIframe', src: 'preview/index.html' });
+                var previewIframe = document.createElement('iframe');                
+                $(previewIframe).attr({
+                    id: 'previewIframe',
+                    src: 'preview/index.html',
+                    style: 'height:' + $('#mdBox').height() + 'px;',
+                    frameborder: '0',
+                    scrolling: 'no'
+                });
+
+                $(previewIframe).on('load', function() {
+                    $(this).height(this.contentWindow.document.body.scrollHeight + 'px');
+                });
 
                 $(previewIframe).appendTo(previewBox);
                 $(previewBox).appendTo('#rightBox');
@@ -198,7 +209,7 @@ $(function () {
     $('#main').on('click', '#btn_template', getTemplate);
 
     $('#main').on('click', '#preview', function () {
-        if(window.localStorage.getItem('manifestValue') === null) {
+        if (window.localStorage.getItem('manifestValue') === null) {
             alert('Enter at least Title in the manifest tab to preview in HTML.')
             loadFile(nav_pages[1].html);
         }
