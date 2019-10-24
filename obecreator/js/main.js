@@ -126,11 +126,10 @@ $(function () {
                     id: 'previewIframe',
                     src: 'preview/index.html',
                     style: 'height:' + $('#mdBox').height() + 'px;',
-                    frameborder: '0',
-                    scrolling: 'no'
+                    frameborder: '0'                    
                 });
 
-                $(previewIframe).on('load', function() {
+                $(previewIframe).on('load', function() {            
                     $(this).height(this.contentWindow.document.body.scrollHeight + 'px');
                 });
 
@@ -288,7 +287,7 @@ $(function () {
         $(href).remove();
         $('#tabs-container a[href="' + $(this).parent().parent().prev().children().attr("href") + '"]').tab('show');
         $(this).parent().parent().remove();
-        getFormData();
+        getFormData();        
     });
 
     $('#main').bind('input propertychange', '#mdBox', function () {
@@ -301,5 +300,13 @@ $(function () {
         if ($('#manifestForm').length !== 0) {
             getFormData();
         }
+    });
+
+    $('#main').on('click', '#reset_manifest', function() {
+        $('#manifestForm').find("input[type=text], textarea").val("");
+        while($('.nav-link .close').length > 0) {
+            $('.nav-link .close:last').click();
+        }
+        getFormData();     
     });
 });
