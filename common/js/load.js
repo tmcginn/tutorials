@@ -198,3 +198,10 @@ function createShortNameFromTitle(title) {
     }
     return shortname;
 }
+/* The following function selects the toc item in the left if it has hash ID */
+function selectTocItemBasedOnHash() {
+	$('.tocify-item').each(function () {
+		if($(this).attr('data-unique') === location.hash.slice(1))
+			$(this).click();
+	});
+}

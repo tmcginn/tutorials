@@ -24,177 +24,6 @@ $(function () {
     $('#lastmodified').text(document.lastModified);
     loadFile(nav_pages[0].html);
 
-    function homeInit() {
-        $('#mdBox').val(window.localStorage.getItem("mdValue"));
-        if (window.localStorage.getItem("mdValue") === null) { //template is set only if you open the tool for the first time
-            getTemplate();
-        }
-        if (window.localStorage.getItem("manifestValue") === null) {
-            window.localStorage.setItem('manifestValue', JSON.stringify('{\"labs\":[{\"title\":\"Enter OBE title here\",\"description\":\"\",\"filename\":\"content.md\",\"partnumber\":\"\",\"publisheddate\":\"\",\"contentid\":\"\"}]}'));
-        }
-        showMdInHtml();
-    }
-
-    function manifestInit() {
-        setFormData();
-        getFormData();
-    }
-    function loadFile(filename) {
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', filename, true);
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4) {
-                $('#main').html(xhr.responseText);
-                if (filename === nav_pages[0].html)
-                    homeInit();
-                else if (filename === nav_pages[1].html)
-                    manifestInit();
-            }
-        }
-        xhr.send();
-    }
-
-    function getFormData() {  //display the details in the form on the right side and saves to local storage
-        let indexed_array = {};
-        let labs_array = [];
-        var json;
-
-        $.each($('#manifestForm').serializeArray(), function (i, value) {
-            indexed_array[value['name']] = value['value'];
-            if ((i + 1) % 6 == 0) {
-                labs_array.push(indexed_array);
-                indexed_array = {};
-            }
-        });
-        json = "{\"labs\":" + JSON.stringify(labs_array) + "}";
-        window.localStorage.setItem("manifestValue", JSON.stringify(json));
-        $('#manifestBox pre').html(JSON.stringify(JSON.parse(json), null, "\t"));
-        return JSON.parse(json, null, "\t");
-    }
-
-    //sets the form data based on what is available in the local storage
-    function setFormData() {
-        var data = JSON.parse(window.localStorage.getItem("manifestValue"));
-        data = JSON.parse(data).labs;
-
-        //creating tabs automatically based on the length of data
-        for (var i = 0; i < data.length - 1; i++) {
-            $('#add-lab').trigger('click');
-        }
-
-        $.each(data, function (i) {
-
-            for (key in data[i]) {
-                $('input[name="' + key + '"]:eq(' + i + ')').val($.trim(data[i][key]));
-            }
-        });
-    }
-
-    function showMdInHtml() {
-        window.localStorage.setItem("mdValue", $('#mdBox').val());
-        if ($('#simple_view').is(":checked")) {
-            $('#show_images_label').show();
-            $('#show_images').show();
-            var htmlElement = document.createElement("div");
-            $(htmlElement).attr('id', 'htmlElement');
-            $(htmlElement).html(new showdown.Converter().makeHtml($('#mdBox').val()));
-
-            if (!$('#show_images').is(":checked")) {
-                $(htmlElement).find('img').removeAttr("src");
-                $(htmlElement).find('img').remove();
-            }
-
-            if ($('#htmlBox').length === 0) {
-                var htmlBox = document.createElement('div');
-                $(htmlBox).attr({ id: 'htmlBox', class: 'card-body' });
-                $(htmlBox).appendTo('#rightBox');
-            }
-
-            $('#htmlBox').html(htmlElement);
-            $('#previewIframe').remove();
-            $('#previewBox').remove();
-        }
-        else {
-            $('#show_images_label').hide();
-            $('#show_images').hide();
-            if ($('#previewBox').length === 0) {
-                var previewBox = document.createElement('div');
-                $(previewBox).attr({ id: 'previewBox', class: 'card-body' });
-
-                var previewIframe = document.createElement('iframe');                
-                $(previewIframe).attr({
-                    id: 'previewIframe',
-                    src: 'preview/index.html',
-                    style: 'height:' + $('#mdBox').height() + 'px;',
-                    frameborder: '0'                    
-                });
-
-                $(previewIframe).on('load', function() {            
-                    $(this).height(this.contentWindow.document.body.scrollHeight + 'px');
-                });
-
-                $(previewIframe).appendTo(previewBox);
-                $(previewBox).appendTo('#rightBox');
-            }
-            else {
-                $('#previewIframe').attr('src', function (i, val) { return val; });
-            }
-            $('#htmlBox').remove();
-        }
-    }
-
-    function getTemplate() {
-        $.get("template.md", function (markdown) {
-            $('#mdBox').select();
-            //if (!document.execCommand('insertText', false, markdown)) {//because execCommand doesn't work in some browsers, if the insert fails, it does manual insert
-            $('#mdBox').val(markdown);
-            //}
-        }).done(function () {
-            showMdInHtml();
-        });
-    }
-
-    function download(filename, text) {
-        var pom = document.createElement('a');
-        pom.setAttribute('href', 'data:html/plain;charset=utf-8,' + encodeURIComponent(text));
-        pom.setAttribute('download', filename);
-        if (document.createEvent) {
-            var event = document.createEvent('MouseEvents');
-            event.initEvent('click', true, true);
-            pom.dispatchEvent(event);
-        } else {
-            pom.click();
-        }
-    }
-
-    // defines what happens when a shortcut button is clicked
-    function shortcutClick(placeholder1, placeholder2, placeholder3) {
-        var mdBox = $('#mdBox')[0];
-        var start_index = mdBox.selectionStart;
-        var end_index = mdBox.selectionEnd;
-
-        if (start_index == end_index) { //no text in selected in the textbox            
-            if (!document.execCommand('insertText', false, placeholder1)) { //because execCommand doesn't work in some browsers, if the insert fails, it does manual insert
-                $('#mdBox').val($('#mdBox').val().substr(0, start_index) + placeholder1 + $('#mdBox').val().substr(start_index, $('#mdBox').val().length - end_index));
-            }
-        }
-        else {
-            if (placeholder3 === undefined) {
-                if (!document.execCommand('insertText', false, placeholder2 + $('#mdBox').val().substr(start_index, end_index - start_index))) {
-                    $('#mdBox').val($('#mdBox').val().substr(0, start_index) + placeholder2 + $('#mdBox').val().substr(start_index, $('#mdBox').val().length - end_index));
-                }
-            }
-            else {
-                if (!document.execCommand('insertText', false, placeholder2 + $('#mdBox').val().substr(start_index, end_index - start_index) + placeholder3)) {
-                    $('#mdBox').val($('#mdBox').val().substr(0, start_index) + placeholder2 + $('#mdBox').val().substr(start_index, end_index - start_index) + placeholder3 + $('#mdBox').val().substr(end_index, $('#mdBox').val().length - end_index));
-                }
-            }
-        }
-        mdBox.selectionEnd = mdBox.selectionStart = start_index;
-        mdBox.focus();
-        showMdInHtml();
-    }
-
     $('#main').on('change', '#show_images, #simple_view', showMdInHtml);
 
 
@@ -287,7 +116,7 @@ $(function () {
         $(href).remove();
         $('#tabs-container a[href="' + $(this).parent().parent().prev().children().attr("href") + '"]').tab('show');
         $(this).parent().parent().remove();
-        getFormData();        
+        getFormData();
     });
 
     $('#main').bind('input propertychange', '#mdBox', function () {
@@ -302,11 +131,183 @@ $(function () {
         }
     });
 
-    $('#main').on('click', '#reset_manifest', function() {
+    $('#main').on('click', '#reset_manifest', function () {
         $('#manifestForm').find("input[type=text], textarea").val("");
-        while($('.nav-link .close').length > 0) {
+        while ($('.nav-link .close').length > 0) {
             $('.nav-link .close:last').click();
         }
-        getFormData();     
-    });
+        getFormData();
+    });    
 });
+
+function homeInit() {
+    $('#mdBox').val(window.localStorage.getItem("mdValue"));
+    if (window.localStorage.getItem("mdValue") === null) { //template is set only if you open the tool for the first time
+        getTemplate();
+    }
+    if (window.localStorage.getItem("manifestValue") === null) {
+        window.localStorage.setItem('manifestValue', JSON.stringify('{\"labs\":[{\"title\":\"\",\"description\":\"\",\"filename\":\"\",\"partnumber\":\"\",\"publisheddate\":\"\",\"contentid\":\"\"}]}'));
+    }
+    showMdInHtml();
+}
+
+function manifestInit() {
+    setFormData();
+    getFormData();
+}
+function loadFile(filename) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', filename, true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+            $('#main').html(xhr.responseText);
+            if (filename === nav_pages[0].html)
+                homeInit();
+            else if (filename === nav_pages[1].html)
+                manifestInit();
+        }
+    }
+    xhr.send();
+}
+
+function getFormData() {  //display the details in the form on the right side and saves to local storage
+    let indexed_array = {};
+    let labs_array = [];
+    var json;
+
+    $.each($('#manifestForm').serializeArray(), function (i, value) {
+        indexed_array[value['name']] = value['value'];
+        if ((i + 1) % 6 == 0) {
+            labs_array.push(indexed_array);
+            indexed_array = {};
+        }
+    });
+    json = "{\"labs\":" + JSON.stringify(labs_array) + "}";
+    window.localStorage.setItem("manifestValue", JSON.stringify(json));
+    $('#manifestBox pre').html(JSON.stringify(JSON.parse(json), null, "\t"));
+    return JSON.parse(json, null, "\t");
+}
+
+//sets the form data based on what is available in the local storage
+function setFormData() {
+    var data = JSON.parse(window.localStorage.getItem("manifestValue"));
+    data = JSON.parse(data).labs;
+
+    //creating tabs automatically based on the length of data
+    for (var i = 0; i < data.length - 1; i++) {
+        $('#add-lab').trigger('click');
+    }
+
+    $.each(data, function (i) {
+
+        for (key in data[i]) {
+            $('input[name="' + key + '"]:eq(' + i + ')').val($.trim(data[i][key]));
+        }
+    });
+}
+
+function showMdInHtml() {
+    window.localStorage.setItem("mdValue", $('#mdBox').val());
+    if ($('#simple_view').is(":checked")) {
+        $('#show_images_label').show();
+        $('#show_images').show();
+        var htmlElement = document.createElement("div");
+        $(htmlElement).attr('id', 'htmlElement');
+        $(htmlElement).html(new showdown.Converter().makeHtml($('#mdBox').val()));
+
+        if (!$('#show_images').is(":checked")) {
+            $(htmlElement).find('img').removeAttr("src");
+            $(htmlElement).find('img').remove();
+        }
+
+        if ($('#htmlBox').length === 0) {
+            var htmlBox = document.createElement('div');
+            $(htmlBox).attr({ id: 'htmlBox', class: 'card-body' });
+            $(htmlBox).appendTo('#rightBox');
+        }
+
+        $('#htmlBox').html(htmlElement);
+        $('#previewIframe').remove();
+        $('#previewBox').remove();
+    }
+    else {
+        $('#show_images_label').hide();
+        $('#show_images').hide();
+        if ($('#previewBox').length === 0) {
+            var previewBox = document.createElement('div');
+            $(previewBox).attr({ id: 'previewBox', class: 'card-body' });
+
+            var previewIframe = document.createElement('iframe');
+            $(previewIframe).attr({
+                id: 'previewIframe',
+                src: 'preview/index.html',
+                style: 'height:' + $('#mdBox').height() + 'px;',
+                frameborder: '0'
+            });
+
+            $(previewIframe).on('load', function () {
+                $(this).height(this.contentWindow.document.body.scrollHeight + 'px');
+            });
+
+            $(previewIframe).appendTo(previewBox);
+            $(previewBox).appendTo('#rightBox');
+        }
+        else {
+            $('#previewIframe').attr('src', function (i, val) { return val; });
+        }
+        $('#htmlBox').remove();
+    }
+}
+
+function getTemplate() {
+    $.get("template.md", function (markdown) {
+        $('#mdBox').select();
+        //if (!document.execCommand('insertText', false, markdown)) {//because execCommand doesn't work in some browsers, if the insert fails, it does manual insert
+        $('#mdBox').val(markdown);
+        //}
+    }).done(function () {
+        showMdInHtml();
+    });
+}
+
+function download(filename, text) {
+    var pom = document.createElement('a');
+    pom.setAttribute('href', 'data:html/plain;charset=utf-8,' + encodeURIComponent(text));
+    pom.setAttribute('download', filename);
+    if (document.createEvent) {
+        var event = document.createEvent('MouseEvents');
+        event.initEvent('click', true, true);
+        pom.dispatchEvent(event);
+    } else {
+        pom.click();
+    }
+}
+
+// defines what happens when a shortcut button is clicked
+function shortcutClick(placeholder1, placeholder2, placeholder3) {
+    var mdBox = $('#mdBox')[0];
+    var start_index = mdBox.selectionStart;
+    var end_index = mdBox.selectionEnd;
+
+    mdBox.focus();
+    if (start_index == end_index) { //no text in selected in the textbox                    
+        if (!document.execCommand('insertText', false, placeholder1)) { //because execCommand doesn't work in some browsers, if the insert fails, it does manual insert        
+            $('#mdBox').val($('#mdBox').val().substr(0, start_index) + placeholder1 + $('#mdBox').val().substr(start_index, $('#mdBox').val().length - end_index));
+        }
+    }
+    else {
+        if (placeholder3 === undefined) {
+            if (!document.execCommand('insertText', false, placeholder2 + $('#mdBox').val().substr(start_index, end_index - start_index))) {
+                $('#mdBox').val($('#mdBox').val().substr(0, start_index) + placeholder2 + $('#mdBox').val().substr(start_index, $('#mdBox').val().length - end_index));
+            }
+        }
+        else {
+            if (!document.execCommand('insertText', false, placeholder2 + $('#mdBox').val().substr(start_index, end_index - start_index) + placeholder3)) {
+                $('#mdBox').val($('#mdBox').val().substr(0, start_index) + placeholder2 + $('#mdBox').val().substr(start_index, end_index - start_index) + placeholder3 + $('#mdBox').val().substr(end_index, $('#mdBox').val().length - end_index));
+            }
+        }
+    }
+    mdBox.selectionEnd = mdBox.selectionStart = start_index;
+    mdBox.focus();
+    showMdInHtml();
+}

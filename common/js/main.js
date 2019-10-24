@@ -19,7 +19,7 @@ $(function () {
             updateHeadContent(labEntryInManifest); //changing document head based on the manifest
         }).done(function () { //do the following after all the above operations are complete
             $("#bookContainer").html(articleElement); //placing the article element inside the bookContainer div of the OBE template
-            $.getScript(leftnavJsFile); //invoking the left navigation creation script
+            $.getScript(leftnavJsFile).done(selectTocItemBasedOnHash); //invoking the left navigation creation script			
 			openRightSideNav(); //opening the right navigation
         });
     });
