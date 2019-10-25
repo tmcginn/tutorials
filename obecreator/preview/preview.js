@@ -21,12 +21,13 @@ $(function () {
 
 function prepareMd(markdownContent, labEntryInManifest, articleElement) {
 	$(articleElement).html(new showdown.Converter().makeHtml(markdownContent)); //converting markdownContent to HTML by using showndown plugin
-	$(articleElement).title
-	addPathToImageSrc(articleElement, labEntryInManifest.filename); //adds the path for the image based on the filename in manifest			
+	loadImages(articleElement, labEntryInManifest.filename); //updates the images if it was uploaded using the OBE Creator (only if MD in Obe creator is being preview)
+	addPathToImageSrc(articleElement, labEntryInManifest.filename); //adds the path for the image based on the filename in manifest				
 	updateH1Title(articleElement); //replacing the h1 title in the OBE and removing it from the article Element
 	wrapSectionTagAndAddHorizonatalLine(articleElement); //adding each section within section tag and adding HR line
 	addH2ImageIcons(articleElement); //Adding image, class, width, and height to the h2 title img
 	wrapImgWithFigure(articleElement); //Wrapping images with figure, adding figcaption to all those images that have title in the MD
+	fixFigCaptions(articleElement, labEntryInManifest.filename); //Fixing figcaptions for those images that were loaded from the localstorage as the src of the localstorage is like a junk value
 	addPathToAllRelativeHref(articleElement, labEntryInManifest.filename); //adding the path for all HREFs that are relative based on the filename in manifest
 	movePreInsideLi(articleElement); //moving the pre elements a layer up for stylesheet matching
 	$(articleElement).find('a').attr('target', '_blank'); //setting target for all ahrefs to _blank	
@@ -39,4 +40,36 @@ function showMd(articleElement) {
 	$("#bookContainer").html(articleElement); //placing the article element inside the bookContainer div of the OBE template
 	$.getScript(leftnavJsFile); //invoking the left navigation creation script
 	openRightSideNav(); //opening the right navigation
+}
+
+function loadImages(articleElement, filename) {
+	var uploaded_images = JSON.parse(window.localStorage.getItem("imagesValue")); //gets the image filename and src from the local storage
+	if (uploaded_images !== null && filename.indexOf("://") === -1) { //only goes through if the images were uploaded using OBE creator and manifest doesn't specify a path for the filename
+		$(articleElement).find('img').each(function (i, imageFile) { //finds each images in the OBE
+			for (var i = 0; i < uploaded_images.length; i++) { //matches with all uploaded_images
+				if ($(imageFile).attr('src').indexOf(uploaded_images[i].filename) >= 0) { //if the image filename matches, it replaces the SRC
+					$(imageFile).attr('src', uploaded_images[i].src);
+					continue;
+				}
+			}
+		});
+	}
+}
+
+function fixFigCaptions(articleElement, filename) {
+	var uploaded_images = JSON.parse(window.localStorage.getItem("imagesValue")); //gets the image filename and src from the local storage
+	if (uploaded_images !== null && filename.indexOf("://") === -1) { //only goes through if the images were uploaded using OBE creator and manifest doesn't specify a path for the filename
+		$(articleElement).find('img[src*="data:"]').each(function (i, imageFile) { //finds all images that were replaced by the localstorage images
+			for (var i = 0; i < uploaded_images.length; i++) { //matches with all uploaded_images				
+				if ($(imageFile).attr('src').indexOf(uploaded_images[i].src) >= 0) { //if the image filename matches, it replaces the figcaption
+					var imgFileNameWithoutExtn = uploaded_images[i].filename.split("/").pop().split('.').shift(); //removing extension and path from the image name
+					if($(imageFile).next().is('figcaption')) {
+						$(imageFile).next().find('a').text('Description of illustration [' + imgFileNameWithoutExtn + ']');
+						$(imageFile).next().find('a').attr('href', 'files/' + imgFileNameWithoutExtn + '.txt');
+					}
+				}
+			}
+			
+		});
+	}
 }

@@ -61,3 +61,10 @@
 	margin-left: 25px;
 	transition: 0.3s;
 }
+
+#openbtn_div {
+	right: 0;
+	top: 0;
+	position: absolute;
+	line-height: 55px;
+}

@@ -24,6 +24,10 @@
     padding: .4rem .35rem;
 }
 
+img {
+    max-width: 100%;
+}
+
 #import,
 #preview,
 #download_md,
@@ -33,6 +37,10 @@
     font-size: 0.8rem;
     line-height: 0.8;
     padding: .5rem .7rem;
+}
+
+#image_files {
+    font-size: 0.85rem;
 }
 
 #shortcuts {    
