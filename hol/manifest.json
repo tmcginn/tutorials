@@ -1,12 +1,20 @@
 {
     "labs": [
-        {            
-            "title": "Lab 100: Introduction",
-            "description": "Create and access an Autonomous Database Cloud Service.",
+        {
+            "title": "Introduction",
+            "description":"Autonomous Data Warehouse Cloud Service for Developers workshop",
             "partnumber": "Ennnnn_01",
             "publisheddate": "10/14/2019",
             "contentid": "12nnnn",
-            "filename": "https://raw.githubusercontent.com/oracle/learning-library/master/workshops/adwc4dev/L100.md"
+            "filename":"https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/hol/L100.md"
+        }
+        {            
+            "title": "Lab 100: Introduction",
+            "description": "Create and access an Autonomous Database Cloud Service",
+            "partnumber": "Ennnnn_01",
+            "publisheddate": "10/14/2019",
+            "contentid": "12nnnn",
+            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/hol/L100.md"
         },
 		{            
             "title": "Lab 200: Review Query Performance",
@@ -14,7 +22,7 @@
             "partnumber": "Ennnnn_01",
             "publisheddate": "10/14/2019",
             "contentid": "12nnnn",
-            "filename": "https://raw.githubusercontent.com/oracle/learning-library/master/workshops/adwc4dev/L200.md"
+            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/hol/L200.md"
         },
 		{         
             "title": "Lab 300: Machine Learning",
@@ -22,7 +30,7 @@
             "partnumber": "Ennnnn_01",
             "publisheddate": "10/14/2019",
             "contentid": "12nnnn",
-            "filename": "https://raw.githubusercontent.com/oracle/learning-library/master/workshops/adwc4dev/L300.md"
+            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/hol/L300.md"
         },
 		{         
             "title": "Lab 400: Create Data Visualizations",
@@ -30,7 +38,7 @@
             "partnumber": "Ennnnn_01",
             "publisheddate": "10/14/2019",
             "contentid": "12nnnn",
-            "filename": "https://raw.githubusercontent.com/oracle/learning-library/master/workshops/adwc4dev/L400.md"
+            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/hol/L400.md"
         }
     ]
 }
