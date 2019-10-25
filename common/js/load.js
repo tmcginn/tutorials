@@ -1,5 +1,5 @@
 var templateImagePath = "https://ashwin-agarwal.github.io/tutorials/obe_template/img/"; //path for all template images
-var rightSideNavTitle = "Menu";
+var rightSideNavTitle = "Contents";
 
 /* Sets the title, contentid, description, partnumber, and publisheddate attributes in the HTML page. 
 The content is picked up from the manifest file entry*/
@@ -78,6 +78,7 @@ function populateRightSideNav(manifestFileContent) {
     var allLabs = manifestFileContent.labs;
     if (allLabs.length > 1) { //means it is a workshop            
         //adding open button
+		var openbtn_div = $(document.createElement('div')).attr("id", "openbtn_div");
         var openbtn = $(document.createElement('span')).attr("class", "openbtn");
         $(openbtn).click(function () { //if right side navigation is open, then it closes it.
             if ($('#mySidenav').width() > 0)
@@ -86,7 +87,8 @@ function populateRightSideNav(manifestFileContent) {
                 openRightSideNav();
         });
         $(openbtn).html("&#9776;"); //this add the hamburger icon
-        $(openbtn).appendTo('header>.w1024');
+        $(openbtn).appendTo(openbtn_div);
+		$(openbtn_div).appendTo('header');
         //creating right side nav div
         var sideNavDiv = $(document.createElement('div')).attr({
             id: "mySidenav",
