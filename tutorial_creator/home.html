@@ -1,0 +1,48 @@
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                Markdown
+                <!--<button type="button" id="import" class="btn btn-primary float-right">Import HTML File</button>-->
+                <button type="button" id="download_md" class="btn btn-primary float-right">Download MD
+                    File</button>
+            </div>
+            <div class="card-body">
+                <div id="shortcuts">
+                    <button type="button" class="btn btn-primary" id="btn_h1">h1</button>
+                    <button type="button" class="btn btn-primary" id="btn_h2">h2</button>
+                    <button type="button" class="btn btn-primary" id="btn_h3">h3</button>
+                    <button type="button" class="btn btn-primary" id="btn_icon">icon</button>
+                    <button type="button" class="btn btn-primary" id="btn_image">image</button>
+                    <button type="button" class="btn btn-primary" id="btn_link">link</button>
+                    <button type="button" class="btn btn-primary" id="btn_bold">bold</button>
+                    <button type="button" class="btn btn-primary" id="btn_italics">italics</button>
+                    <button type="button" class="btn btn-primary" id="btn_ul">ul</button>
+                    <button type="button" class="btn btn-primary" id="btn_ol">ol</button>
+                    <button type="button" class="btn btn-primary" id="btn_indent">indent</button>
+                    <button type="button" class="btn btn-primary" id="btn_code">code</button>
+                    <button type="button" class="btn btn-primary" id="btn_codeblock">codeblock</button>
+                    <!--<button type="button" class="btn btn-primary" id="btn_template">template</button>-->
+                </div>
+                <textarea id="mdBox" class="form-control"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <div id="rightBox" class="card">
+            <div class="card-header">
+                HTML Preview
+                <button type="button" id="preview" class="btn btn-primary float-right">Preview in HTML</button>                
+                <form class="float-right">
+                    <input type="checkbox" id="show_images">
+                    <label class="checkbox-inline" id="show_images_label">Show Images</label>
+                    <input type="checkbox" id="simple_view" checked>
+                    <label class="checkbox-inline" id="simple_view_label">Simple View</label>
+                </form>
+            </div>
+            <div type="button" id="btn_image_files" class="btn btn-primary" title="Click here to upload images">[No image uploaded for preview]</div>
+            <input type="file" id="image_files" name="image_files[]" class="btn-preview btn" accept="image/*" multiple hidden />
+
+        </div>
+    </div>
+</div>
