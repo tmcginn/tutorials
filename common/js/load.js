@@ -3,12 +3,12 @@ var rightSideNavTitle = "Contents";
 
 /* Sets the title, contentid, description, partnumber, and publisheddate attributes in the HTML page. 
 The content is picked up from the manifest file entry*/
-function updateHeadContent(labEntryInManifest) {
-    document.title = labEntryInManifest.title;
-    $('meta[name=contentid]').attr("content", labEntryInManifest.contentid);
-    $('meta[name=description').attr("content", labEntryInManifest.description);
-    $('meta[name=partnumber').attr("content", labEntryInManifest.partnumber);
-    $('meta[name=publisheddate').attr("content", labEntryInManifest.publisheddate);
+function updateHeadContent(tutorialEntryInManifest) {
+    document.title = tutorialEntryInManifest.title;
+    $('meta[name=contentid]').attr("content", tutorialEntryInManifest.contentid);
+    $('meta[name=description').attr("content", tutorialEntryInManifest.description);
+    $('meta[name=partnumber').attr("content", tutorialEntryInManifest.partnumber);
+    $('meta[name=publisheddate').attr("content", tutorialEntryInManifest.publisheddate);
 }
 /* Wrapping all images in the article element with Title in the MD, with figure tags, and adding figcaption dynamically.
 The figcaption is in the format Description of illustration [filename].
@@ -59,24 +59,24 @@ function updateH1Title(articleElement) {
     $(articleElement).find('h1').remove(); //Removing h1 from the articleElement as it has been added to the HTML file already
 }
 /* The following function selects the correct MD file based on what is specified in the query parameter of the URL.
-The query parameter is the parameter after the ? in the URL. The short name of the lab that matches with the query
+The query parameter is the parameter after the ? in the URL. The short name of the tutorial that matches with the query
 parameter is selected for display. If none of the short names are matching, then the 1st shortname is selected. */
 function selectMdFileToDisplay(manifestFileContent) {
     var queryParam = window.location.search.split('?')[1];
-    var allLabs = manifestFileContent.labs;
-    for (var i = 0; i < allLabs.length; i++) {
-        if (createShortNameFromTitle(allLabs[i].title) == queryParam) { //if query parameter matches the short name specified in the manifest
-            return allLabs[i]; //returning the lab entry in the manifest file
+    var allTutorials = manifestFileContent.tutorials;
+    for (var i = 0; i < allTutorials.length; i++) {
+        if (createShortNameFromTitle(allTutorials[i].title) == queryParam) { //if query parameter matches the short name specified in the manifest
+            return allTutorials[i]; //returning the tutorial entry in the manifest file
         }
     }
-    return allLabs[0]; //returning the first lab entry in the manifest file
+    return allTutorials[0]; //returning the first tutorial entry in the manifest file
 }
 /* The following functions creates and populates the right side navigation including the open button that appears in the header.
-The navigation appears only when the manifest file has more than 1 lab. The title that appears in the side navigation 
+The navigation appears only when the manifest file has more than 1 tutorial. The title that appears in the side navigation 
 is picked up from the manifest file. */
 function populateRightSideNav(manifestFileContent) {
-    var allLabs = manifestFileContent.labs;
-    if (allLabs.length > 1) { //means it is a workshop            
+    var allTutorials = manifestFileContent.tutorials;
+    if (allTutorials.length > 1) { //means it is a workshop            
         //adding open button
 		var openbtn_div = $(document.createElement('div')).attr("id", "openbtn_div");
         var openbtn = $(document.createElement('span')).attr("class", "openbtn");
@@ -107,20 +107,20 @@ function populateRightSideNav(manifestFileContent) {
         $(closebtn).html("&times;"); //adds a cross icon to the header
         $(closebtn).appendTo(sideNavHeaderDiv);
         $(sideNavHeaderDiv).appendTo(sideNavDiv);
-        //adding labs from JSON and linking them with ?shortnames
-        for (var i = 0; i < allLabs.length; i++) {
+        //adding tutorials from JSON and linking them with ?shortnames
+        for (var i = 0; i < allTutorials.length; i++) {
             var sideNavEntry = $(document.createElement('a')).attr({
-                href: '?' + createShortNameFromTitle(allLabs[i].title),
-                class: 'labs_nav'
+                href: '?' + createShortNameFromTitle(allTutorials[i].title),
+                class: 'tutorials_nav'
             });
-            $(sideNavEntry).text(allLabs[i].title); //The title specified in the manifest appears in the side nav as navigation
+            $(sideNavEntry).text(allTutorials[i].title); //The title specified in the manifest appears in the side nav as navigation
             $(sideNavEntry).appendTo(sideNavDiv);
             $(document.createElement('hr')).appendTo(sideNavDiv);
-            if (window.location.search.split('?')[1] === createShortNameFromTitle(allLabs[i].title)) //the selected class is added if the title is currently selected
+            if (window.location.search.split('?')[1] === createShortNameFromTitle(allTutorials[i].title)) //the selected class is added if the title is currently selected
                 $(sideNavEntry).attr("class", "selected");
         }
         if (!$(sideNavDiv).find('a').hasClass("selected")) { //if no title has selected class, selected class is added to the first class
-            $(sideNavDiv).find('.labs_nav').first('a').addClass("selected");
+            $(sideNavDiv).find('.tutorials_nav').first('a').addClass("selected");
         }
         $(sideNavDiv).appendTo('header'); //sideNavDiv is added to the HTML template header
     }

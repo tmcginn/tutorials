@@ -22,7 +22,7 @@ var nav_pages = [
 
 $(function () {
     $('#lastmodified').text(document.lastModified);
-    loadFile(nav_pages[0].html);
+    loadFile(nav_pages[1].html);
 
     $('#main').on('change', '#show_images, #simple_view', showMdInHtml);
 
@@ -59,7 +59,7 @@ $(function () {
 
     $('#main').on('click', '#download_html', function () {
         $.get("https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/template/index.html", function (content) {
-            alert("The OBE HTML file will download now. Place this file in the same location as the manifest.json file and upload it to GitHub or Jarvis.");
+            alert("The tutorial HTML file will download now. Place this file in the same location as the manifest.json file and upload it to GitHub or Jarvis.");
             download("index.html", content);
         });
 
@@ -73,41 +73,41 @@ $(function () {
         });
     });
 
-    $('#main').on('click', '#add-lab', function () {
-        var newlab = document.createElement('li');
+    $('#main').on('click', '#add-tutorial', function () {
+        var newtutorial = document.createElement('li');
         var link = document.createElement('a');
         var newtab = document.createElement('div');
         var close = document.createElement('span');
-        var labsno = $('#labs-nav .nav-item').length;
+        var tutorialsno = $('#tutorials-nav .nav-item').length;
 
 
-        while ($('#tab-content #lab' + labsno).length === 1) {
-            labsno++;
+        while ($('#tab-content #tutorial' + tutorialsno).length === 1) {
+            tutorialsno++;
         }
 
 
         $(newtab).attr({
             class: 'tab-pane container fade',
-            id: 'lab' + labsno
+            id: 'tutorial' + tutorialsno
         });
-        $(newtab).html($('#lab1').html());
-        $(newlab).attr('class', 'nav-item');
+        $(newtab).html($('#tutorial1').html());
+        $(newtutorial).attr('class', 'nav-item');
         $(link).attr({
             class: 'nav-link',
             "data-toggle": 'tab',
-            href: '#lab' + labsno
+            href: '#tutorial' + tutorialsno
         });
-        $(link).text("Lab " + labsno);
+        $(link).text("Tutorial " + tutorialsno);
         $(close).html('&times;');
         $(close).attr('class', 'close');
 
         $(close).appendTo(link);
-        $(link).appendTo(newlab);
-        $(newlab).appendTo('#labs-nav');
-        $('#add-lab').parent().appendTo('#labs-nav');
+        $(link).appendTo(newtutorial);
+        $(newtutorial).appendTo('#tutorials-nav');
+        $('#add-tutorial').parent().appendTo('#tutorials-nav');
         $(newtab).appendTo('#tab-content');
 
-        $('#tabs-container a[href="#lab' + labsno + '"]').tab('show');
+        $('#tabs-container a[href="#tutorial' + tutorialsno + '"]').tab('show');
         getFormData();
     });
 
@@ -140,6 +140,9 @@ $(function () {
     });
 
     $('#main').on('change', '#image_files', readImageContent);
+    $('#main').on('click', '#btn_image_files', function () {
+        $('#image_files')[0].click();
+    });
 });
 
 function homeInit() {
@@ -148,7 +151,7 @@ function homeInit() {
         getTemplate();
     }
     if (window.localStorage.getItem("manifestValue") === null) {
-        window.localStorage.setItem('manifestValue', JSON.stringify('{\"labs\":[{\"title\":\"\",\"description\":\"\",\"filename\":\"\",\"partnumber\":\"\",\"publisheddate\":\"\",\"contentid\":\"\"}]}'));
+        window.localStorage.setItem('manifestValue', JSON.stringify('{\"tutorials\":[{\"title\":\"\",\"description\":\"\",\"filename\":\"\",\"partnumber\":\"\",\"publisheddate\":\"\",\"contentid\":\"\"}]}'));
     }
     showMdInHtml();
 }
@@ -174,17 +177,17 @@ function loadFile(filename) {
 
 function getFormData() {  //display the details in the form on the right side and saves to local storage
     let indexed_array = {};
-    let labs_array = [];
+    let tutorials_array = [];
     var json;
 
     $.each($('#manifestForm').serializeArray(), function (i, value) {
         indexed_array[value['name']] = value['value'];
         if ((i + 1) % 6 == 0) {
-            labs_array.push(indexed_array);
+            tutorials_array.push(indexed_array);
             indexed_array = {};
         }
     });
-    json = "{\"labs\":" + JSON.stringify(labs_array) + "}";
+    json = "{\"tutorials\":" + JSON.stringify(tutorials_array) + "}";
     window.localStorage.setItem("manifestValue", JSON.stringify(json));
     $('#manifestBox pre').html(JSON.stringify(JSON.parse(json), null, "\t"));
     return JSON.parse(json, null, "\t");
@@ -193,11 +196,11 @@ function getFormData() {  //display the details in the form on the right side an
 //sets the form data based on what is available in the local storage
 function setFormData() {
     var data = JSON.parse(window.localStorage.getItem("manifestValue"));
-    data = JSON.parse(data).labs;
+    data = JSON.parse(data).tutorials;
 
     //creating tabs automatically based on the length of data
     for (var i = 0; i < data.length - 1; i++) {
-        $('#add-lab').trigger('click');
+        $('#add-tutorial').trigger('click');
     }
 
     $.each(data, function (i) {
@@ -233,7 +236,24 @@ function readImageContent(evt) {
 
 function loadImages() {
     var uploaded_images = JSON.parse(window.localStorage.getItem("imagesValue"));
-    $('#image_files').show();
+    var titles = "";
+    $.each(uploaded_images, function (i, value) {
+        titles += (i + 1) + ": " + value.filename + "\n";
+    });
+
+    if (uploaded_images !== null) {
+        if (uploaded_images.length > 1) {
+            $('#btn_image_files').text('[' + uploaded_images.length + ' images uploaded for preview]');
+            $('#btn_image_files').attr('title', titles + "\nClick here to upload images");
+        }
+        else if (uploaded_images.length == 1) {
+            $('#btn_image_files').text('[' + uploaded_images.length + ' image uploaded for preview]');
+            $('#btn_image_files').attr('title', titles + "\nClick here to upload images");
+        }        
+    }
+
+
+    $('#btn_image_files').show();
     if (uploaded_images !== null) {
         $('#htmlBox').find('img').each(function (i, imageFile) {
             for (var i = 0; i < uploaded_images.length; i++) {
@@ -253,7 +273,7 @@ function showMdInHtml() {
         $(htmlElement).html(new showdown.Converter().makeHtml($('#mdBox').val()));
 
         if (!$('#show_images').is(":checked")) {
-            $('#image_files').hide();
+            $('#btn_image_files').hide();
             $(htmlElement).find('img').removeAttr("src");
             $(htmlElement).find('img').remove();
         }
@@ -281,18 +301,18 @@ function showMdInHtml() {
             $(previewIframe).attr({
                 id: 'previewIframe',
                 src: 'preview/index.html',
-                style: 'height:' + $('#mdBox').height() + 'px;',
+                style: 'height: 1000px;',
                 frameborder: '0'
-            });        
+            });
             $(previewIframe).on('load', function () {
                 if (!$('#show_images').is(":checked")) {
-                    $('#image_files').hide();
+                    $('#btn_image_files').hide();
                     $(this).contents().find('img').removeAttr("src");
                     $(this).contents().find('img').remove();
-                }    
+                }
                 else {
-                    $('#image_files').show();
-                }            
+                    $('#btn_image_files').show();
+                }
                 $(this).height(this.contentWindow.document.body.scrollHeight + 'px');
             });
 

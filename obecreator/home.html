@@ -32,7 +32,7 @@
         <div id="rightBox" class="card">
             <div class="card-header">
                 HTML Preview
-                <button type="button" id="preview" class="btn btn-primary float-right">Preview in HTML</button>
+                <button type="button" id="preview" class="btn btn-primary float-right">Preview in HTML</button>                
                 <form class="float-right">
                     <input type="checkbox" id="show_images">
                     <label class="checkbox-inline" id="show_images_label">Show Images</label>
@@ -40,7 +40,9 @@
                     <label class="checkbox-inline" id="simple_view_label">Simple View</label>
                 </form>
             </div>
-            <input type="file" id="image_files" name="image_files[]" class="btn-preview btn" multiple />
+            <div type="button" id="btn_image_files" class="btn btn-primary" title="Click here to upload images">[No image uploaded for preview]</div>
+            <input type="file" id="image_files" name="image_files[]" class="btn-preview btn" accept="image/*" multiple hidden />
+
         </div>
     </div>
 </div>
