@@ -22,7 +22,7 @@ var nav_pages = [
 
 $(function () {
     $('#lastmodified').text(document.lastModified);
-    loadFile(nav_pages[1].html);
+    loadFile(nav_pages[0].html);
 
     $('#main').on('change', '#show_images, #simple_view', showMdInHtml);
 
