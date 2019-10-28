@@ -22,7 +22,7 @@ var nav_pages = [
 
 $(function () {
     $('#lastmodified').text(document.lastModified);
-    loadFile(nav_pages[0].html);
+    loadFile(nav_pages[1].html);
 
     $('#main').on('change', '#show_images, #simple_view', showMdInHtml);
 
@@ -67,7 +67,7 @@ $(function () {
 
     $.each(nav_pages, function (index, value) {
         $('nav').on('click', value.id, function () {
-            $('.nav-item').children().removeClass('active');
+            $('nav .nav-item').children().removeClass('active');
             $(value.id).addClass('active');
             loadFile(value.html);
         });
@@ -107,11 +107,15 @@ $(function () {
         $('#add-tutorial').parent().appendTo('#tutorials-nav');
         $(newtab).appendTo('#tab-content');
 
-        $('#tabs-container a[href="#tutorial' + tutorialsno + '"]').tab('show');
+        $('#tab-content .tab-pane').each(function () {
+            if ($(this).hasClass('active show'))
+                $(this).removeClass('active show');
+        });
+        $('#tabs-container .nav-link:not(#add-tutorial):last').tab('show');
         getFormData();
     });
 
-    $('#main').on('click', '.nav-link .close', function () {
+    $('#main').on('click', '#tabs-container .nav-link .close', function () {
         var href = $(this).parent().attr("href");
         $(href).remove();
         $('#tabs-container a[href="' + $(this).parent().parent().prev().children().attr("href") + '"]').tab('show');
@@ -133,8 +137,8 @@ $(function () {
 
     $('#main').on('click', '#reset_manifest', function () {
         $('#manifestForm').find("input[type=text], textarea").val("");
-        while ($('.nav-link .close').length > 0) {
-            $('.nav-link .close:last').click();
+        while ($('#tabs-container .nav-link .close').length > 0) {
+            $('#tabs-container .nav-link .close:last').click();
         }
         getFormData();
     });
@@ -157,8 +161,7 @@ function homeInit() {
 }
 
 function manifestInit() {
-    setFormData();
-    getFormData();
+    setFormData();        
 }
 function loadFile(filename) {
     var xhr = new XMLHttpRequest();
@@ -249,7 +252,7 @@ function loadImages() {
         else if (uploaded_images.length == 1) {
             $('#btn_image_files').text('[' + uploaded_images.length + ' image uploaded for preview]');
             $('#btn_image_files').attr('title', titles + "\nClick here to upload images");
-        }        
+        }
     }
 
 
