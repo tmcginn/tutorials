@@ -11,6 +11,7 @@ Please click on the [Free Oracle Cloud Promotion](https://myservices.us.oraclecl
 
 ## Navigate to Lab 100
 
+- Once the setup is complete you can move on to Lab 100 by clicking on the title in the Contents menu. You're now ready to continue with Lab 100.
 
     ![Contents Menu](./img/Contents.png "Contents Menu")
 
