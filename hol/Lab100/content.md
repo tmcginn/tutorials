@@ -1,7 +1,7 @@
 # ADWC Lab 100: Provisioning and Getting Started
 ![](images/IL-100/001.png)
 
-## Backgound Challenges
+## Introduction
 
 In this lab you will assume the role of Alphaoffice's DBA Vijay.  Vijay has some experience with another large cloud vendor, and has been getting aclimated to the cloud computing model.  In his initial experience with the other provider he found it a bit confusing to get his head around the large number of services, most of which he was not interested in.  Alphaoffice has been using RAC on premise, and this was not supported.  He also found that many of the DBA management tasks still needed to be tended to, while trying to keep up with new projects.  The latest project was initiated by marketing, and involves building out a data warehouse with sales, order, marketing, and other data.  While evaluating the other cloud vendor he found that creating a database was simple, but he had many other challenges. This includes:
 -   Data must be loaded so as to distribute data evenly to optimize performance.  This requires pre-processing of the data, which considering the data volumes is very time consuming.
@@ -53,55 +53,55 @@ In this section you will be provisioning an ADWC database using the cloud consol
 ### **STEP 1: Sign in to Oracle Cloud**
 - Go to [cloud.oracle.com](https://cloud.oracle.com), click `Sign In` to sign in with your Oracle Cloud account.
 
-  ![Oracle Cloud Home Screen](./images/IL-100/002.png "Oracle Cloud Home Screen")
+  ![Oracle Cloud Home Screen](./img/002.png "Oracle Cloud Home Screen")
 
 - Enter your `Cloud Account Name` and click `Next`.
 
-  ![Cloud Account Screen](./images/IL-100/003.png "Cloud Account Screen")
+  ![Cloud Account Screen](./img/003.png "Cloud Account Screen")
 
 - Enter your Cloud `username` and `password`, and click `Sign In`.
 
-  ![Oracle Cloud Sign-in Screen](./images/IL-100/004.png "Oracle Cloud Sign-in Screen")
+  ![Oracle Cloud Sign-in Screen](./img/004.png "Oracle Cloud Sign-in Screen")
 
 ### **STEP 2: Create an ADWC Instance**
 
 - Select Dashboard
 
-  ![Guided Journey Screen](./images/IL-100/004.1.png "Guided Journey Screen")
+  ![Guided Journey Screen](./img/004.1.png "Guided Journey Screen")
 
 - To access Oracle Cloud Infrastructure (OCI) dashboard, click on `Customize Dashboard`.
 
-  ![Dashboard Screen](./images/IL-100/036.png "Dashboard Screen")
+  ![Dashboard Screen](./img/036.png "Dashboard Screen")
 
 - Find `Autonomous Data Warehouse` under Data Management and click on `Show`.
 
-  ![Customize Dashboard Screen](./images/IL-100/037.png "Customize Dashboard Screen")
+  ![Customize Dashboard Screen](./img/037.png "Customize Dashboard Screen")
 
 - Select Autonomous Data Warehouse.
 
-  ![Dashboard Screen](./images/IL-100/019.png "Dashboard Screen")
+  ![Dashboard Screen](./img/019.png "Dashboard Screen")
 
 - Select Open Service Console.
 
-  ![Service Overview Screen](./images/IL-100/020.png "Service Overview Screen")
+  ![Service Overview Screen](./img/020.png "Service Overview Screen")
 
 - Select Create Autonomous Data Warehouse
 
-  ![Service Console](./images/IL-100/021.png "Service Console")
+  ![Service Console](./img/021.png "Service Console")
 
 - Enter Select `Compartment` (yours will be different - do not select `ManagedCompartmentforPaaS`) and then enter `Display Name`, `Database Name`, and increase the core count to 2.  Note you can also increase storage, but leave this as is for now.
 
-  ![Create ADW Instance Screen](./images/IL-100/024.png "Create ADW Instance Screen")
+  ![Create ADW Instance Screen](./img/024.png "Create ADW Instance Screen")
 
 - Add a password (`Alpha2018___` three underscores) and then select Create Autonomous Data Warehouse.
 
-  ![Adminstrator Credentials Section](./images/IL-100/025.png "Adminstrator Credentials Section")
+  ![Adminstrator Credentials Section](./img/025.png "Adminstrator Credentials Section")
 
 - Once it finishes provisioning, you can click on the instance name to see details of it
 
-  ![Service Console](./images/IL-100/026.png "Service Console")
+  ![Service Console](./img/026.png "Service Console")
 
-  ![ADW Service Instance Screen](./images/IL-100/027.png "ADW Service Instance Screen")
+  ![ADW Service Instance Screen](./img/027.png "ADW Service Instance Screen")
 
 You now have created your first Autonomous Data Warehouse Cloud instance.
 
@@ -113,19 +113,19 @@ As ADWC only accepts secure connections to the database, you need to download a 
 
 - In the instance details page find your database and click `Service Console`. 
 
-  ![ADW Service Instance Screen](./images/IL-100/028.png "ADW Service Instance Screen")
+  ![ADW Service Instance Screen](./img/028.png "ADW Service Instance Screen")
 
 ### **STEP 4: Download the credentials wallet**
 
 - Click on `Administration` and click `Download a Connection Wallet` to download the wallet.
 
-  ![Service Console](./images/IL-100/030.png "Service Console")
+  ![Service Console](./img/030.png "Service Console")
 
-  ![Service Console Administration Section](./images/IL-100/015.png "Service Console Administration Section")
+  ![Service Console Administration Section](./img/015.png "Service Console Administration Section")
 
 - Specify a password of your choice for the wallet (eg `Alpha2018___`), you will need this password when connecting to the database later. Click `Download` to download the wallet file to your client machine.
 
-    ![Download Connection Wallet Screen](./images/IL-100/016.png "Download Connection Wallet Screen")
+    ![Download Connection Wallet Screen](./img/016.png "Download Connection Wallet Screen")
 
 ## Connecting to the database using SQL Developer
 Start SQL Developer (18.3) and create a connection for your database using the default administrator account, ADMIN, by following these steps.
@@ -134,7 +134,7 @@ Start SQL Developer (18.3) and create a connection for your database using the d
 
 - Click the **Create Connection** icon in the Connections toolbox on the top left of the SQL Developer homepage.
 
-  ![SQL Developer](./images/IL-100/005.png "SQL Developer")
+  ![SQL Developer](./img/005.png "SQL Developer")
 
 - Fill in the connection details as below:
   - **Connection Name:** `ADWC-Trial Admin`
@@ -144,11 +144,11 @@ Start SQL Developer (18.3) and create a connection for your database using the d
   - **Configuration File:** Enter the full path for the wallet file you downloaded before, or click the `Browse` button to point to the location of the file.
   - **Service:** There are 3 pre-configured database services for each database. Pick `orcl_high` for this lab.
 
-    ![Add Connection Dialog](./images/IL-100/006.png "Add Connection Dialog")
+    ![Add Connection Dialog](./img/006.png "Add Connection Dialog")
 
 - Test your connection by clicking the **Test** button, if it succeeds save your connection information by clicking `Save`, then connect to your database by clicking the `Connect` button. An entry for the new connection appears under Connections.
 
-  ![Test Connection Result](./images/IL-100/007.png "Test Connection Result")
+  ![Test Connection Result](./img/007.png "Test Connection Result")
 
 ### **STEP 6: Create a sample sub-set of the lineorder data.  Note this will take approximately one hour.**
 
@@ -185,51 +185,51 @@ end;
 
 - Go to the menu in the upper left, select `Identity`, and then `Users`.
 
-  ![Oracle Cloud Menu](./images/IL-100/043.png "Oracle Cloud Menu")
+  ![Oracle Cloud Menu](./img/043.png "Oracle Cloud Menu")
 
 - Select the user.
 
-  ![Users Dialog](./images/IL-100/044.png "Users Dialog")
+  ![Users Dialog](./img/044.png "Users Dialog")
 
 - Select `Auth Tokens` on the left and then `Generate Token`.
 
-  ![Auth Tokens Section](./images/IL-100/045.png "Auth Tokens Section")
+  ![Auth Tokens Section](./img/045.png "Auth Tokens Section")
 
-  ![Generate Token dialog](./images/IL-100/046.png "Generate Token dialog")
+  ![Generate Token dialog](./img/046.png "Generate Token dialog")
 
 - Be sure to copy the generated token to a notepad.  You will need it when creating an OAC instance.
 
-  ![Generate Token Copy Button](./images/IL-100/047.png "Generate Token Copy Button")
+  ![Generate Token Copy Button](./img/047.png "Generate Token Copy Button")
 
 - Next go back to the menu in the top left and select `Object Storage`.  
 
-  ![Cloud Menu](./images/IL-100/048.png "Cloud Menu")
+  ![Cloud Menu](./img/048.png "Cloud Menu")
 
 - Create a new bucket - call it `oac`.
 
-  ![Object Storage Console](./images/IL-100/049.png "Object Storage Console")
+  ![Object Storage Console](./img/049.png "Object Storage Console")
 
-  ![Bucket Name Field](./images/IL-100/050.png "Bucket Name Field")
+  ![Bucket Name Field](./img/050.png "Bucket Name Field")
 
 - Now we will create a new Autonomous Oracle Analytic Service.  Select `My Service Dashboard` from the top left menu.
 
-  ![Cloud Menu](./images/IL-100/051.png "Cloud Menu")
+  ![Cloud Menu](./img/051.png "Cloud Menu")
 
 - Select `Autonomous Analytics`.  You may need to customize the dashboard to make the service visible.
 
-  ![My Service Dashboard](./images/IL-100/052.png "My Service Dashboard")
+  ![My Service Dashboard](./img/052.png "My Service Dashboard")
 
-  ![Open Service Console](./images/IL-100/053.png "Open Service Console")
+  ![Open Service Console](./img/053.png "Open Service Console")
 
 - Create instance.
 
-  ![Create Instance](./images/IL-100/054.png "Create Instance")
+  ![Create Instance](./img/054.png "Create Instance")
 
 - Enter the following details and select `Next`, and then `Create`.
 
-  ![Create Instance Dialog](./images/IL-100/055.png "Create Instance Dialog")
+  ![Create Instance Dialog](./img/055.png "Create Instance Dialog")
 
-  ![Create Instance Dialog](./images/IL-100/056.png "Create Instance Dialog")
+  ![Create Instance Dialog](./img/056.png "Create Instance Dialog")
 
 ## Conclusion
 Vijay found that creating a new ADWC service very very easy, and took only a couple of minutes to create.  Connecting was straightforward using SQL Developer.

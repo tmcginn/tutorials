@@ -1,0 +1,1 @@
+The illustration shows the Database information section of the New Autonomous Database dialog. The fields Compartment, display name, database name, and CPU core count are highlighted. A check box labeled Auto Scaling is checked.

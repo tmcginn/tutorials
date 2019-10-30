@@ -1,6 +1,7 @@
+# Lab 200: Review Query Performance
 ![](images/IL-200/001.png)
 
-# Introduction
+## Introduction
 
 In this lab, you continue with the persona of Vijay.  Vijay is hopeful ADWC will save his team a huge amount of time and support new projects with aggressive timelines.  However he needs to test the assertion that ADWC can perform against large volumes of data.  To do that he has exported some data from his on-premise database [using data pump](https://docs.oracle.com/en/cloud/paas/autonomous-data-warehouse-cloud/user/load-data.html#GUID-30DB1EEA-DB45-49EA-9E97-DF49A9968E24), and has uploaded this to object storage and imported it into his new ADWC instance. 
 
@@ -31,25 +32,23 @@ However they need near instant access to the current months data.
 
 To log issues and view the Lab Guide source, go to the [github oracle](https://github.com/oracle/learning-library/tree/master/workshops/adwc4dev) repository.
 
-## Objectives
+### Objectives
 -   Test query access to current data to confirm the feasibility of letting end users slice and dice the data for ad-hoc analysis.
 -   Test query access to a much larger historical data set to confirm the feasiblity of analyzing historical data sets.
 
-## Required Artifacts
+### Required Artifacts
 -	The following lab requires an Oracle Public Cloud account. You may your own cloud account, a cloud account that you obtained through a trial, or a training account whose details were given to you by an Oracle instructor.
 -	Oracle SQL Developer (see Lab100 for more specifics on the version of SQL Developer and how to install and configure it).
-
-# Performance Tests
 
 ## Run Queries Against Current Orders
 As noted above, Vijay wants to ensure end users using a variety of tools can run queries against 100M current orders (with 1.4M parts, 6M customers, and 2M suppliers) that take no more than a few seconds.  He also will test this with no tuning whatsoever, and will query the data set different ways to confirm performance holds regardless of how the data is accessed.  Note your results (row counts) may vary.
 
 ### **STEP 1: Connect to Autonomous Data Warehouse with SQLDeveloper**
 - Open the ADWC-Trial Admin connection you created at the end of Lab 100.
-  ![](./images/IL-200/002.png)
+  ![](./img/002.png)
 
 - Expand the tables
-  ![](./images/IL-200/003.png)
+  ![](./img/003.png)
 
 ### **STEP 2: Run queries**
 - Enter the following.  This first flushes the result cache, and then runs a typical aggregate query.
@@ -66,7 +65,7 @@ where lo_orderdate = d_datekey
 group by d_month, d_monthnuminyear
 order by d_monthnuminyear
 ```
-![](./images/IL-200/004.png)
+![](./img/004.png)
 
 -	Note the query takes a few seconds to query and summarize 100M orders.
 -	We now want to see if others who also run the same or similar queries use the results which are now cached.  This saves a huge amount of processing since the database just needs to retrieve the cached results.  Enter the following.  This is the same query as above, but does not clear the cache.  You may wish to first clear the previous result.
@@ -79,7 +78,7 @@ where lo_orderdate = d_datekey
 group by d_month, d_monthnuminyear
 order by d_monthnuminyear
 ```
-![](./images/IL-200/005.png)
+![](./img/005.png)
 
 - Note the query is much faster.
 - Next query by nation and then year, and filter by region.  Enter the following.
@@ -95,7 +94,7 @@ group by c_nation
 , d_month
 order by revenue desc;
 ```
-![](./images/IL-200/006.png)
+![](./img/006.png)
 
 - Again the query took a few seconds, while grouping by month and nation, and sorting by revenue descending.
 - What about a more selective query?  Execute the following.
@@ -122,7 +121,7 @@ group by d_date
 , p_name
 , p_color
 ```
-![](./images/IL-200/007.png)
+![](./img/007.png)
 
 - Note it is much faster to retrieve 800 rows, without any indexes, pre-sorting, or pre-load processing.
 
@@ -155,15 +154,15 @@ group by d.d_date
     , p.p_name
     , p.p_color;
 ```
-![](./images/IL-200/008.png)
+![](./img/008.png)
 
 - Vijay has requests from analysts about support for analytic queries.  The analysts have started to use these views in their on-premise Oracle Database, and have found them to be fast and suited to the historical type queries they typically run.  To test this expand 'Other Users in your connection.
 
-  ![](./images/IL-200/009.png)
+  ![](./img/009.png)
 
 - Scoll down and expend Analytic Views.
 
-  ![](./images/IL-200/010.png)
+  ![](./img/010.png)
 
 - Now run the following analytics query.
 ```
@@ -186,7 +185,7 @@ WHERE
   AND customer_hier.c_region = 'AMERICA'
   AND customer_hier.level_name = 'NATION';
 ```
-![](./images/IL-200/011.png)
+![](./img/011.png)
 
 - In this particular case the query took a bit longer, but was still fast, and now offers analtytic support they never had before.
 
@@ -194,7 +193,7 @@ WHERE
 ```
 select * from ssb.lineorder where lo_orderkey = 1174002208;
 ```
-  ![](./images/IL-200/012.png)
+  ![](./img/012.png)
 
 Note: Some queries may take longer, depending on how many rows are processed and returned, and the aggregation level.  These are not included so that the lab can proceed without delay.
 
@@ -203,44 +202,44 @@ Note: Some queries may take longer, depending on how many rows are processed and
 ### **STEP 4: Log into the Cloud Console.**
 - Log into the Cloud Console and select Autonomous Data Warehouse, and then open the Service Console.
 
-  ![](./images/IL-200/013.png)
+  ![](./img/013.png)
 
-  ![](./images/IL-200/014.png)
+  ![](./img/014.png)
 
 - Select your database ADW, and then the ADWC Service Console.
 
-  ![](./images/IL-200/015.png)
+  ![](./img/015.png)
 
-  ![](./images/IL-200/016.png)
+  ![](./img/016.png)
 
 - Select `Activity`.
 
-  ![](./images/IL-200/018.png)
+  ![](./img/018.png)
 
 - Here you get an overview of the database activity, CPU utilization, and running statements.
 
-  ![](./images/IL-200/019.png)
+  ![](./img/019.png)
 
 - Select Monitored SQL.
 
-  ![](./images/IL-200/020.png)
+  ![](./img/020.png)
 
 - Here you can review details about the statements you have issued.  While this lets you what is happening, you will not need this to tune the database, as it is self-tuning.  Scroll to the right for more information.  You can also select different metrics.
 
-  ![](./images/IL-200/021.png)
+  ![](./img/021.png)
 
-  ![](./images/IL-200/022.png)
+  ![](./img/022.png)
 
-  ![](./images/IL-200/023.png)
+  ![](./img/023.png)
 
 ### **STEP 5: Scale the database.**
 - Go back to the ADW console and select `Scale Up/Down`.
 
-  ![](./images/IL-200/024.png)
+  ![](./img/024.png)
 
 - Review the options.  We will leave these as is.  If/when you change the parameters the instance applies the changes while online, without dropping connections, and transparently to users logged in and querying the database.  Close the window.
 
-  ![](./images/IL-200/025.png)
+  ![](./img/025.png)
 
 ## Conclusion
 

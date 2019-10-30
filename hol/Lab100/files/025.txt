@@ -1,0 +1,1 @@
+The illustration shows the Administrator Credentials section of the New Autonomous Database dialog. The Password and Confirm Password fields are highlighted. A red arrow points to the Create Autonomous Data Warehouse button.
