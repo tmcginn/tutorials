@@ -1,0 +1,2 @@
+The illustration shows the Oracle Cloud Dashboard. The Customize Dashboard.tile is highlighted.
+A red arrow points to Autonomous Analytics.

@@ -1,21 +1,20 @@
-![](images/IL-300/001.png)
+# Lab 300: Machine Learning
+![](./img/001.png)
 
-# Introduction
+## Introduction
 in this lab you will assume the persona of Heather, the data scientist/ML expert for Alphaoffice.  Heather has spent most of her time over the past couple of years extracting and preparing data for analysis.  The large volumes of data need extracting and processing mean she spends most of her time waiting for jobs to finish and very little of her time analyzing the data.  Demands from marketing are forcing a new approach whereby the data remains in the data warehouse and is processed there.  The alternative cloud solution is more complex, and has no direct out of the box processes to analyze the data in place.  She started taking a look at Oracle, and found the simple SQL commands in ADWC are familiar, and execute extremely fast, leveraging all the performance features of the platform.  Further once she is done can can apply the learning models to incoming data on the fly, and allow end user analysts to immediately see mining results.  This drastically reduces the cycle of data preparation, analysis, and publishing.  It also means there is no change to analysis/reporting Data Visualization toolset that users are familiar with.
 
 An added benefit is the ability to use a new open source [Apache Zeppelin based collaboration environment](http://www.oracle.com/technetwork/database/options/oml/overview/index.html) where she can work with others on the team in real time, annotating ML steps and combining the processing and documentation in one place.  Since we are going to use Oracle ML interface, much of the lab will be done in that interface.  For more information on which Machine Learning Algorithms are supported see [Oracle Advanced Analytics documentation](https://docs.oracle.com/en/database/oracle/oracle-database/12.2/dmapi/mining-fuctions.html#GUID-3BC8FD92-9B6A-4612-A458-7E5FFDDC5EA7).
 
 To log issues and view the Lab Guide source, go to the [github oracle](https://github.com/oracle/learning-library/tree/master/workshops/adwc4dev) repository.
 
-## Objectives
+### Objectives
 - Import a Apache Zepplin notebook.
 - Become familiar with Oracle Machine Learning Algorithms.
 - Create a machine learning model to determine factors that predict good credit.
 
-## Required Artifacts
+### Required Artifacts
 - Oracle SQL Developer (see Lab 100 for more specifics on the version of SQL Developer and how to install and configure it).
-
-# Steps
 
 ## Upload Credit Score Data to Object Storage
 
@@ -27,71 +26,71 @@ To log issues and view the Lab Guide source, go to the [github oracle](https://g
 
 - Save the install.zip to a download directory and then unzip the file.
 
-  ![](./images/IL-300/001.2.png)
+  ![](./img/001.2.png)
 
 ### **STEP 2: Sign in to Oracle Cloud**
 
 - Log in, if you have not already done so.
 
-  ![](./images/IL-100/002.png)
+  ![](./img/002.png)
 
-  ![](./images/IL-100/003.png)
+  ![](./img/003.png)
 
-  ![](./images/IL-100/004.png)
+  ![](./img/004.png)
 
 - Select Compute.
 
-  ![](./images/IL-300/019.png)
+  ![](./img/019.png)
 
-  ![](./images/IL-300/020.png)
+  ![](./img/020.png)
 
 ### **STEP 3: Create bucket adwc and upload your data**
 
 - Select the drop down menu in the upper left, scroll down and select Object Storage.
 
-  ![](./images/IL-300/022.png)
+  ![](./img/022.png)
 
 - Create a bucket called `adwc`.  Create the bucket in your compartment (not ManagedCompartmentForPaas).
 
-  ![](./images/IL-300/023.png)
+  ![](./img/023.png)
 
-  ![](./images/IL-300/024.png)
+  ![](./img/024.png)
 
 - Select the `adwc` bucket and upload file `credit_scoring_100k` in git directory `ADWC4Dev/workshops/adwc4dev/install`.
 
-  ![](./images/IL-300/025.png)
+  ![](./img/025.png)
 
-  ![](./images/IL-300/026.png)
+  ![](./img/026.png)
 
-  ![](./images/IL-300/027.png)
+  ![](./img/027.png)
 
-  ![](./images/IL-300/028.png)
+  ![](./img/028.png)
 
-  ![](./images/IL-300/029.png)
+  ![](./img/029.png)
 
 - Copy the URL to a notepad for the following import process.
 
-  ![](./images/IL-300/030.png)
+  ![](./img/030.png)
 
-  ![](./images/IL-300/031.png)
+  ![](./img/031.png)
 
 - To load data from the Oracle Cloud Infrastructure(OCI) Object Storage you will need an OCI user with the appropriate privileges to read data (or upload) data to the Object Store. The communication between the database and the object store relies on the Swift protocol and the OCI user Auth Token.  Go back to the menu in the upper left and select users.
 
-  ![](./images/IL-300/032.png)
+  ![](./img/032.png)
 
 - Click the user's name to view the details. Also, remember the username as you will need that in the next step.
 
-  ![](./images/IL-300/033.png)
+  ![](./img/033.png)
 
 - On the left side of the page, click Auth Tokens, and then `Generate Token`.  Call it `adwc_token`.  Be sure to copy it to a notepad.
 
-  ![](./images/IL-300/034.png)
+  ![](./img/034.png)
 
-  ![](./images/IL-300/035.png)
+  ![](./img/035.png)
 
-  ![](./images/IL-300/036.png)
+  ![](./img/036.png)
 
-  ![](./images/IL-300/037.png)
+  ![](./img/037.png)
 
 ### **STEP 4: Create a Database Credential for Your User**
 - To access data in the Object Store you have to enable your database user to authenticate itself with the Object Store using your OCI object store account and Auth token. You do this by creating a private CREDENTIAL object for your user that stores this information encrypted in your Autonomous Data Warehouse. This information is only usable for your user schema.
@@ -109,7 +108,7 @@ BEGIN
 END;
 /
 ```
-  ![](./images/IL-300/038.png)
+  ![](./img/038.png)
 
 - Now you are ready to load data from the Object Store.
 
@@ -208,13 +207,15 @@ create table admin.credit_scoring_100k
 
 	 grant select any table to public;
 ```
-  ![](./images/IL-300/039.png)
+- Execute the query
+
+  ![](./img/039.png)
 
 - Right click on the Tables to refresh the table list.
 
-  ![](./images/IL-300/040.png)
+  ![](./img/040.png)
 
-- Enter the following code snippit and then execute.
+- Enter the following code snippit.
 
 ```
 begin
@@ -227,11 +228,13 @@ begin
 end;
 /
 ```
-  ![](./images/IL-300/040.1.png)
+- And execute it.
+
+  ![](./img/040.1.png)
 
 - Click on the table on the left and select the data tab to review the data.
 
-  ![](./images/IL-300/049.png)
+  ![](./img/049.png)
 
 ## Log into Oracle Machine Learning
 
@@ -241,119 +244,119 @@ Now that Heather has loaded the data, she will log into the Oracle Cloud Console
 
 - Log in, if you have not already done so.
 
-  ![](./images/IL-100/002.png)
+  ![](./img/002.png)
 
-  ![](./images/IL-100/003.png)
+  ![](./img/003.png)
 
-  ![](./images/IL-100/004.png)
+  ![](./img/004.png)
 
 - Select `Autonomous Data Warehouse`.
 
-  ![](./images/IL-300/005.png)
+  ![](./img/005.png)
 
-  ![](./images/IL-300/006.png)
+  ![](./img/006.png)
 
 - Select the ADW database.
 
-  ![](./images/IL-300/007.png)
+  ![](./img/007.png)
 
-  ![](./images/IL-300/008.png)
+  ![](./img/008.png)
 
 - Select Administration
 
-  ![](./images/IL-300/010.png)
+  ![](./img/010.png)
 
 - Select `Manage Oracle ML Users`.
 
-  ![](./images/IL-300/011.png)
+  ![](./img/011.png)
 
 - Log in as admin user and password that you assigned when you created the instance (`admin/Alpha2018___`)
 
-  ![](./images/IL-300/012.png)
+  ![](./img/012.png)
 
 - Create new ML user.  Enter user `adwc_ws` with password `Alpha2018___`.
 
-  ![](./images/IL-300/013.png)
+  ![](./img/013.png)
 
-  ![](./images/IL-300/014.png)
+  ![](./img/014.png)
 
 - Select the home icon upper right.
 
-  ![](./images/IL-300/015.png)
+  ![](./img/015.png)
 
 - Log in as `adwc_ws` password `Alpha2018___`.  Before you log in you may wish to bookmark this page.
 
-  ![](./images/IL-300/016.png)
+  ![](./img/016.png)
 
 - Navigate around to get familiar with the ML pages.  Click on Examples.
 
-  ![](./images/IL-300/017.png)
+  ![](./img/017.png)
 
 - Note the various ML notebook examples.  Feel free to review some of these.  We will be creating a new ML notebook in this lab.
 
-  ![](./images/IL-300/018.png)
+  ![](./img/018.png)
 
 - Click on the upper left icon to bring back the menu.  Then select `Notebooks`.
 
-  ![](./images/IL-300/052.png)
+  ![](./img/052.png)
 
-  ![](./images/IL-300/053.png)
+  ![](./img/053.png)
 
 - We will be importing a pre-built notebook, and using this for the remainder of the lab.  Select `Import`.
 
-  ![](./images/IL-300/054.png)
+  ![](./img/054.png)
 
 - Go to the `install` directory in your git repository and import the `Credit Score Predictions.json` notebook.
 
-  ![](./images/IL-300/055.png)
+  ![](./img/055.png)
 
 
 - Select the `Credit Score Predictions` notebook.
 
-  ![](./images/IL-300/056.png)
+  ![](./img/056.png)
 
 - Before you start working with the `Credit Score Predictions` you need to set the interpreter binding.  Click on the gear icon.
 
-  ![](./images/IL-300/056.1.png)
+  ![](./img/056.1.png)
 
 - Select the `orcl_high` interpreter and then Save.
 
-  ![](./images/IL-300/056.2.png)
+  ![](./img/056.2.png)
 
 The rest of this lab will be done interactively in the notebook.  The following area just screen shots for your convenience.
 
 ## Screen Shots of ML Notebook
 
-  ![](./images/IL-300/057.png)
+  ![](./img/057.png)
 
-  ![](./images/IL-300/058.png)
+  ![](./img/058.png)
 
-  ![](./images/IL-300/059.png)
+  ![](./img/059.png)
 
-  ![](./images/IL-300/060.png)
+  ![](./img/060.png)
 
-  ![](./images/IL-300/061.png)
+  ![](./img/061.png)
 
-  ![](./images/IL-300/062.png)
+  ![](./img/062.png)
 
-  ![](./images/IL-300/063.png)
+  ![](./img/063.png)
 
-  ![](./images/IL-300/064.png)
+  ![](./img/064.png)
 
-  ![](./images/IL-300/065.png)
+  ![](./img/065.png)
 
-  ![](./images/IL-300/066.png)
+  ![](./img/066.png)
 
-  ![](./images/IL-300/067.png)
+  ![](./img/067.png)
 
-  ![](./images/IL-300/068.png)
+  ![](./img/068.png)
 
-  ![](./images/IL-300/069.png)
+  ![](./img/069.png)
 
-  ![](./images/IL-300/070.png)
+  ![](./img/070.png)
 
-  ![](./images/IL-300/071.png)
+  ![](./img/071.png)
 
-  ![](./images/IL-300/072.png)
+  ![](./img/072.png)
 
-  ![](./images/IL-300/073.png)
+  ![](./img/073.png)

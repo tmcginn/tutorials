@@ -1,0 +1,2 @@
+The illustration shows the Guided Journey page that is displayed after a successful login
+A red arrow points to the Dashboard button.

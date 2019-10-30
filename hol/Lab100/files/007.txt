@@ -1,0 +1,1 @@
+The illustration shows the New connection dialog. A red arrow points to the Test connection button. At the status field a message Success is highlighted.

@@ -1,0 +1,1 @@
+The illustration shows the Service console. A red arrow points to the ADW instance.
