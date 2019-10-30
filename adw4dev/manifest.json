@@ -6,7 +6,7 @@
             "partnumber": "Ennnnn_01",
             "publisheddate": "10/14/2019",
             "contentid": "12nnnn",
-            "filename":"https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/hol/content.md"
+            "filename":"https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/adw4dev/content.md"
         },
         {            
             "title": "Lab 100: Introduction",
@@ -14,7 +14,7 @@
             "partnumber": "Ennnnn_01",
             "publisheddate": "10/14/2019",
             "contentid": "12nnnn",
-            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/hol/Lab100/content.md"
+            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/adw4dev/Lab100/content.md"
         },
 		{            
             "title": "Lab 200: Review Query Performance",
@@ -22,7 +22,7 @@
             "partnumber": "Ennnnn_01",
             "publisheddate": "10/14/2019",
             "contentid": "12nnnn",
-            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/hol/Lab200/content.md"
+            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/adw4dev/Lab200/content.md"
         },
 		{         
             "title": "Lab 300: Machine Learning",
@@ -30,7 +30,7 @@
             "partnumber": "Ennnnn_01",
             "publisheddate": "10/14/2019",
             "contentid": "12nnnn",
-            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/hol/Lab300/content.md"
+            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/adw4dev/Lab300/content.md"
         },
 		{         
             "title": "Lab 400: Create Data Visualizations",
@@ -38,7 +38,7 @@
             "partnumber": "Ennnnn_01",
             "publisheddate": "10/14/2019",
             "contentid": "12nnnn",
-            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/hol/Lab400/content.md"
+            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/adw4dev/Lab400/content.md"
         }
     ]
 }
