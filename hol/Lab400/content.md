@@ -408,3 +408,7 @@ We have been looking at a sub-set of the factors used to predict good credit, wh
 - This tells us that customers that are home owner with 2 - 3 children generally have good credit.
 
 - At this point we can drill to the individual customer_ids and execute a marketing campaign, or do further analysis.  The wide variety of visualizations combined with Oracle Machine Learning offer endless ways to identify interesting data patterns that support a wide variety of business applications.  In this case Emma can focus her limited marketing budget on activities that maximize the effectiveness of sales promotions. 
+
+## Conclusion
+
+Congratulations! You have completed the lab.
