@@ -1,5 +1,5 @@
 # Lab 200: Review Query Performance
-![](images/IL-200/001.png)
+![](./img/001.png)
 
 ## Introduction
 

@@ -1,5 +1,5 @@
 # ADWC Lab 100: Provisioning and Getting Started
-![](images/IL-100/001.png)
+![](./img/001.png)
 
 ## Introduction
 
