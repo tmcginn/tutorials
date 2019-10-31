@@ -161,7 +161,8 @@ function homeInit() {
 }
 
 function manifestInit() {
-    setFormData();        
+    setFormData();     
+    getFormData();   
 }
 function loadFile(filename) {
     var xhr = new XMLHttpRequest();
@@ -207,8 +208,8 @@ function setFormData() {
     }
 
     $.each(data, function (i) {
-        for (key in data[i]) {
-            $('input[name="' + key + '"]:eq(' + i + ')').val($.trim(data[i][key]));
+        for (key in data[i]) {            
+            $('input[name="' + key + '"]:eq(' + i + '), textarea[name="' + key + '"]:eq(' + i + ')').val($.trim(data[i][key]));
         }
     });
 }
