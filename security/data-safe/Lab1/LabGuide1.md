@@ -21,7 +21,7 @@ To complete this lab, you need to have the following:
 
 - In the **Cloud Tenant** field, enter the tenancy name provided to you during the lab, and then click **Continue**.
 
-    ![OCI Tenant Sign in](./img/2019-08-13%2013_59_08-Oracle%20Cloud%20Infrastructure%20_%20Sign%20In.png)
+    ![OCI Tenant Sign in](./img/2019-08-13%2013_59_08-Oracle%20Cloud%20Infrastructure%20_%20Sign%20In.png "OCI Tenant Sign in")
 
 - Under **Oracle Cloud Infrastructure**, enter your **username** and **password**, and then click **Sign In**.
 
