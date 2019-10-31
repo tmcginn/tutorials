@@ -1,6 +1,6 @@
 # Lab 1: Viewing a Registered Target Database
 
-## Before You Begin
+## Introduction
 ### Objectives
 - Sign in to Oracle Cloud Infrastructure
 - Sign in to the Oracle Data Safe Console
