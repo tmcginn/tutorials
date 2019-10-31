@@ -337,5 +337,6 @@ Your data values may be different than those shown in the screenshots in this la
   ![](./img/failed-logins-pdf.png)
 
 
-## Conclusion
+## Next Steps
+Select the next lab from the Contents Menu.
  

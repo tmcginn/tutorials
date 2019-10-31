@@ -199,4 +199,5 @@ You can use User Assessment to identify user settings and risks on your target d
     ![](./img/approle-grindelwald.png)
 
 
-## Conclusion
+## Next Steps
+Select the next lab from the Contents Menu.

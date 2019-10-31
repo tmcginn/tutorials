@@ -356,3 +356,4 @@ The Data Masking wizard generates a masking policy for your target database base
 
 
 ## Conclusion
+Congratulations! You have completed this workshop.
