@@ -208,8 +208,7 @@ function setFormData() {
     }
 
     $.each(data, function (i) {
-        for (key in data[i]) {
-            console.log(key) + " " + data[i][key];
+        for (key in data[i]) {            
             $('input[name="' + key + '"]:eq(' + i + '), textarea[name="' + key + '"]:eq(' + i + ')').val($.trim(data[i][key]));
         }
     });
