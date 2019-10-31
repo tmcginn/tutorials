@@ -1,0 +1,44 @@
+{
+    "tutorials": [
+        {            
+            "title": "Lab 1: Viewing a Registered Target Database",
+            "description":"Viewing a Registered Target Database",
+            "partnumber": "Ennnnn_01",
+            "publisheddate": "10/31/2019",
+            "contentid": "12nnnn",
+            "filename":"https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/security/data-safe/Lab1/LabGuide1.md"
+        },
+		{            
+            "title": "Lab 2: Provisioning Audit and Alert Policies",
+            "description": "Provisioning Audit and Alert Policies",
+            "partnumber": "Ennnnn_01",
+            "publisheddate": "10/31/2019",
+            "contentid": "12nnnn",
+            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/security/data-safe/Lab2/LabGuide2.md"
+        },
+		{         
+            "title": "Lab 3: Assessing Database Configurations and Users",
+            "description": "Assessing Database Configurations and Users",
+            "partnumber": "Ennnnn_01",
+            "publisheddate": "10/31/2019",
+            "contentid": "12nnnn",
+            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/security/data-safe/Lab3/LabGuide3.md"
+        },
+		{         
+            "title": "Lab 4: Analyzing Alerts and Audit Reports",
+            "description": "Analyzing Alerts and Audit Reports",
+            "partnumber": "Ennnnn_01",
+            "publisheddate": "10/31/2019",
+            "contentid": "12nnnn",
+            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/security/data-safe/Lab4/LabGuide4.md"
+        },
+        {         
+            "title": "Lab 5: Discovering and Masking Sensitive Data",
+            "description": "Discovering and Masking Sensitive Data",
+            "partnumber": "Ennnnn_01",
+            "publisheddate": "10/31/2019",
+            "contentid": "12nnnn",
+            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/security/data-safe/Lab4/LabGuide5.md"
+        }
+    ]
+}
