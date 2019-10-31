@@ -108,4 +108,4 @@ To complete this lab, you need to have the following:
 
 
 ## Next Steps
-Proceed to the next lab.
+Select the next lab from the Contents Menu.

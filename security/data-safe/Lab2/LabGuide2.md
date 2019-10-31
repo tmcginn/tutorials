@@ -188,5 +188,5 @@ On the **Audit Trails** page, you can manage all of the audit trails for your ta
 
   ![](./img/enable-custom-audit-policy.png)  
 
-## Conclusion 
-Drop if not required.
+## Next Steps
+Select the next lab from the Contents Menu.
