@@ -29,14 +29,14 @@ To complete this lab, you need to have the following:
 
   Please do not change your password.
 
-  ![](./img/oci-sign-in.png)
+  ![OCI Sign in](./img/oci-sign-in.png "OCI Sign in")
 
 
 ## **STEP 2**: Sign in to the Oracle Data Safe Console
 
 - From the navigation menu in Oracle Cloud Infrastructure, select **Data Safe**.
 
-    ![](./img/select-data-safe-in-oci.png)
+    ![Select Data Safe in OCI](./img/select-data-safe-in-oci.png)
 
 - On the Data Safe page, view the list of databases that are registered with Oracle Data Safe. Click **Service Console** to access the Oracle Data Safe Console.
 
