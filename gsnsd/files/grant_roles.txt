@@ -1,0 +1,3 @@
+This image describes Page 2 of the Add User page. 
+
+In this page, you grant roles to one or more Oracle Cloud service entitlements. 

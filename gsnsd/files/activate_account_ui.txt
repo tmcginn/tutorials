@@ -1,0 +1,1 @@
+This image describes the My Account page, where you fill out the details to sign up for your new Oracle Cloud Account.

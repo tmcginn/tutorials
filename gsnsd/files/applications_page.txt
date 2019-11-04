@@ -1,0 +1,1 @@
+This is the Oracle Identity Cloud Services page.  You click the  navigation icon and then click Applications to access all the CLoud Services you have subscribed for. 

@@ -1,0 +1,1 @@
+This image displays the User Management page where the new user is created successfully.

@@ -1,0 +1,3 @@
+This is the ANDC page. In this page, you click the Configuration tab and expand General Information to access credentials such as the Client ID and Client Secret.
+
+You click the Show Secret button to view the Client Secret. 

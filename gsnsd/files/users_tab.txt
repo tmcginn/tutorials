@@ -1,0 +1,1 @@
+This image displays the Oracle Cloud My Services page. You click the Users tab to create a user in Oracle Autonomous NoSQL Database Cloud.
