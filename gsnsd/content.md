@@ -24,19 +24,11 @@ When you purchase an Oracle Cloud service, you receive a welcome email from Orac
 *    For **Administrator Details**, provide Cloud Account Administrator details, such as, the email, user name, first name, and last name. The person you specify here is both a Cloud Account Administrator and a Service Administrator and can create other users as required. This person manages and monitors services in the specified Cloud Account.
 *    Click **Activate Account**.
 
-    ![Image activate account UI](/img/activate_account_ui.png "Description of the illustration [activate_account_ui]")
+    ![Image activate account UI](img/activate_account_ui.png "Description of the illustration [activate_account_ui]")
 4. After Oracle Cloud successfully activates your account, you receive another email with your login credentials. Use this information to sign in to your account. Click **Get Started with Oracle Cloud >**. 
-  ![image of second email](/img/second_email.png "Description of the illustration [activate_account_ui]")
+  ![image of second email](img/second_email.png "Description of the illustration [activate_account_ui]")
 
 5. When you first sign in to your Oracle Cloud Account, you are prompted to change your password. Change your password and re-login to Oracle Cloud with the new password. 
-
-Do not enter image title for inline icons ![Navigation icon](img/navigation_icon.png).
-
-4. One example with bold **text**.
-
-   If you add another paragraph, add 3 spaces before the line.
-
-Section conclusion can come here.
 
 ## Create a User in Oracle NoSQL Database Cloud Service
 
@@ -45,9 +37,9 @@ Section conclusion can come here.
 2. Click the Oracle Identity Cloud Service console link under **OracleIdentityCloudService**. The link is in the form of `https://idcs-xxxx.identity.oraclecloud.com/ui/v1/adminconsole`. 
 3.  In the Oracle Identity Cloud Services page, click  ![navigation menu](img/navigation_icon.png)and then click **Users**.
 4. In the Users page, click **Add**. 
-  ![image of Users' menu](/img/add_user.png "Description of the illustration [add_user]")
+  ![image of Users' menu](img/add_user.png "Description of the illustration [add_user]")
 5. In the Add User pop-up, input the First Name, Last Name, and Email of the user. By default, the email will be used as the user name for authentication. Then, click **Finish**. 
-  ![image of user information](/img/user_info.png "Description of the illustration [user_info]")
+  ![image of user information](img/user_info.png "Description of the illustration [user_info]")
 6. The user is created. To grant user roles, see [Grant User Roles](https://docs.oracle.com/en/cloud/paas/nosql-cloud/csnsd/granting-roles.html).
 
 ## Access Client Credentials
@@ -59,9 +51,9 @@ To connect your application to Oracle NoSQL Database Cloud Service, obtain your 
 4. The Applications page lists the Oracle Cloud services. Click **ANDC (Autonomous NoSQL Database Cloud)**. 
 5. In the ANDC page, click the **Configuration** tab and expand **General Information**. Credentials such as the Client ID and Client Secret are visible to you. Click **Show Secret**. A pop-up dialog box appears displaying the Client Secret. Copy these credentials to a new text file in your text editor. 
 6. In the same page, expand **Resources**. You see the entitlement ID displayed in the Primary Audience text box, along with other values. Copy only the entitlement ID value (highlighted in blue). Paste the value into the same text file. 
-  ![image of configuration tab Resources section](/img/entitlement_id.png "Description of the illustration [entitlement_id]")
+  ![image of configuration tab Resources section](img/entitlement_id.png "Description of the illustration [entitlement_id]")
 7. Next, copy the Identity Cloud Service URL from the browser address bar. Copy up to **https://idcs-xxx.identity.oraclecloud.com** as highlighted on the screen. Paste the URL to the same text file where you have the other values.
-![image of IDCS url](/img/idcs_url.png "Description of the illustration [idcs_url]")
+![image of IDCS url](img/idcs_url.png "Description of the illustration [idcs_url]")
 You can now use these credentials to connect to Oracle NoSQL Database Cloud Service.
 
 ## Want to Learn More?
