@@ -1,0 +1,20 @@
+{
+	"tutorials": [
+		{
+			"title": "Get Started with Oracle NoSQL Database Cloud Service",
+			"description": "This tutorial demonstrates how to sign in to Oracle NoSQL Database Cloud Service console for the first time, create a user, and copy client credentials. This tutorial takes approximately 15 minutes to complete.",
+			"filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/gsnsd/content.md",
+			"partnumber": "E98132_04",
+			"publisheddate": "2019-04-01",
+			"contentid": ""
+		},
+		{
+			"title": "Create a Table in Oracle NoSQL Database Cloud Service Using Java",
+			"description": "This 15-minute tutorial walks you through the steps to connect to Oracle NoSQL Database Cloud Service and create a table using a sample application.",
+			"filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/ansct/content.md",
+			"partnumber": "",
+			"publisheddate": "2019-04-01",
+			"contentid": ""
+		}
+	]
+}
