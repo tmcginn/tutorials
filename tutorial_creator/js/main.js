@@ -46,7 +46,14 @@ $(function () {
     });
 
     $('#main').on('click', '#download_md', function () {
-        download("content.md", $.trim($('#mdBox').val()));
+        var temp = new showdown.Converter().makeHtml($.trim($('#mdBox').val()));
+        temp = $.trim(new showdown.Converter().makeMarkdown(temp));
+        temp = $.trim(temp.replace(/\n\n<!-- -->\n/g, '\n'));        
+        temp = $.trim(temp.replace(/\n<!-- -->\n/g, '\n')); 
+        temp = $.trim(temp.replace(/\<!-- -->/g, ''));
+        temp = $.trim(temp.replace(/\n\n<!-- Downloaded from Tutorial Creator on.*-->/g, ''));
+        temp += "\n\n<!-- Downloaded from Tutorial Creator on " + new Date($.now()) + " -->";
+        download("content.md", temp);
     });
 
     $('#main').on('click', '#import', function () {
@@ -136,7 +143,7 @@ $(function () {
     });
 
     $('#main').on('click', '#reset_manifest', function () {
-        $('#manifestForm').find("input[type=text], textarea").val("");
+        $('#manifestForm').find("input[type=text], input[type=date], textarea").val("");
         while ($('#tabs-container .nav-link .close').length > 0) {
             $('#tabs-container .nav-link .close:last').click();
         }
