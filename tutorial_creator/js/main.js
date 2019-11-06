@@ -36,20 +36,49 @@ $(function () {
 
     $('#main').on('click', '#btn_template', getTemplate);
 
-    $('#main').on('click', '#preview', function () {
-        if (window.localStorage.getItem('manifestValue') === null) {
-            alert('Enter at least Title in the manifest tab to preview in HTML.')
-            loadFile(nav_pages[1].html);
-        }
-        else
+    $('#main').on('click', '#preview_from_manifest', function () {
+        var data = JSON.parse(window.localStorage.getItem("manifestValue"));
+        var flag = false;
+        data = JSON.parse(data).tutorials;
+
+        $(data).each(function (i) {
+            if (!flag) {
+                var title = $.trim(data[i].title);
+                var filename = $.trim(data[i].filename);
+                if (title.length === 0 && filename.length === 0) {
+                    alert('Enter both Title and MD File Path in the manifest tab to preview in HTML.');
+                    flag = true;
+                }
+                else if (title.length === 0) {
+                    alert('Enter Title in the manifest tab to preview in HTML.');
+                    flag = true;
+                }
+                else if (filename.length === 0) {
+                    alert('Enter MD File Path in the manifest tab to preview in HTML.');
+                    flag = true;
+                }
+                if(flag) {
+                    $('#tabs-container .nav-link:eq(' + i + ')').tab('show');
+                }
+            }            
+        });
+
+        if (!flag) {
+            window.localStorage.setItem('preview', 'manifest');
             window.open("./preview/index.html", "_preview");
+        }
+    });
+
+    $('#main').on('click', '#preview_from_home', function () {
+        window.localStorage.setItem('preview', 'home');
+        window.open("./preview/index.html", "_preview");
     });
 
     $('#main').on('click', '#download_md', function () {
         var temp = new showdown.Converter().makeHtml($.trim($('#mdBox').val()));
         temp = $.trim(new showdown.Converter().makeMarkdown(temp));
-        temp = $.trim(temp.replace(/\n\n<!-- -->\n/g, '\n'));        
-        temp = $.trim(temp.replace(/\n<!-- -->\n/g, '\n')); 
+        temp = $.trim(temp.replace(/\n\n<!-- -->\n/g, '\n'));
+        temp = $.trim(temp.replace(/\n<!-- -->\n/g, '\n'));
         temp = $.trim(temp.replace(/\<!-- -->/g, ''));
         temp = $.trim(temp.replace(/\n\n<!-- Downloaded from Tutorial Creator on.*-->/g, ''));
         temp += "\n\n<!-- Downloaded from Tutorial Creator on " + new Date($.now()) + " -->";
@@ -168,8 +197,8 @@ function homeInit() {
 }
 
 function manifestInit() {
-    setFormData();     
-    getFormData();   
+    setFormData();
+    getFormData();
 }
 function loadFile(filename) {
     var xhr = new XMLHttpRequest();
@@ -215,7 +244,7 @@ function setFormData() {
     }
 
     $.each(data, function (i) {
-        for (key in data[i]) {            
+        for (key in data[i]) {
             $('input[name="' + key + '"]:eq(' + i + '), textarea[name="' + key + '"]:eq(' + i + ')').val($.trim(data[i][key]));
         }
     });
@@ -304,6 +333,7 @@ function showMdInHtml() {
         }
     }
     else {
+        window.localStorage.setItem('preview', 'home');
         if ($('#previewBox').length === 0) {
             var previewBox = document.createElement('div');
             $(previewBox).attr({ id: 'previewBox', class: 'card-body' });
