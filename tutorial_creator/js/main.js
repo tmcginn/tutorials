@@ -29,7 +29,7 @@ $(function () {
 
     // The following event listeners are for shortcut buttons
     $.each(shortcutbtn_click, function (index, value) {
-        $('#main').on('click', value.id, function () {
+        $('#main').on('click', value.id, function () {            
             shortcutClick(value.placeholder1, value.placeholder2, value.placeholder3);
         });
     });
@@ -57,10 +57,10 @@ $(function () {
                     alert('Enter MD File Path in the manifest tab to preview in HTML.');
                     flag = true;
                 }
-                if(flag) {
+                if (flag) {
                     $('#tabs-container .nav-link:eq(' + i + ')').tab('show');
                 }
-            }            
+            }
         });
 
         if (!flag) {
@@ -159,11 +159,11 @@ $(function () {
         getFormData();
     });
 
-    $('#main').bind('input propertychange', '#mdBox', function () {
+    $('#main').bind('input propertychange', '#mdBox', function (e) {
         if ($('#mdBox').length !== 0) {
             showMdInHtml();
         }
-    });
+    });    
 
     $('#main').bind('input propertychange', '#manifestForm input', function () {
         if ($('#manifestForm').length !== 0) {
@@ -183,6 +183,7 @@ $(function () {
     $('#main').on('click', '#btn_image_files', function () {
         $('#image_files')[0].click();
     });
+
 });
 
 function homeInit() {
@@ -190,10 +191,7 @@ function homeInit() {
     if (window.localStorage.getItem("mdValue") === null) { //template is set only if you open the tool for the first time
         getTemplate();
     }
-    if (window.localStorage.getItem("manifestValue") === null) {
-        window.localStorage.setItem('manifestValue', JSON.stringify('{\"tutorials\":[{\"title\":\"\",\"description\":\"\",\"filename\":\"\",\"partnumber\":\"\",\"publisheddate\":\"\",\"contentid\":\"\"}]}'));
-    }
-    showMdInHtml();
+    showMdInHtml();    
 }
 
 function manifestInit() {
@@ -404,14 +402,24 @@ function shortcutClick(placeholder1, placeholder2, placeholder3) {
         }
     }
     else {
+        var substring = $('#mdBox').val().substr(start_index, end_index - start_index);
         if (placeholder3 === undefined) {
-            if (!document.execCommand('insertText', false, placeholder2 + $('#mdBox').val().substr(start_index, end_index - start_index))) {
-                $('#mdBox').val($('#mdBox').val().substr(0, start_index) + placeholder2 + $('#mdBox').val().substr(start_index, $('#mdBox').val().length - end_index));
+            var newlineIndex = [start_index];
+            for (var index = substring.indexOf('\n'); index != -1; index = substring.indexOf('\n', index + 1)) {
+                newlineIndex.push(index + start_index + 1);
             }
+            newlineIndex.sort(function (a, b) { return b - a });
+
+            $(newlineIndex).each(function (i, value) {
+                start_index = end_index = mdBox.selectionStart = mdBox.selectionEnd = value;
+                if (!document.execCommand('insertText', false, placeholder2)) {
+                    $('#mdBox').val($('#mdBox').val().substr(0, start_index) + placeholder2 + $('#mdBox').val().substr(start_index, $('#mdBox').val().length - end_index));
+                }
+            });
         }
         else {
-            if (!document.execCommand('insertText', false, placeholder2 + $('#mdBox').val().substr(start_index, end_index - start_index) + placeholder3)) {
-                $('#mdBox').val($('#mdBox').val().substr(0, start_index) + placeholder2 + $('#mdBox').val().substr(start_index, end_index - start_index) + placeholder3 + $('#mdBox').val().substr(end_index, $('#mdBox').val().length - end_index));
+            if (!document.execCommand('insertText', false, placeholder2 + substring + placeholder3)) {
+                $('#mdBox').val($('#mdBox').val().substr(0, start_index) + placeholder2 + substring + placeholder3 + $('#mdBox').val().substr(end_index, $('#mdBox').val().length - end_index));
             }
         }
     }
