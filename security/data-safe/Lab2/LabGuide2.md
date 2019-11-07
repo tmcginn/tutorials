@@ -1,6 +1,6 @@
 # Lab 2: Provisioning Audit and Alert Policies
 
-## Introduction
+## Before You Begin
 ### Objectives
 - Provision audit and alert policies on a target database by using the Activity Auditing wizard
 - View details for an audit trail in Oracle Data Safe
@@ -187,6 +187,3 @@ On the **Audit Trails** page, you can manage all of the audit trails for your ta
 
 
   ![](./img/enable-custom-audit-policy.png)  
-
-## Next Steps
-Select the next lab from the Contents Menu.

@@ -1,6 +1,6 @@
 # Lab 5: Discovering and Masking Sensitive Data
 
-## Introduction
+## Before You Begin
 ### Objectives
 
 - View sensitive data in your Autonomous Transaction Processing (ATP) database
@@ -353,7 +353,6 @@ The Data Masking wizard generates a masking policy for your target database base
   You can resize the panel to view more data, and you can scroll down and to the right.
 
   ![](./img/masked-data.png)
-
 
 ## Conclusion
 Congratulations! You have completed this workshop.

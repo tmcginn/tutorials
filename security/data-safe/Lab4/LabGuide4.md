@@ -1,6 +1,6 @@
 # Lab 4: Analyzing Alerts and Audit Reports
 
-## Introduction
+## Before You Begin
 ### Objectives
 - View and close alerts
 - Analyze open alerts from the dashboard
@@ -161,8 +161,6 @@ Your data values may be different than those shown in the screenshots in this la
 - Notice that the **All Alerts** report is filtered to show only the open alerts for your target database for the past 7 days.
 
   ![](./img/all-alerts-report-filtered.png)
-
-
 
 
 ## **STEP 3**: View all audit records for the past week
@@ -335,8 +333,3 @@ Your data values may be different than those shown in the screenshots in this la
 - View the report, and then close it.
 
   ![](./img/failed-logins-pdf.png)
-
-
-## Next Steps
-Select the next lab from the Contents Menu.
- 

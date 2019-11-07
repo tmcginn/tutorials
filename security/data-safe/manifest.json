@@ -1,5 +1,13 @@
 {
     "tutorials": [
+        {
+            "title": "Oracle Data Safe Workshop",
+            "description":"Introduction to the workshop",
+            "partnumber": "Ennnnn_01",
+            "publisheddate": "10/31/2019",
+            "contentid": "12nnnn",
+            "filename":"https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/security/data-safe/README.md"
+        },
         {            
             "title": "Lab 1: Viewing a Registered Target Database",
             "description":"Viewing a Registered Target Database",
