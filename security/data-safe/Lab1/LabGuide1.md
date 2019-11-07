@@ -1,6 +1,6 @@
 # Lab 1: Viewing a Registered Target Database
 
-## Introduction
+## Before You Begin
 ### Objectives
 - Sign in to Oracle Cloud Infrastructure
 - Sign in to the Oracle Data Safe Console
@@ -21,7 +21,7 @@ To complete this lab, you need to have the following:
 
 - In the **Cloud Tenant** field, enter the tenancy name provided to you during the lab, and then click **Continue**.
 
-    ![OCI Tenant Sign in](./img/2019-08-13%2013_59_08-Oracle%20Cloud%20Infrastructure%20_%20Sign%20In.png "OCI Tenant Sign in")
+    ![](./img/2019-08-13%2013_59_08-Oracle%20Cloud%20Infrastructure%20_%20Sign%20In.png)
 
 - Under **Oracle Cloud Infrastructure**, enter your **username** and **password**, and then click **Sign In**.
 
@@ -29,14 +29,14 @@ To complete this lab, you need to have the following:
 
   Please do not change your password.
 
-  ![OCI Sign in](./img/oci-sign-in.png "OCI Sign in")
+  ![](./img/oci-sign-in.png)
 
 
 ## **STEP 2**: Sign in to the Oracle Data Safe Console
 
 - From the navigation menu in Oracle Cloud Infrastructure, select **Data Safe**.
 
-    ![Select Data Safe in OCI](./img/select-data-safe-in-oci.png)
+    ![](./img/select-data-safe-in-oci.png)
 
 - On the Data Safe page, view the list of databases that are registered with Oracle Data Safe. Click **Service Console** to access the Oracle Data Safe Console.
 
@@ -105,7 +105,3 @@ To complete this lab, you need to have the following:
 
 
 - Click **Cancel** to close the **Target Details** dialog box.
-
-
-## Next Steps
-Select the next lab from the Contents Menu.

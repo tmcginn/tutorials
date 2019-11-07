@@ -1,6 +1,6 @@
 # Lab 3: Assessing Database Configurations and Users
 
-## Introduction
+## Befor You Begin
 ### Objectives
 - Run a Security Assessment job against a target database
 - Run a User Assessment job against a target database
@@ -197,7 +197,3 @@ You can use User Assessment to identify user settings and risks on your target d
     Here is a case where you might consider removing these roles from this user.
 
     ![](./img/approle-grindelwald.png)
-
-
-## Next Steps
-Select the next lab from the Contents Menu.
