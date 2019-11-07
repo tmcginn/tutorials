@@ -1,0 +1,1 @@
+This image describes the Oracle Cloud My Services page. You will see the Autonomous NoSQL Cloud service listed in this page.

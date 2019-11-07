@@ -29,24 +29,60 @@ $(function () {
 
     // The following event listeners are for shortcut buttons
     $.each(shortcutbtn_click, function (index, value) {
-        $('#main').on('click', value.id, function () {
+        $('#main').on('click', value.id, function () {            
             shortcutClick(value.placeholder1, value.placeholder2, value.placeholder3);
         });
     });
 
     $('#main').on('click', '#btn_template', getTemplate);
 
-    $('#main').on('click', '#preview', function () {
-        if (window.localStorage.getItem('manifestValue') === null) {
-            alert('Enter at least Title in the manifest tab to preview in HTML.')
-            loadFile(nav_pages[1].html);
-        }
-        else
+    $('#main').on('click', '#preview_from_manifest', function () {
+        var data = JSON.parse(window.localStorage.getItem("manifestValue"));
+        var flag = false;
+        data = JSON.parse(data).tutorials;
+
+        $(data).each(function (i) {
+            if (!flag) {
+                var title = $.trim(data[i].title);
+                var filename = $.trim(data[i].filename);
+                if (title.length === 0 && filename.length === 0) {
+                    alert('Enter both Title and MD File Path in the manifest tab to preview in HTML.');
+                    flag = true;
+                }
+                else if (title.length === 0) {
+                    alert('Enter Title in the manifest tab to preview in HTML.');
+                    flag = true;
+                }
+                else if (filename.length === 0) {
+                    alert('Enter MD File Path in the manifest tab to preview in HTML.');
+                    flag = true;
+                }
+                if (flag) {
+                    $('#tabs-container .nav-link:eq(' + i + ')').tab('show');
+                }
+            }
+        });
+
+        if (!flag) {
+            window.localStorage.setItem('preview', 'manifest');
             window.open("./preview/index.html", "_preview");
+        }
+    });
+
+    $('#main').on('click', '#preview_from_home', function () {
+        window.localStorage.setItem('preview', 'home');
+        window.open("./preview/index.html", "_preview");
     });
 
     $('#main').on('click', '#download_md', function () {
-        download("content.md", $.trim($('#mdBox').val()));
+        var temp = new showdown.Converter().makeHtml($.trim($('#mdBox').val()));
+        temp = $.trim(new showdown.Converter().makeMarkdown(temp));
+        temp = $.trim(temp.replace(/\n\n<!-- -->\n/g, '\n'));
+        temp = $.trim(temp.replace(/\n<!-- -->\n/g, '\n'));
+        temp = $.trim(temp.replace(/\<!-- -->/g, ''));
+        temp = $.trim(temp.replace(/\n\n<!-- Downloaded from Tutorial Creator on.*-->/g, ''));
+        temp += "\n\n<!-- Downloaded from Tutorial Creator on " + new Date($.now()) + " -->";
+        download("content.md", temp);
     });
 
     $('#main').on('click', '#import', function () {
@@ -123,11 +159,11 @@ $(function () {
         getFormData();
     });
 
-    $('#main').bind('input propertychange', '#mdBox', function () {
+    $('#main').bind('input propertychange', '#mdBox', function (e) {
         if ($('#mdBox').length !== 0) {
             showMdInHtml();
         }
-    });
+    });    
 
     $('#main').bind('input propertychange', '#manifestForm input', function () {
         if ($('#manifestForm').length !== 0) {
@@ -136,7 +172,7 @@ $(function () {
     });
 
     $('#main').on('click', '#reset_manifest', function () {
-        $('#manifestForm').find("input[type=text], textarea").val("");
+        $('#manifestForm').find("input[type=text], input[type=date], textarea").val("");
         while ($('#tabs-container .nav-link .close').length > 0) {
             $('#tabs-container .nav-link .close:last').click();
         }
@@ -147,6 +183,7 @@ $(function () {
     $('#main').on('click', '#btn_image_files', function () {
         $('#image_files')[0].click();
     });
+
 });
 
 function homeInit() {
@@ -154,15 +191,12 @@ function homeInit() {
     if (window.localStorage.getItem("mdValue") === null) { //template is set only if you open the tool for the first time
         getTemplate();
     }
-    if (window.localStorage.getItem("manifestValue") === null) {
-        window.localStorage.setItem('manifestValue', JSON.stringify('{\"tutorials\":[{\"title\":\"\",\"description\":\"\",\"filename\":\"\",\"partnumber\":\"\",\"publisheddate\":\"\",\"contentid\":\"\"}]}'));
-    }
-    showMdInHtml();
+    showMdInHtml();    
 }
 
 function manifestInit() {
-    setFormData();     
-    getFormData();   
+    setFormData();
+    getFormData();
 }
 function loadFile(filename) {
     var xhr = new XMLHttpRequest();
@@ -208,7 +242,7 @@ function setFormData() {
     }
 
     $.each(data, function (i) {
-        for (key in data[i]) {            
+        for (key in data[i]) {
             $('input[name="' + key + '"]:eq(' + i + '), textarea[name="' + key + '"]:eq(' + i + ')').val($.trim(data[i][key]));
         }
     });
@@ -297,6 +331,7 @@ function showMdInHtml() {
         }
     }
     else {
+        window.localStorage.setItem('preview', 'home');
         if ($('#previewBox').length === 0) {
             var previewBox = document.createElement('div');
             $(previewBox).attr({ id: 'previewBox', class: 'card-body' });
@@ -367,14 +402,24 @@ function shortcutClick(placeholder1, placeholder2, placeholder3) {
         }
     }
     else {
+        var substring = $('#mdBox').val().substr(start_index, end_index - start_index);
         if (placeholder3 === undefined) {
-            if (!document.execCommand('insertText', false, placeholder2 + $('#mdBox').val().substr(start_index, end_index - start_index))) {
-                $('#mdBox').val($('#mdBox').val().substr(0, start_index) + placeholder2 + $('#mdBox').val().substr(start_index, $('#mdBox').val().length - end_index));
+            var newlineIndex = [start_index];
+            for (var index = substring.indexOf('\n'); index != -1; index = substring.indexOf('\n', index + 1)) {
+                newlineIndex.push(index + start_index + 1);
             }
+            newlineIndex.sort(function (a, b) { return b - a });
+
+            $(newlineIndex).each(function (i, value) {
+                start_index = end_index = mdBox.selectionStart = mdBox.selectionEnd = value;
+                if (!document.execCommand('insertText', false, placeholder2)) {
+                    $('#mdBox').val($('#mdBox').val().substr(0, start_index) + placeholder2 + $('#mdBox').val().substr(start_index, $('#mdBox').val().length - end_index));
+                }
+            });
         }
         else {
-            if (!document.execCommand('insertText', false, placeholder2 + $('#mdBox').val().substr(start_index, end_index - start_index) + placeholder3)) {
-                $('#mdBox').val($('#mdBox').val().substr(0, start_index) + placeholder2 + $('#mdBox').val().substr(start_index, end_index - start_index) + placeholder3 + $('#mdBox').val().substr(end_index, $('#mdBox').val().length - end_index));
+            if (!document.execCommand('insertText', false, placeholder2 + substring + placeholder3)) {
+                $('#mdBox').val($('#mdBox').val().substr(0, start_index) + placeholder2 + substring + placeholder3 + $('#mdBox').val().substr(end_index, $('#mdBox').val().length - end_index));
             }
         }
     }
