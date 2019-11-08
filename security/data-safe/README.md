@@ -7,7 +7,7 @@ This workshop lets you practice the main features in Oracle Data Safe, including
 
 Use the Contents Menu to access the labs.
 
-![](./img/Menu.png)
+![](./img/Menu.png " ")
 
 If the menu is not diplayed, you can open by clicking the menu button  
 ![Menu icon](./img/MenuButton.png).

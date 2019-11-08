@@ -21,7 +21,7 @@ To complete this lab, you need to have the following:
 
 - In the **Cloud Tenant** field, enter the tenancy name provided to you during the lab, and then click **Continue**.
 
-    ![](./img/2019-08-13%2013_59_08-Oracle%20Cloud%20Infrastructure%20_%20Sign%20In.png)
+    ![](./img/2019-08-13%2013_59_08-Oracle%20Cloud%20Infrastructure%20_%20Sign%20In.png " ")
 
 - Under **Oracle Cloud Infrastructure**, enter your **username** and **password**, and then click **Sign In**.
 
@@ -29,26 +29,26 @@ To complete this lab, you need to have the following:
 
   Please do not change your password.
 
-  ![](./img/oci-sign-in.png)
+  ![](./img/oci-sign-in.png " ")
 
 
 ## **STEP 2**: Sign in to the Oracle Data Safe Console
 
 - From the navigation menu in Oracle Cloud Infrastructure, select **Data Safe**.
 
-    ![](./img/select-data-safe-in-oci.png)
+    ![](./img/select-data-safe-in-oci.png " ")
 
 - On the Data Safe page, view the list of databases that are registered with Oracle Data Safe. Click **Service Console** to access the Oracle Data Safe Console.
 
   Each student uses his or her own database. Your database corresponds to your user name. For example, user `dsu01` uses the ATP database named `dsatp01`.
 
-    ![](./img/click-service-console.png)
+    ![](./img/click-service-console.png " ")
 
 - Under **Oracle Cloud Infrastructure**, enter your user name and password, and then click **Sign In**.
 
   Be sure to use the correct user name, which is similar to `dsu<number>` (for example, `dsu01`), and do not use the **Single Sign-On (SSO)** option.
 
-  ![](./img/oci-sign-in.png)
+  ![](./img/oci-sign-in.png " ")
 
 - Bookmark the page so that if you need to sign in again, you can navigate directly to the Oracle Data Safe **SIGN IN** page.
 
@@ -62,7 +62,7 @@ To complete this lab, you need to have the following:
 
   When you first sign in, the charts in your dashboard do not contain data because you have not yet used the features.
 
-    ![](./img/initial-ds-dashboard.png)
+    ![](./img/initial-ds-dashboard.png " ")
 
 
 
@@ -70,14 +70,14 @@ To complete this lab, you need to have the following:
 
   They provide quick access to the dashboard (**Home** tab), registered target databases (**Targets** tab), the Oracle Data Safe Library (**Library** tab), reports for all Oracle Data Safe features (**Reports** tab), all of the alerts (**Alerts** tab), and all of the current and scheduled jobs (**Jobs** tab).
 
-  ![](./img/top-tabs.png)
+  ![](./img/top-tabs.png " ")
 
 
 - View the side tabs.
 
   They provide quick access to Oracle Data Safe's main features, including **Security Assessment**, **User Assessment**, **Data Discovery**, **Data Masking**, and **Activity Auditing**.
 
-    ![](./img/side-tabs.png)
+    ![](./img/side-tabs.png " ")
 
 
 
@@ -87,12 +87,12 @@ To complete this lab, you need to have the following:
 
   An Oracle Data Safe administrator configured an authorization policy in Oracle Data Safe to grant you access to the resource group that contains your database.
 
-    ![](./img/select-targets-tab.png)
+    ![](./img/select-targets-tab.png " ")
  
 
 - Click the name of your target database.
 
-   ![](./img/click-target-db.png)
+   ![](./img/click-target-db.png " ")
 
 
 - Review the details for your target database.
@@ -101,7 +101,7 @@ To complete this lab, you need to have the following:
 
   An Oracle Data Safe administrator registered your Autonomous Database through the Autonomous Transaction Processing (ATP) Console.
 
-  ![](./img/dsatp01-registered-db.png)
+  ![](./img/dsatp01-registered-db.png " ")
 
 
 - Click **Cancel** to close the **Target Details** dialog box.
