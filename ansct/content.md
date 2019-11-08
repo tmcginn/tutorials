@@ -31,15 +31,15 @@ Perform the following steps to find your client credentials. Save these credenti
 1.  Sign in to your Oracle Cloud account by accessing the link from your welcome email.
 2.  The Oracle Cloud My Services page opens up for you.
 
-    ![My Services page](img/cloud_my_services.png "My Services page")
+    ![My Services page](img/cloud_my_services.png " ")
 
 3.  To access the Identity Console, click ![Navigation icon](img/navigation_icon.png) and then click Users. In the User Management page, click Identity Console.
 
-    ![IDCS page](img/idcs_page.png "IDCS page")
+    ![IDCS page](img/idcs_page.png " ")
 
 4.  In the Oracle Identity Cloud Services page, click ![Navigation icon](img/navigation_icon.png) and then click Applications.
 
-    ![Applications page](img/applications_page.png "Applications page")
+    ![Applications page](img/applications_page.png " ")
 
 5.  In the Applications page, click **NoSQLClient**.
 

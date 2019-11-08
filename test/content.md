@@ -26,7 +26,7 @@ One line with code example `HelloWorld.java`.
 1. Ordered list item 1.
 2. Ordered list item 2 with image below.
 
-    ![Image alt text](img/screenshot1.png "Image title")
+    ![Image alt text](img/screenshot1.png " ")
 
 3. Example with inline navigation icon click **Navigation**.
 

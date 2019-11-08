@@ -29,7 +29,7 @@ $(function () {
 
     // The following event listeners are for shortcut buttons
     $.each(shortcutbtn_click, function (index, value) {
-        $('#main').on('click', value.id, function () {            
+        $('#main').on('click', value.id, function () {
             shortcutClick(value.placeholder1, value.placeholder2, value.placeholder3);
         });
     });
@@ -163,7 +163,7 @@ $(function () {
         if ($('#mdBox').length !== 0) {
             showMdInHtml();
         }
-    });    
+    });
 
     $('#main').bind('input propertychange', '#manifestForm input', function () {
         if ($('#manifestForm').length !== 0) {
@@ -191,12 +191,14 @@ function homeInit() {
     if (window.localStorage.getItem("mdValue") === null) { //template is set only if you open the tool for the first time
         getTemplate();
     }
-    showMdInHtml();    
+    showMdInHtml();
 }
 
 function manifestInit() {
-    setFormData();
-    getFormData();
+    if (window.localStorage.getItem("manifestValue") !== null) { //template is set only if you open the tool for the first time
+        setFormData();
+        getFormData();
+    }
 }
 function loadFile(filename) {
     var xhr = new XMLHttpRequest();
