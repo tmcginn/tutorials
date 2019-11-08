@@ -3,7 +3,7 @@ var shortcutbtn_click = [
     { id: '#btn_h2', placeholder1: '## Enter h2 title here\n', placeholder2: '## ', placeholder3: undefined },
     { id: '#btn_h3', placeholder1: '### Enter h3 title here\n', placeholder2: '### ', placeholder3: undefined },
     { id: '#btn_icon', placeholder1: '![alt text](img/img_name.png)', placeholder2: '![', placeholder3: '](img/img_name.png)' },
-    { id: '#btn_image', placeholder1: '![alt text](img/img_name.png "image title")', placeholder2: '![', placeholder3: '](img/img_name.png "image title")' },
+    { id: '#btn_image', placeholder1: '![alt text](img/img_name.png "Description of image follows")', placeholder2: '![', placeholder3: '](img/img_name.png "image title")' },
     { id: '#btn_link', placeholder1: '[Text to display](https://www.example.com)', placeholder2: '[', placeholder3: '](https://www.example.com)' },
     { id: '#btn_bold', placeholder1: '**Enter text here**', placeholder2: '**', placeholder3: '**' },
     { id: '#btn_italics', placeholder1: '_Enter text here_', placeholder2: '_', placeholder3: '_' },
