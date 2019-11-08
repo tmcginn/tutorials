@@ -15,10 +15,15 @@ The figcaption is in the format Description of illustration [filename].
 The image description files must be added inside the files folder in the same location as the MD file.*/
 function wrapImgWithFigure(articleElement) {
     $(articleElement).find("img").each(function () {
-        if ($(this).attr("title") !== undefined) { //only images with titles are wrapped with figure tags
+        if ($(this).attr("title") !== undefined) { //only images with titles are wrapped with figure tags            
             $(this).wrap("<figure></figure>"); //wrapping image tags with figure tags
-            var imgFileNameWithoutExtn = $(this).attr("src").split("/").pop().split('.').shift(); //extracting the image filename without extension
-            $(this).parent().append('<figcaption><a href="files/' + imgFileNameWithoutExtn + '.txt">Description of illustration [' + imgFileNameWithoutExtn + ']</figcaption>');
+            if ($.trim($(this).attr("title")).length > 0) {
+                var imgFileNameWithoutExtn = $(this).attr("src").split("/").pop().split('.').shift(); //extracting the image filename without extension
+                $(this).parent().append('<figcaption><a href="files/' + imgFileNameWithoutExtn + '.txt">Description of illustration [' + imgFileNameWithoutExtn + ']</figcaption>');
+            }
+            else {
+                $(this).removeAttr('title');
+            }
         }
     });
 }
@@ -78,7 +83,7 @@ function populateRightSideNav(manifestFileContent) {
     var allTutorials = manifestFileContent.tutorials;
     if (allTutorials.length > 1) { //means it is a workshop            
         //adding open button
-		var openbtn_div = $(document.createElement('div')).attr("id", "openbtn_div");
+        var openbtn_div = $(document.createElement('div')).attr("id", "openbtn_div");
         var openbtn = $(document.createElement('span')).attr("class", "openbtn");
         $(openbtn).click(function () { //if right side navigation is open, then it closes it.
             if ($('#mySidenav').width() > 0)
@@ -88,7 +93,7 @@ function populateRightSideNav(manifestFileContent) {
         });
         $(openbtn).html("&#9776;"); //this add the hamburger icon
         $(openbtn).appendTo(openbtn_div);
-		$(openbtn_div).appendTo('header');
+        $(openbtn_div).appendTo('header');
         //creating right side nav div
         var sideNavDiv = $(document.createElement('div')).attr({
             id: "mySidenav",
@@ -128,15 +133,15 @@ function populateRightSideNav(manifestFileContent) {
 /*the following function changes the relative path of images to the absolute path of the MD file.
 This ensures that the images are picked up from the same location as the MD file.
 The manifest file can be in any location.*/
-function addPathToImageSrc(articleElement, myUrl) {  
+function addPathToImageSrc(articleElement, myUrl) {
 	/*the following if condition is passed only when a path is specified in the filename of the manifest.
 	if "/" is not specified in the filename, it would mean that the index.html file is in the same location as the MD,
-	hence there is no need to replace relative images src */ 
+	hence there is no need to replace relative images src */
     if (myUrl.indexOf("/") >= 0) { //checking if url is absolute path
         myUrl = myUrl.replace(/\/[^\/]+$/, "/"); //removing filename from the url        
-        $(articleElement).find('img').each(function () {			
+        $(articleElement).find('img').each(function () {
             if ($(this).attr("src").indexOf("://") == -1) {
-                $(this).attr("src", myUrl + $(this).attr("src"));				
+                $(this).attr("src", myUrl + $(this).attr("src"));
             }
         });
     }
@@ -144,18 +149,18 @@ function addPathToImageSrc(articleElement, myUrl) {
 /*the following function changes the relative path of all relative HREFs to the absolute path of the MD file.
 This ensures that the files are linked correctly from the same location as the MD file.
 The manifest file can be in any location.*/
-function addPathToAllRelativeHref(articleElement, myUrl) {	
+function addPathToAllRelativeHref(articleElement, myUrl) {
 	/*the following if condition is passed only when a path is specified in the filename of the manifest.
 	if "/" is not specified in the filename, it would mean that the index.html file is in the same location as the MD,
-	hence there is no need to replace relative hrefs */ 
+	hence there is no need to replace relative hrefs */
     if (myUrl.indexOf("/") >= 0) { //checking if url is absolute path
-	    myUrl = myUrl.replace(/\/[^\/]+$/, "/"); //removing filename from the url        
-		$(articleElement).find('a').each(function () {				
-			if($(this).attr("href").indexOf("://") == -1) {
-				$(this).attr("href", myUrl + $(this).attr("href"));				
-			}				
-		});
-	}
+        myUrl = myUrl.replace(/\/[^\/]+$/, "/"); //removing filename from the url        
+        $(articleElement).find('a').each(function () {
+            if ($(this).attr("href").indexOf("://") == -1) {
+                $(this).attr("href", myUrl + $(this).attr("href"));
+            }
+        });
+    }
 }
 /* This function picks up the entire converted content in HTML, break them into sections, and then adds horizontal line in the
 end. It uses indexes to break content into sections. */
@@ -192,18 +197,18 @@ function closeRightSideNav() {
 function createShortNameFromTitle(title) {
     var removeFromTitle = ["-a-", "-in-", "-of-", "-the-", "-to-", "-an-", "-is-", "-your-", "-you-", "-and-", "-from-", "-with-"];
     var shortname = title.toLowerCase().replace(/ /g, '-').trim().substr(0, 50);
-    $.each(removeFromTitle, function(i, value) {
+    $.each(removeFromTitle, function (i, value) {
         shortname = shortname.replace(new RegExp(value, 'g'), '-');
-    });    
-    if(shortname.length > 40) {
+    });
+    if (shortname.length > 40) {
         shortname = shortname.substr(0, shortname.lastIndexOf('-'));
     }
     return shortname;
 }
 /* The following function selects the toc item in the left if it has hash ID */
 function selectTocItemBasedOnHash() {
-	$('.tocify-item').each(function () {
-		if($(this).attr('data-unique') === location.hash.slice(1))
-			$(this).click();
-	});
+    $('.tocify-item').each(function () {
+        if ($(this).attr('data-unique') === location.hash.slice(1))
+            $(this).click();
+    });
 }
