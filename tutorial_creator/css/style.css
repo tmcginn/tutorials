@@ -35,7 +35,8 @@ img {
 #download_html,
 #download_manifest,
 #reset_manifest,
-#btn_image_files {
+#btn_image_files,
+#download_zip {
     font-size: 0.8rem;
     line-height: 0.8;
     padding: .5rem .7rem;

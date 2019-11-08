@@ -1,3 +1,4 @@
+var testval;
 var shortcutbtn_click = [
     { id: '#btn_h1', placeholder1: '# Enter h1 title here\n', placeholder2: '# ', placeholder3: undefined },
     { id: '#btn_h2', placeholder1: '## Enter h2 title here\n', placeholder2: '## ', placeholder3: undefined },
@@ -183,7 +184,7 @@ $(function () {
     $('#main').on('click', '#btn_image_files', function () {
         $('#image_files')[0].click();
     });
-
+    $('#main').on('click', '#download_zip', downloadZip);
 });
 
 function homeInit() {
@@ -434,140 +435,136 @@ function shortcutClick(placeholder1, placeholder2, placeholder3) {
 The navigation appears only when the manifest file has more than 1 tutorial. The title that appears in the side navigation 
 is picked up from the manifest file. */
 function setupRightSideNavForDownload(manifestFileContent, tutorialHtml, tutorialNo) {
-	var allTutorials = manifestFileContent.tutorials;
-	if (allTutorials.length > 1) { //means it is a workshop            
-		//adding open button
-		var openbtn_div = $(document.createElement('div')).attr("id", "openbtn_div");
-		var openbtn = $(document.createElement('span')).attr({
-			class: "openbtn",
-			onclick: "$('#mySidenav').attr('style', 'width: 250px;')"
-		});
+    var allTutorials = manifestFileContent.tutorials;
+    if (allTutorials.length > 1) { //means it is a workshop            
+        //adding open button
+        var openbtn_div = $(document.createElement('div')).attr("id", "openbtn_div");
+        var openbtn = $(document.createElement('span')).attr({
+            class: "openbtn",
+            onclick: "$('#mySidenav').attr('style', 'width: 250px;')"
+        });
 
-		$(openbtn).html("&#9776;"); //this add the hamburger icon
-		$(openbtn).appendTo(openbtn_div);
-		$(openbtn_div).appendTo($(tutorialHtml).find('header'));
-		//creating right side nav div
-		var sideNavDiv = $(document.createElement('div')).attr({
-			id: "mySidenav",
-			class: "sidenav"
-		});
-		//adding title for sidenav
-		var sideNavHeaderDiv = $(document.createElement('div')).attr("id", "nav_header");
-		var nav_title = $(document.createElement('h3')).text(rightSideNavTitle);
-		$(nav_title).appendTo(sideNavHeaderDiv);
-		//creating close button
-		var closebtn = $(document.createElement('a')).attr({
-			href: "javascript:void(0)",
-			class: "closebtn",
-			onclick: "$('#mySidenav').attr('style', 'width: 0px;')"
-		});
-		$(closebtn).html("&times;"); //adds a cross icon to the header
-		$(closebtn).appendTo(sideNavHeaderDiv);
-		$(sideNavHeaderDiv).appendTo(sideNavDiv);
-		//adding tutorials from JSON and linking them with ?shortnames
-		for (var i = 0; i < allTutorials.length; i++) {
-			var sideNavEntry = $(document.createElement('a')).attr('class', 'tutorials_nav');
-			if (tutorialNo === i) {
-				$(sideNavEntry).addClass('selected');
-				$(sideNavEntry).attr('href', 'index.html');
-			}
-			else if (tutorialNo === 0 && i !== 0) {
-				$(sideNavEntry).attr('href', './' + createShortNameFromTitle(allTutorials[i].title) + '/index.html');
-				$(sideNavEntry).removeClass('selected');
-			}
-			else if (tutorialNo !== 0 && i === 0) {
-				$(sideNavEntry).attr('href', '../index.html');
-			}
-			else if (tutorialNo !== 0 && i !== 0) {
-				$(sideNavEntry).attr('href', '../' + createShortNameFromTitle(allTutorials[i].title) + '/index.html');
-			}
+        $(openbtn).html("&#9776;"); //this add the hamburger icon
+        $(openbtn).appendTo(openbtn_div);
+        $(openbtn_div).appendTo($(tutorialHtml).find('header'));
+        //creating right side nav div
+        var sideNavDiv = $(document.createElement('div')).attr({
+            id: "mySidenav",
+            class: "sidenav"
+        });
+        //adding title for sidenav
+        var sideNavHeaderDiv = $(document.createElement('div')).attr("id", "nav_header");
+        var nav_title = $(document.createElement('h3')).text(rightSideNavTitle);
+        $(nav_title).appendTo(sideNavHeaderDiv);
+        //creating close button
+        var closebtn = $(document.createElement('a')).attr({
+            href: "javascript:void(0)",
+            class: "closebtn",
+            onclick: "$('#mySidenav').attr('style', 'width: 0px;')"
+        });
+        $(closebtn).html("&times;"); //adds a cross icon to the header
+        $(closebtn).appendTo(sideNavHeaderDiv);
+        $(sideNavHeaderDiv).appendTo(sideNavDiv);
+        //adding tutorials from JSON and linking them with ?shortnames
+        for (var i = 0; i < allTutorials.length; i++) {
+            var sideNavEntry = $(document.createElement('a')).attr('class', 'tutorials_nav');
+            if (tutorialNo === i) {
+                $(sideNavEntry).addClass('selected');
+                $(sideNavEntry).attr('href', 'index.html');
+            }
+            else if (tutorialNo === 0 && i !== 0) {
+                $(sideNavEntry).attr('href', './' + createShortNameFromTitle(allTutorials[i].title) + '/index.html');
+                $(sideNavEntry).removeClass('selected');
+            }
+            else if (tutorialNo !== 0 && i === 0) {
+                $(sideNavEntry).attr('href', '../index.html');
+            }
+            else if (tutorialNo !== 0 && i !== 0) {
+                $(sideNavEntry).attr('href', '../' + createShortNameFromTitle(allTutorials[i].title) + '/index.html');
+            }
 
-			$(sideNavEntry).text(allTutorials[i].title); //The title specified in the manifest appears in the side nav as navigation
-			$(sideNavEntry).appendTo(sideNavDiv);
-			$(document.createElement('hr')).appendTo(sideNavDiv);
-			if (window.location.search.split('?')[1] === createShortNameFromTitle(allTutorials[i].title)) //the selected class is added if the title is currently selected
-				$(sideNavEntry).attr("class", "selected");
-		}
-		$(sideNavDiv).appendTo($(tutorialHtml).find('header')); //sideNavDiv is added to the HTML template header
-	}
+            $(sideNavEntry).text(allTutorials[i].title); //The title specified in the manifest appears in the side nav as navigation
+            $(sideNavEntry).appendTo(sideNavDiv);
+            $(document.createElement('hr')).appendTo(sideNavDiv);
+            if (window.location.search.split('?')[1] === createShortNameFromTitle(allTutorials[i].title)) //the selected class is added if the title is currently selected
+                $(sideNavEntry).attr("class", "selected");
+        }
+        $(sideNavDiv).appendTo($(tutorialHtml).find('header')); //sideNavDiv is added to the HTML template header
+    }
 }
 
 function downloadZip() {
-	var previewType = window.localStorage.getItem("preview");
-	if (previewType !== "manifest") { return; }
-	var localStorageManifest = JSON.parse(window.localStorage.getItem("manifestValue"));
-	var allTutorials = JSON.parse(localStorageManifest).tutorials;
-	var tutorialHtml = [];
+    var previewType = window.localStorage.getItem("preview");
+    if (previewType !== "manifest") { return; }
+    var localStorageManifest = JSON.parse(window.localStorage.getItem("manifestValue"));
+    var allTutorials = JSON.parse(localStorageManifest).tutorials;
+    var htmlTemplate = document.createElement('html');
 
-	$.when(
-		$.getScript("https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js"),
-		$.getScript("https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.2/FileSaver.min.js"),
-		$.getScript("https://ashwin-agarwal.github.io/tutorials/common/js/load.js")
-	).done(function () {
-		var zip = new JSZip();
-		$.get("https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/template/download.html", function (htmlTemplate) {
-			var tmpElement = document.createElement('html');
-			tmpElement.innerHTML = htmlTemplate;
-			$(allTutorials).each(function (i, tutorialEntryInManifest) {
-				$.get(tutorialEntryInManifest.filename, function (markdownContent) { //reading MD file in the manifest and storing content in markdownContent variable
-					var articleElement = document.createElement('article');
-					$(articleElement).html(new showdown.Converter().makeHtml(markdownContent)); //converting markdownContent to HTML by using showndown plugin				
-					addPathToImageSrc(articleElement, tutorialEntryInManifest.filename); //adds the path for the image based on the filename in manifest				
-					wrapSectionTagAndAddHorizonatalLine(articleElement); //adding each section within section tag and adding HR line
-					addH2ImageIcons(articleElement); //Adding image, class, width, and height to the h2 title img
-					wrapImgWithFigure(articleElement); //Wrapping images with figure, adding figcaption to all those images that have title in the MD
-					//fixFigCaptions(articleElement, tutorialEntryInManifest.filename); //Fixing figcaptions for those images that were loaded from the localstorage as the src of the localstorage is like a junk value
-					addPathToAllRelativeHref(articleElement, tutorialEntryInManifest.filename); //adding the path for all HREFs that are relative based on the filename in manifest
-					movePreInsideLi(articleElement); //moving the pre elements a layer up for stylesheet matching
-					$(articleElement).find('a').attr('target', '_blank'); //setting target for all ahrefs to _blank	
-					$(articleElement).find('ul li p:first-child').contents().unwrap(); //removing the p tag from first li child as CSS changes the formatting											
+    $.when(
+        $.getScript("https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js"),
+        $.getScript("https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.2/FileSaver.min.js"),
+        $.getScript("https://ashwin-agarwal.github.io/tutorials/common/js/load.js"),
+        $.get("https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/template/download.html", function (downloadFile) {
+            htmlTemplate.innerHTML = downloadFile;
+        })
+    ).done(function () {
+        var zip = new JSZip();
+        var done = 0;
+        $(allTutorials).each(function (tutorialNo, tutorialEntryInManifest) {
+            $.get(tutorialEntryInManifest.filename, function (markdownContent) { //reading MD file in the manifest and storing content in markdownContent variable
+                var articleElement = document.createElement('article');
+                $(articleElement).html(new showdown.Converter().makeHtml(markdownContent)); //converting markdownContent to HTML by using showndown plugin				
+                addPathToImageSrc(articleElement, tutorialEntryInManifest.filename); //adds the path for the image based on the filename in manifest				
+                wrapSectionTagAndAddHorizonatalLine(articleElement); //adding each section within section tag and adding HR line
+                addH2ImageIcons(articleElement); //Adding image, class, width, and height to the h2 title img
+                wrapImgWithFigure(articleElement); //Wrapping images with figure, adding figcaption to all those images that have title in the MD
+                //fixFigCaptions(articleElement, tutorialEntryInManifest.filename); //Fixing figcaptions for those images that were loaded from the localstorage as the src of the localstorage is like a junk value
+                addPathToAllRelativeHref(articleElement, tutorialEntryInManifest.filename); //adding the path for all HREFs that are relative based on the filename in manifest
+                movePreInsideLi(articleElement); //moving the pre elements a layer up for stylesheet matching
+                $(articleElement).find('a').attr('target', '_blank'); //setting target for all ahrefs to _blank	
+                $(articleElement).find('ul li p:first-child').contents().unwrap(); //removing the p tag from first li child as CSS changes the formatting											
 
-					tutorialHtml.push(document.implementation.createHTMLDocument());
-					tutorialHtml[i].head.innerHTML = $($(tmpElement).find('head')[0]).html();
-					tutorialHtml[i].body.innerHTML = $($(tmpElement).find('body')[0]).html();
+                var htmlDoc = document.implementation.createHTMLDocument();
+                htmlDoc.head.innerHTML = $($(htmlTemplate).find('head')[0]).html();
+                htmlDoc.body.innerHTML = $($(htmlTemplate).find('body')[0]).html();
+                $(htmlDoc).find('html').attr('lang', 'en');
+                $(htmlDoc).find('#bookContainer').html(articleElement);
 
-					$(tutorialHtml[i]).find('html').attr('lang', 'en');
-					$(tutorialHtml[i]).find('#bookContainer').html(articleElement);
-				}).done(function () { //do the following after all the above operations are complete
-					//updateh1Title function
-					var articleH1Title = $(tutorialHtml[i]).find('article>h1').text();
-					var templateH1Title = $(tutorialHtml[i]).find("#content>h1").text();
-					var replacedH1Html = $(tutorialHtml[i]).find("#content>h1").html().replace(templateH1Title, articleH1Title);
-					$(tutorialHtml[i]).find("#content>h1").html(replacedH1Html);
-					$(tutorialHtml[i]).find('article>h1').remove();
+                //updateh1Title function
+                $(htmlDoc).find('#content>h1').append($(htmlDoc).find('article>h1').text());
+                $(htmlDoc).find('article>h1').remove();
 
-					//update head content
-					$(tutorialHtml[i]).find('title').text(tutorialEntryInManifest.title);
-					$(tutorialHtml[i]).find('meta[name=contentid]').attr("content", tutorialEntryInManifest.contentid);
-					$(tutorialHtml[i]).find('meta[name=description]').attr("content", tutorialEntryInManifest.description);
-					$(tutorialHtml[i]).find('meta[name=partnumber]').attr("content", tutorialEntryInManifest.partnumber);
-					$(tutorialHtml[i]).find('meta[name=publisheddate]').attr("content", tutorialEntryInManifest.publisheddate);
+                //update head content
+                $(htmlDoc).find('title').text(tutorialEntryInManifest.title);
+                $(htmlDoc).find('meta[name=contentid]').attr("content", tutorialEntryInManifest.contentid);
+                $(htmlDoc).find('meta[name=description]').attr("content", tutorialEntryInManifest.description);
+                $(htmlDoc).find('meta[name=partnumber]').attr("content", tutorialEntryInManifest.partnumber);
+                $(htmlDoc).find('meta[name=publisheddate]').attr("content", tutorialEntryInManifest.publisheddate);
 
-					//add right navigation for contents
-					setupRightSideNavForDownload(JSON.parse(localStorageManifest), tutorialHtml[i], i);
-					var animatedOpenSideNav = document.createElement('script');
-					animatedOpenSideNav.innerHTML = "$('#mySidenav').attr('style', 'width: 250px;')";
-					$(animatedOpenSideNav).appendTo($(tutorialHtml[i]).find('body'));
+                //add right navigation for contents
+                setupRightSideNavForDownload(JSON.parse(localStorageManifest), htmlDoc, tutorialNo);
+                var animatedOpenSideNav = document.createElement('script');
+                animatedOpenSideNav.innerHTML = "$('#mySidenav').attr('style', 'width: 250px;')";
+                $(animatedOpenSideNav).appendTo($(htmlDoc).find('body'));
 
-					if (i === 0)
-						zip.file("index.html", "<!DOCTYPE html>\n" + tutorialHtml[i].documentElement.outerHTML);
-					else {
-						var folder = zip.folder(createShortNameFromTitle(tutorialEntryInManifest.title));
-						folder.file("index.html", "<!DOCTYPE html>\n" + tutorialHtml[i].documentElement.outerHTML);
-					}
 
-					if (i === allTutorials["length"] - 1) {
-						zip.generateAsync({
-							type: "blob"
-						}).then(function (content) {
-							// see FileSaver.js
-							saveAs(content, allTutorials[0].partnumber + ".zip");
-						});
-
-					}
-				});
-			});
-		});
-
-	});
+                if (tutorialNo === 0)
+                    zip.folder("html").file("index.html", "<!DOCTYPE html>\n" + htmlDoc.documentElement.outerHTML);
+                else {
+                    var folder = zip.folder("html").folder(createShortNameFromTitle(tutorialEntryInManifest.title));
+                    folder.file("index.html", "<!DOCTYPE html>\n" + htmlDoc.documentElement.outerHTML);
+                }
+            }).done(function () {
+                done++;
+                if (done === allTutorials["length"]) {
+                    zip.generateAsync({
+                        type: "blob"
+                    }).then(function (content) {
+                        // see FileSaver.js
+                        saveAs(content, allTutorials[0].partnumber + ".zip");
+                    });
+                }
+            });
+        });
+    });
 }
