@@ -187,11 +187,11 @@ function wrapSectionTagAndAddHorizonatalLine(articleElement) {
 }
 /* The following function increases the width of the side navigation div to open it. */
 function openRightSideNav() {
-    $('#mySidenav').attr("style", "width: 250px;");
+    $('#mySidenav').attr("style", "width: 250px; overflow-y: auto;");
 }
 /* The following function decreases the width of the side navigation div to close it. */
 function closeRightSideNav() {
-    $('#mySidenav').attr("style", "width: 0px;");
+    $('#mySidenav').attr("style", "width: 0px; overflow-y: hidden;");
 }
 /* The following function creates shortname from title */
 function createShortNameFromTitle(title) {
