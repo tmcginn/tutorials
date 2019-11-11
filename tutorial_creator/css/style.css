@@ -119,3 +119,8 @@ textarea {
 #manifestForm * {
     -webkit-appearance: none;
 }
+.spinner-grow {
+    width: 0.5rem !important;
+    height: 0.5rem !important;
+    vertical-align: unset !important;
+}

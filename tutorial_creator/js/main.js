@@ -184,7 +184,9 @@ $(function () {
     $('#main').on('click', '#btn_image_files', function () {
         $('#image_files')[0].click();
     });
-    $('#main').on('click', '#download_zip', downloadZip);
+    $('#main').on('click', '#download_zip', function () {
+        downloadZip();
+    });
 });
 
 function homeInit() {
@@ -441,7 +443,7 @@ function setupRightSideNavForDownload(manifestFileContent, tutorialHtml, tutoria
         var openbtn_div = $(document.createElement('div')).attr("id", "openbtn_div");
         var openbtn = $(document.createElement('span')).attr({
             class: "openbtn",
-            onclick: "$('#mySidenav').attr('style', 'width: 250px;')"
+            onclick: "$('#mySidenav').attr('style', 'width: 250px; overflow-y: auto;')"
         });
 
         $(openbtn).html("&#9776;"); //this add the hamburger icon
@@ -460,7 +462,7 @@ function setupRightSideNavForDownload(manifestFileContent, tutorialHtml, tutoria
         var closebtn = $(document.createElement('a')).attr({
             href: "javascript:void(0)",
             class: "closebtn",
-            onclick: "$('#mySidenav').attr('style', 'width: 0px;')"
+            onclick: "$('#mySidenav').attr('style', 'width: 0px; overflow-y: hidden;')"
         });
         $(closebtn).html("&times;"); //adds a cross icon to the header
         $(closebtn).appendTo(sideNavHeaderDiv);
@@ -494,6 +496,8 @@ function setupRightSideNavForDownload(manifestFileContent, tutorialHtml, tutoria
 }
 
 function downloadZip() {
+    //disabling download button    
+    disableDownloadButton();
     var previewType = window.localStorage.getItem("preview");
     if (previewType !== "manifest") { return; }
     var localStorageManifest = JSON.parse(window.localStorage.getItem("manifestValue"));
@@ -509,7 +513,11 @@ function downloadZip() {
         })
     ).done(function () {
         var zip = new JSZip();
-        var done = 0;
+        var tutorialsDone = 0;
+        var imgCount = 0, imgDone = 0;
+        var linkCount = 0, linkDone = 0;
+        var scriptCount = 0, scriptDone = 0;
+        var fileCount = 0, fileDone = 0;
         $(allTutorials).each(function (tutorialNo, tutorialEntryInManifest) {
             $.get(tutorialEntryInManifest.filename, function (markdownContent) { //reading MD file in the manifest and storing content in markdownContent variable
                 var articleElement = document.createElement('article');
@@ -547,24 +555,181 @@ function downloadZip() {
                 animatedOpenSideNav.innerHTML = "$('#mySidenav').attr('style', 'width: 250px;')";
                 $(animatedOpenSideNav).appendTo($(htmlDoc).find('body'));
 
+                //capture all images used in the tutorial
+                var imageSrcs = [];
+                $(htmlDoc).find('img').each(function () {
+                    imageSrcs.push($(this).attr('src'));
+                });
+                imgCount += $(imageSrcs).length;
 
-                if (tutorialNo === 0)
+                $(imageSrcs).each(function (i, imgSrc) {
+                    var img = new Image();
+                    var imgname = imgSrc.split('/').pop();
+                    img.crossOrigin = "anonymous";
+                    img.onload = function () {
+                        var canvas = document.createElement('canvas');
+                        $(canvas).attr({
+                            height: this.height,
+                            width: this.width
+                        });
+                        canvas.getContext('2d').drawImage(this, 0, 0);
+                        var imgContent = canvas.toDataURL("image/png").replace(/^data:image\/(png|jpg);base64,/, "");
+
+                        if (tutorialNo === 0) {
+                            zip.folder("html").folder("img").file(decodeURI(imgname), imgContent, { base64: true });
+                        }
+                        else {
+                            zip.folder("html").folder(createShortNameFromTitle(tutorialEntryInManifest.title)).folder("img").file(decodeURI(imgname), imgContent, { base64: true });
+                        }
+                        imgDone++;
+                        generateAndDownload(zip, allTutorials, tutorialsDone, imgCount, imgDone, linkCount, linkDone, scriptCount, scriptDone, fileCount, fileDone);
+                    };
+                    img.src = imgSrc;
+                });
+
+                //replace image path with relative path
+                $(htmlDoc).find('img').each(function () {
+                    var imgRelativeUrl = $(this).attr('src').split('/');
+                    imgRelativeUrl = "./" + imgRelativeUrl[imgRelativeUrl.length - 2] + "/" + imgRelativeUrl[imgRelativeUrl.length - 1];
+                    $(this).attr('src', imgRelativeUrl);
+                });
+
+                //download links, and scripts referenced in the head of the OBE
+                //scripts and links are downloaded only for the main tutorial. All other tutorial refer to the same css and scripts.              
+                if (tutorialNo === 0) {
+                    $(htmlDoc).find('head>link').each(function () {
+                        var location = $(this).attr('href').split('/');
+                        var filename = location[$(location).length - 1];
+                        var foldername = location[$(location).length - 2];
+                        if (foldername === "css") {
+                            linkCount++;
+                            $.get($(this).attr('href'), function (fileContent) {
+                                zip.folder("html").folder(foldername).file(decodeURI(filename), fileContent);
+                                linkDone++;
+                                generateAndDownload(zip, allTutorials, tutorialsDone, imgCount, imgDone, linkCount, linkDone, scriptCount, scriptDone, fileCount, fileDone);
+                            });
+                        }
+                    });
+                    $(htmlDoc).find('head>script').each(function () {
+                        var location = $(this).attr('src').split('/');
+                        var filename = location[$(location).length - 1];
+                        var foldername = location[$(location).length - 2];
+                        if (foldername === "js") {
+                            scriptCount++;
+                            $.get($(this).attr('src'), function (fileContent) {
+                                zip.folder("html").folder(foldername).file(decodeURI(filename), fileContent);
+                                scriptDone++;
+                                generateAndDownload(zip, allTutorials, tutorialsDone, imgCount, imgDone, linkCount, linkDone, scriptCount, scriptDone, fileCount, fileDone);
+                            });
+                        }
+                    });
+                }
+
+                //replacing links with relative URL
+                $(htmlDoc).find('head>link').each(function () {
+                    var location = $(this).attr('href').split('/');
+                    var filename = location[$(location).length - 1];
+                    var foldername = location[$(location).length - 2];
+                    var relativeUrl;
+                    if (foldername === "css") {
+                        if (tutorialNo === 0) {
+                            relativeUrl = "./" + foldername + "/" + filename;
+                        }
+                        else {
+                            relativeUrl = "../" + foldername + "/" + filename;
+                        }
+                    }
+
+                    $(this).attr('href', relativeUrl);
+                });
+
+                //replacing scripts with relative URL
+                $(htmlDoc).find('head>script').each(function () {
+                    var location = $(this).attr('src').split('/');
+                    var filename = location[$(location).length - 1];
+                    var foldername = location[$(location).length - 2];
+                    var relativeUrl;
+                    if (foldername === "js") {
+                        if (tutorialNo === 0) {
+                            relativeUrl = "./" + foldername + "/" + filename;
+                        }
+                        else {
+                            relativeUrl = "../" + foldername + "/" + filename;
+                        }
+                    }
+                    $(this).attr('src', relativeUrl);
+                });
+
+                //download files referenced in the OBE
+                $($(htmlDoc).find('#bookContainer')).find('a').each(function () {
+                    var location = $(this).attr('href').split('/');
+                    var filename = location[$(location).length - 1];
+                    var foldername = location[$(location).length - 2];
+                    if (foldername === "files") {
+                        fileCount++;
+                        $.get($(this).attr('href'), function (fileContent) {
+                            if (tutorialNo === 0) {
+                                zip.folder("html").folder(foldername).file(decodeURI(filename), fileContent);
+                            }
+                            else {
+                                zip.folder("html").folder(createShortNameFromTitle(tutorialEntryInManifest.title)).folder(foldername).file(decodeURI(filename), fileContent);
+                            }
+                            fileDone++;
+                            generateAndDownload(zip, allTutorials, tutorialsDone, imgCount, imgDone, linkCount, linkDone, scriptCount, scriptDone, fileCount, fileDone);
+                        });
+                    }
+                });
+
+                //replacing files with relative URL
+                $($(htmlDoc).find('#bookContainer')).find('a').each(function () {
+                    var location = $(this).attr('href').split('/');
+                    var filename = location[$(location).length - 1];
+                    var foldername = location[$(location).length - 2];
+                    var relativeUrl;
+                    if (foldername === "files") {
+                        relativeUrl = "./" + foldername + "/" + filename;
+                    }
+                    $(this).attr('href', relativeUrl);
+                });
+
+                //add html files to the zip
+                if (tutorialNo === 0) {
                     zip.folder("html").file("index.html", "<!DOCTYPE html>\n" + htmlDoc.documentElement.outerHTML);
+                }
                 else {
                     var folder = zip.folder("html").folder(createShortNameFromTitle(tutorialEntryInManifest.title));
                     folder.file("index.html", "<!DOCTYPE html>\n" + htmlDoc.documentElement.outerHTML);
                 }
             }).done(function () {
-                done++;
-                if (done === allTutorials["length"]) {
-                    zip.generateAsync({
-                        type: "blob"
-                    }).then(function (content) {
-                        // see FileSaver.js
-                        saveAs(content, allTutorials[0].partnumber + ".zip");
-                    });
-                }
+                tutorialsDone++;
+                generateAndDownload(zip, allTutorials, tutorialsDone, imgCount, imgDone, linkCount, linkDone, scriptCount, scriptDone, fileCount, fileDone);
             });
         });
     });
+}
+
+function generateAndDownload(zip, allTutorials, tutorialsDone, imgCount, imgDone, linkCount, linkDone, scriptCount, scriptDone, fileCount, fileDone) {
+    if (tutorialsDone === allTutorials["length"] && imgCount === imgDone && linkCount === linkDone && scriptCount === scriptDone && fileCount === fileDone) {
+        zip.generateAsync({
+            type: "blob"
+        }).then(function (content) {
+            // see FileSaver.js
+            saveAs(content, allTutorials[0].partnumber + ".zip");
+        });
+        enableDownloadButton();
+    }
+}
+
+function enableDownloadButton() {
+    $('#download_zip').removeAttr('disabled');
+    $('#downlad_zip > span').remove();
+    $('#download_zip').text('Download ZIP');
+}
+
+function disableDownloadButton() {
+    var spinner = document.createElement('span');
+    $(spinner).attr('class', 'spinner-grow spinner-grow-sm');
+    $('#download_zip').html(spinner);
+    $('#download_zip').append(" Downloading...");
+    $('#download_zip').attr('disabled', 'true');
 }
