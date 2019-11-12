@@ -1,60 +1,132 @@
 {
     "tutorials": [
-        {            
-            "title": "Enter tutorial title here",
-            "description": "This 15-minute tutorial walks you through the steps to...",
-            "partnumber": "E12345_01",
-            "publisheddate": "10/14/2019",
-            "contentid": "123456",
-            "filename": "content.md"
-        },
-        {         
-            "title": "Create a Table in Oracle NoSQL Database Cloud Service Using Java",
-            "description": "Step-by-step workshop instructions",
-            "partnumber": "E23456_01",
-            "publisheddate": "10/15/2019",
-            "contentid": "234567",
-            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/gsans/content.md"
+        {
+            "title": "Introduction",
+            "description":"Autonomous Data Warehouse Cloud Service for Developers workshop",
+            "partnumber": "Ennnnn_01",
+            "publisheddate": "2019-10-14",
+            "contentid": "12nnnn",
+            "filename":"https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/adw4dev/content.md"
         },
         {            
-            "title": "Load Template from Github",
-            "description": "Step-by-step workshop instructions",
-            "partnumber": "E34567_01",
-            "publisheddate": "10/16/2019",
-            "contentid": "345678",
-            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/template/content.md"
+            "title": "Lab 100: Introduction",
+            "description": "Create and access an Autonomous Database Cloud Service",
+            "partnumber": "Ennnnn_01",
+            "publisheddate": "2019-10-14",
+            "contentid": "12nnnn",
+            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/adw4dev/Lab100/content.md"
         },
 		{            
-            "title": "Charts (1 of 3) - Adding a Pie Chart",
+            "title": "Lab 200: Review Query Performance",
+            "description": "Run sample queries against a 100 million row current data set and a six billion row historic data set.",
+            "partnumber": "Ennnnn_01",
+            "publisheddate": "2019-10-14",
+            "contentid": "12nnnn",
+            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/adw4dev/Lab200/content.md"
+        },
+		{         
+            "title": "Lab 300: Machine Learning",
+            "description": "Work with an Apache Zepplin notebook and create a Machine Learning model to predict customer good credit.",
+            "partnumber": "Ennnnn_01",
+            "publisheddate": "2019-10-14",
+            "contentid": "12nnnn",
+            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/adw4dev/Lab300/content.md"
+        },
+		{         
+            "title": "Lab 400: Create Data Visualizations",
+            "description": "Create data visualizations with Oracle Analytics Cloud to review sales performance and better understand the factors that affect good credit.",
+            "partnumber": "Ennnnn_01",
+            "publisheddate": "2019-10-14",
+            "contentid": "12nnnn",
+            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/adw4dev/Lab400/content.md"
+        },
+		{			
+			"title": "Get Started with Oracle NoSQL Database Cloud Service",
+			"description": "This tutorial describes how to get started with the Oracle NoSQL Database Cloud Service.",
+			"partnumber": "E98132-03",
+			"publisheddate": "2019-10-14",
+			"contentid": "24207",
+			"filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/ansct/content.md"
+		},
+		{            
+            "title": "Adding a Pie Chart",
             "description": "This tutorial shows you how to create a pie chart in a new page in an application.",
             "partnumber": "E99846-01",
-            "publisheddate": "09/01/2018",
-            "contentid": "24551x",
+            "publisheddate": "2018-09-01",
+            "contentid": "24551",
             "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/charts/piechart/content.md"
         },
-		{         
-            "title": "Charts (2 of 3) - Adding a Bar Chart",
+		{            
+            "title": "Adding a Bar Chart",
             "description": "This 15-minute tutorial shows you how to edit a chart.",
             "partnumber": "E99848-01",
-            "publisheddate": "09/01/2018",
-            "contentid": "24552x",
+            "publisheddate": "2018-09-01",
+            "contentid": "24552",
             "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/charts/barchart/content.md"
         },
-		{         
-            "title": "Charts (3 of 3) - Changing Chart Appearance with JavaScript",
+		{            
+            "title": "Changing Chart Appearance with JavaScript",
             "description": "This 5-minute tutorial shows you how to create a custom JavaScript to change the appearance of a chart.",
             "partnumber": "E99849-01",
-            "publisheddate": "09/01/2018",
-            "contentid": "24553x",
+            "publisheddate": "2018-09-01",
+            "contentid": "24553",
             "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/charts/chart-custom-js/content.md"
         },
+		{
+			"title": "Create a Table in Oracle NoSQL Database Cloud Service Using Java",
+			"description": "This 15-minute tutorial walks you through the steps to connect to Oracle NoSQL Database Cloud Service and create a table using a sample application.",
+			"filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/ansct/content.md",
+			"partnumber": "",
+			"publisheddate": "2019-04-01",
+			"contentid": ""
+		},
+		{
+            "title": "Oracle Data Safe Workshop",
+            "description":"Introduction to the workshop",
+            "partnumber": "Ennnnn_01",
+            "publisheddate": "2018-09-01",
+            "contentid": "12nnnn",
+            "filename":"https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/security/data-safe/README.md"
+        },
+        {            
+            "title": "Lab 1: Viewing a Registered Target Database",
+            "description":"Viewing a Registered Target Database",
+            "partnumber": "Ennnnn_01",
+            "publisheddate": "2018-09-01",
+            "contentid": "12nnnn",
+            "filename":"https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/security/data-safe/Lab1/LabGuide1.md"
+        },
+		{            
+            "title": "Lab 2: Provisioning Audit and Alert Policies",
+            "description": "Provisioning Audit and Alert Policies",
+            "partnumber": "Ennnnn_01",
+            "publisheddate": "2018-09-01",
+            "contentid": "12nnnn",
+            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/security/data-safe/Lab2/LabGuide2.md"
+        },
 		{         
-            "title": "ADWC Lab 100: Provisioning and Getting Started",
-            "description": "Test.",
-            "partnumber": "Ennnn-01",
-            "publisheddate": "09/01/2018",
-            "contentid": "x",
-            "filename": "https://raw.githubusercontent.com/oracle/learning-library/master/workshops/adwc4dev/L100.md"
+            "title": "Lab 3: Assessing Database Configurations and Users",
+            "description": "Assessing Database Configurations and Users",
+            "partnumber": "Ennnnn_01",
+            "publisheddate": "2018-09-01",
+            "contentid": "12nnnn",
+            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/security/data-safe/Lab3/LabGuide3.md"
+        },
+		{         
+            "title": "Lab 4: Analyzing Alerts and Audit Reports",
+            "description": "Analyzing Alerts and Audit Reports",
+            "partnumber": "Ennnnn_01",
+            "publisheddate": "2018-09-01",
+            "contentid": "12nnnn",
+            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/security/data-safe/Lab4/LabGuide4.md"
+        },
+        {         
+            "title": "Lab 5: Discovering and Masking Sensitive Data",
+            "description": "Discovering and Masking Sensitive Data",
+            "partnumber": "Ennnnn_01",
+            "publisheddate": "2018-09-01",
+            "contentid": "12nnnn",
+            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/security/data-safe/Lab5/LabGuide5.md"
         }
     ]
 }

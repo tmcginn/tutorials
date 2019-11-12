@@ -30,8 +30,8 @@ function wrapImgWithFigure(articleElement) {
 /* When MD file is converted to HTML, the pre tags (all codeblocks) are usually outside the li tag due to which the output 
 of the pre tag doesn't have the correct indentation. The following function moves the pre tags inside the li.*/
 function movePreInsideLi(articleElement) {
-    $(articleElement).find('pre').each(function () {
-        $(this).appendTo($(this).prev());
+    $(articleElement).find('section > pre').each(function () {
+        $(this).attr('style', 'margin-left: 62px;');
     });
 }
 /* The following function adds numbering icons before the h2 tag*/
@@ -187,16 +187,21 @@ function wrapSectionTagAndAddHorizonatalLine(articleElement) {
 }
 /* The following function increases the width of the side navigation div to open it. */
 function openRightSideNav() {
-    $('#mySidenav').attr("style", "width: 250px;");
+    $('#mySidenav').attr("style", "width: 250px; overflow-y: auto;");
+    $('#mySidenav > .selected:eq(0)').focus().blur();
 }
 /* The following function decreases the width of the side navigation div to close it. */
 function closeRightSideNav() {
-    $('#mySidenav').attr("style", "width: 0px;");
+    $('#mySidenav').attr("style", "width: 0px; overflow-y: hidden;");
 }
 /* The following function creates shortname from title */
 function createShortNameFromTitle(title) {
     var removeFromTitle = ["-a-", "-in-", "-of-", "-the-", "-to-", "-an-", "-is-", "-your-", "-you-", "-and-", "-from-", "-with-"];
+    var folderNameRestriction = ["<", ">", ":", "\"", "/", "\\\\", "|", "\\?", "\\*"];
     var shortname = title.toLowerCase().replace(/ /g, '-').trim().substr(0, 50);
+    $.each(folderNameRestriction, function (i, value) {
+        shortname = shortname.replace(new RegExp(value, 'g'), '');
+    });
     $.each(removeFromTitle, function (i, value) {
         shortname = shortname.replace(new RegExp(value, 'g'), '-');
     });

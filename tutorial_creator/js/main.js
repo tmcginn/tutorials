@@ -1,3 +1,4 @@
+var testval;
 var shortcutbtn_click = [
     { id: '#btn_h1', placeholder1: '# Enter h1 title here\n', placeholder2: '# ', placeholder3: undefined },
     { id: '#btn_h2', placeholder1: '## Enter h2 title here\n', placeholder2: '## ', placeholder3: undefined },
@@ -39,6 +40,7 @@ $(function () {
     $('#main').on('click', '#preview_from_manifest', function () {
         var data = JSON.parse(window.localStorage.getItem("manifestValue"));
         var flag = false;
+        var titles = [];
         data = JSON.parse(data).tutorials;
 
         $(data).each(function (i) {
@@ -57,9 +59,15 @@ $(function () {
                     alert('Enter MD File Path in the manifest tab to preview in HTML.');
                     flag = true;
                 }
+                else if ($.inArray(title, titles) !== -1) {
+                    console.log($.inArray(title, titles));
+                    alert('Tutorial Titles cannot be same. Please ensure that the titles are unique and try again.');
+                    flag = true;
+                }
                 if (flag) {
                     $('#tabs-container .nav-link:eq(' + i + ')').tab('show');
                 }
+                titles.push(title);
             }
         });
 
@@ -122,11 +130,20 @@ $(function () {
         }
 
 
+        if ($('#tutorials-nav .nav-link').length >= 2) {
+            if ($('#tutorials-nav .nav-link:eq(0) > .close').length == 0) {
+                var close_firsttab = document.createElement('span');
+                $(close_firsttab).html('&times;');
+                $(close_firsttab).attr('class', 'close');
+                $('#tutorials-nav .nav-link:eq(0)').append(close_firsttab);
+            }
+        }
+
         $(newtab).attr({
             class: 'tab-pane container fade',
             id: 'tutorial' + tutorialsno
         });
-        $(newtab).html($('#tutorial1').html());
+        $(newtab).html($('#tab-content .tab-pane:eq(0)').html());
         $(newtutorial).attr('class', 'nav-item');
         $(link).attr({
             class: 'nav-link',
@@ -156,6 +173,13 @@ $(function () {
         $(href).remove();
         $('#tabs-container a[href="' + $(this).parent().parent().prev().children().attr("href") + '"]').tab('show');
         $(this).parent().parent().remove();
+
+        if ($('#tutorials-nav .nav-link').length <= 2) {
+            if ($('#tutorials-nav .nav-link:eq(0) > .close').length == 1) {
+                $('#tutorials-nav .nav-link:eq(0) > .close').remove();
+            }
+        }
+
         getFormData();
     });
 
@@ -176,6 +200,7 @@ $(function () {
         while ($('#tabs-container .nav-link .close').length > 0) {
             $('#tabs-container .nav-link .close:last').click();
         }
+        $('#upload_json').val("");
         getFormData();
     });
 
@@ -183,7 +208,48 @@ $(function () {
     $('#main').on('click', '#btn_image_files', function () {
         $('#image_files')[0].click();
     });
+    $('#main').on('click', '#download_zip', function () {
+        var flag = false;
+        var titles = [];
+        var data = JSON.parse(window.localStorage.getItem("manifestValue"));
+        data = JSON.parse(data).tutorials;
 
+        $(data).each(function (i) {
+            if (!flag) {
+                var title = $.trim(data[i].title);
+                var filename = $.trim(data[i].filename);
+                if (title.length === 0 && filename.length === 0) {
+                    alert('Enter both Title and MD File Path in the manifest tab to download ZIP file.');
+                    flag = true;
+                }
+                else if (title.length === 0) {
+                    alert('Enter Title in the manifest tab to download ZIP file.');
+                    flag = true;
+                }
+                else if (filename.length === 0) {
+                    alert('Enter MD File Path in the manifest tab to download ZIP file.');
+                    flag = true;
+                }
+                else if ($.inArray(title, titles) !== -1) {
+                    console.log($.inArray(title, titles));
+                    alert('Tutorial Titles cannot be same. Please ensure that the titles are unique and try again.');
+                    flag = true;
+                }
+                if (flag) {
+                    $('#tabs-container .nav-link:eq(' + i + ')').tab('show');
+                }
+                titles.push(title);
+            }
+        });
+
+        if (!flag) {
+            downloadZip();
+        }
+    });
+    $('#main').on('change', '#upload_json', enterJsonData);
+    $('#main').on('click', '#enter_json', function () {
+        $('#upload_json').click();
+    });
 });
 
 function homeInit() {
@@ -434,140 +500,385 @@ function shortcutClick(placeholder1, placeholder2, placeholder3) {
 The navigation appears only when the manifest file has more than 1 tutorial. The title that appears in the side navigation 
 is picked up from the manifest file. */
 function setupRightSideNavForDownload(manifestFileContent, tutorialHtml, tutorialNo) {
-	var allTutorials = manifestFileContent.tutorials;
-	if (allTutorials.length > 1) { //means it is a workshop            
-		//adding open button
-		var openbtn_div = $(document.createElement('div')).attr("id", "openbtn_div");
-		var openbtn = $(document.createElement('span')).attr({
-			class: "openbtn",
-			onclick: "$('#mySidenav').attr('style', 'width: 250px;')"
-		});
+    var allTutorials = manifestFileContent.tutorials;
+    if (allTutorials.length > 1) { //means it is a workshop            
+        //adding open button
+        var openbtn_div = $(document.createElement('div')).attr("id", "openbtn_div");
+        var openbtn = $(document.createElement('span')).attr({
+            class: "openbtn",
+            onclick: "openNav();"
+        });
 
-		$(openbtn).html("&#9776;"); //this add the hamburger icon
-		$(openbtn).appendTo(openbtn_div);
-		$(openbtn_div).appendTo($(tutorialHtml).find('header'));
-		//creating right side nav div
-		var sideNavDiv = $(document.createElement('div')).attr({
-			id: "mySidenav",
-			class: "sidenav"
-		});
-		//adding title for sidenav
-		var sideNavHeaderDiv = $(document.createElement('div')).attr("id", "nav_header");
-		var nav_title = $(document.createElement('h3')).text(rightSideNavTitle);
-		$(nav_title).appendTo(sideNavHeaderDiv);
-		//creating close button
-		var closebtn = $(document.createElement('a')).attr({
-			href: "javascript:void(0)",
-			class: "closebtn",
-			onclick: "$('#mySidenav').attr('style', 'width: 0px;')"
-		});
-		$(closebtn).html("&times;"); //adds a cross icon to the header
-		$(closebtn).appendTo(sideNavHeaderDiv);
-		$(sideNavHeaderDiv).appendTo(sideNavDiv);
-		//adding tutorials from JSON and linking them with ?shortnames
-		for (var i = 0; i < allTutorials.length; i++) {
-			var sideNavEntry = $(document.createElement('a')).attr('class', 'tutorials_nav');
-			if (tutorialNo === i) {
-				$(sideNavEntry).addClass('selected');
-				$(sideNavEntry).attr('href', 'index.html');
-			}
-			else if (tutorialNo === 0 && i !== 0) {
-				$(sideNavEntry).attr('href', './' + createShortNameFromTitle(allTutorials[i].title) + '/index.html');
-				$(sideNavEntry).removeClass('selected');
-			}
-			else if (tutorialNo !== 0 && i === 0) {
-				$(sideNavEntry).attr('href', '../index.html');
-			}
-			else if (tutorialNo !== 0 && i !== 0) {
-				$(sideNavEntry).attr('href', '../' + createShortNameFromTitle(allTutorials[i].title) + '/index.html');
-			}
+        $(openbtn).html("&#9776;"); //this add the hamburger icon
+        $(openbtn).appendTo(openbtn_div);
+        $(openbtn_div).appendTo($(tutorialHtml).find('header'));
+        //creating right side nav div
+        var sideNavDiv = $(document.createElement('div')).attr({
+            id: "mySidenav",
+            class: "sidenav"
+        });
+        //adding title for sidenav
+        var sideNavHeaderDiv = $(document.createElement('div')).attr("id", "nav_header");
+        var nav_title = $(document.createElement('h3')).text(rightSideNavTitle);
+        $(nav_title).appendTo(sideNavHeaderDiv);
+        //creating close button
+        var closebtn = $(document.createElement('a')).attr({
+            href: "javascript:void(0)",
+            class: "closebtn",
+            onclick: "closeNav()"
+        });
+        $(closebtn).html("&times;"); //adds a cross icon to the header
+        $(closebtn).appendTo(sideNavHeaderDiv);
+        $(sideNavHeaderDiv).appendTo(sideNavDiv);
+        //adding tutorials from JSON and linking them with ?shortnames
+        for (var i = 0; i < allTutorials.length; i++) {
+            var sideNavEntry = $(document.createElement('a')).attr('class', 'tutorials_nav');
+            if (tutorialNo === i) {
+                $(sideNavEntry).addClass('selected');
+                $(sideNavEntry).attr('href', 'index.html');
+            }
+            else if (tutorialNo === 0 && i !== 0) {
+                $(sideNavEntry).attr('href', './' + createShortNameFromTitle(allTutorials[i].title) + '/index.html');
+                $(sideNavEntry).removeClass('selected');
+            }
+            else if (tutorialNo !== 0 && i === 0) {
+                $(sideNavEntry).attr('href', '../index.html');
+            }
+            else if (tutorialNo !== 0 && i !== 0) {
+                $(sideNavEntry).attr('href', '../' + createShortNameFromTitle(allTutorials[i].title) + '/index.html');
+            }
 
-			$(sideNavEntry).text(allTutorials[i].title); //The title specified in the manifest appears in the side nav as navigation
-			$(sideNavEntry).appendTo(sideNavDiv);
-			$(document.createElement('hr')).appendTo(sideNavDiv);
-			if (window.location.search.split('?')[1] === createShortNameFromTitle(allTutorials[i].title)) //the selected class is added if the title is currently selected
-				$(sideNavEntry).attr("class", "selected");
-		}
-		$(sideNavDiv).appendTo($(tutorialHtml).find('header')); //sideNavDiv is added to the HTML template header
-	}
+            $(sideNavEntry).text(allTutorials[i].title); //The title specified in the manifest appears in the side nav as navigation
+            $(sideNavEntry).appendTo(sideNavDiv);
+            $(document.createElement('hr')).appendTo(sideNavDiv);
+            if (window.location.search.split('?')[1] === createShortNameFromTitle(allTutorials[i].title)) //the selected class is added if the title is currently selected
+                $(sideNavEntry).attr("class", "selected");
+        }
+        $(sideNavDiv).appendTo($(tutorialHtml).find('header')); //sideNavDiv is added to the HTML template header
+    }
 }
 
 function downloadZip() {
-	var previewType = window.localStorage.getItem("preview");
-	if (previewType !== "manifest") { return; }
-	var localStorageManifest = JSON.parse(window.localStorage.getItem("manifestValue"));
-	var allTutorials = JSON.parse(localStorageManifest).tutorials;
-	var tutorialHtml = [];
+    //disabling download button    
+    disableDownloadButton();
+    var localStorageManifest = JSON.parse(window.localStorage.getItem("manifestValue"));
+    var allTutorials = JSON.parse(localStorageManifest).tutorials;
+    var htmlTemplate = document.createElement('html');
 
-	$.when(
-		$.getScript("https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js"),
-		$.getScript("https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.2/FileSaver.min.js"),
-		$.getScript("https://ashwin-agarwal.github.io/tutorials/common/js/load.js")
-	).done(function () {
-		var zip = new JSZip();
-		$.get("https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/template/download.html", function (htmlTemplate) {
-			var tmpElement = document.createElement('html');
-			tmpElement.innerHTML = htmlTemplate;
-			$(allTutorials).each(function (i, tutorialEntryInManifest) {
-				$.get(tutorialEntryInManifest.filename, function (markdownContent) { //reading MD file in the manifest and storing content in markdownContent variable
-					var articleElement = document.createElement('article');
-					$(articleElement).html(new showdown.Converter().makeHtml(markdownContent)); //converting markdownContent to HTML by using showndown plugin				
-					addPathToImageSrc(articleElement, tutorialEntryInManifest.filename); //adds the path for the image based on the filename in manifest				
-					wrapSectionTagAndAddHorizonatalLine(articleElement); //adding each section within section tag and adding HR line
-					addH2ImageIcons(articleElement); //Adding image, class, width, and height to the h2 title img
-					wrapImgWithFigure(articleElement); //Wrapping images with figure, adding figcaption to all those images that have title in the MD
-					//fixFigCaptions(articleElement, tutorialEntryInManifest.filename); //Fixing figcaptions for those images that were loaded from the localstorage as the src of the localstorage is like a junk value
-					addPathToAllRelativeHref(articleElement, tutorialEntryInManifest.filename); //adding the path for all HREFs that are relative based on the filename in manifest
-					movePreInsideLi(articleElement); //moving the pre elements a layer up for stylesheet matching
-					$(articleElement).find('a').attr('target', '_blank'); //setting target for all ahrefs to _blank	
-					$(articleElement).find('ul li p:first-child').contents().unwrap(); //removing the p tag from first li child as CSS changes the formatting											
+    $.when(
+        $.getScript("https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js"),
+        $.getScript("https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.2/FileSaver.min.js"),
+        $.getScript("https://ashwin-agarwal.github.io/tutorials/common/js/load.js"),
+        $.getScript("https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.8.9/beautifier.min.js"),
+        $.get("https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/template/download.html", function (downloadFile) {
+            htmlTemplate.innerHTML = downloadFile;
+        })
+    ).done(function () {
+        var zip = new JSZip();
+        var tutorialsDone = 0, tutorialsFailed = 0;
+        var imgCount = 0, imgDone = 0, imgFailed = 0;
+        var linkCount = 0, linkDone = 0, linkFailed = 0;
+        var scriptCount = 0, scriptDone = 0, scriptFailed = 0;
+        var fileCount = 0, fileDone = 0, fileFailed = 0;
+        var logWindow = window.open("", "log", "width=1100,height=500");
+        logWindow.document.title = "Tutorial Creator: Creating zip file";
+        logWindow.document.body.innerHTML = "";
+        logWindow.document.write('<pre>Packaging files. Please wait...</pre>');
+        var log = logWindow.document.getElementsByTagName('pre')[0];
 
-					tutorialHtml.push(document.implementation.createHTMLDocument());
-					tutorialHtml[i].head.innerHTML = $($(tmpElement).find('head')[0]).html();
-					tutorialHtml[i].body.innerHTML = $($(tmpElement).find('body')[0]).html();
+        $(allTutorials).each(function (tutorialNo, tutorialEntryInManifest) {
+            $.get(tutorialEntryInManifest.filename, function (markdownContent) { //reading MD file in the manifest and storing content in markdownContent variable
+                var articleElement = document.createElement('article');
+                $(articleElement).html(new showdown.Converter().makeHtml(markdownContent)); //converting markdownContent to HTML by using showndown plugin				
+                addPathToImageSrc(articleElement, tutorialEntryInManifest.filename); //adds the path for the image based on the filename in manifest				
+                wrapSectionTagAndAddHorizonatalLine(articleElement); //adding each section within section tag and adding HR line
+                addH2ImageIcons(articleElement); //Adding image, class, width, and height to the h2 title img
+                wrapImgWithFigure(articleElement); //Wrapping images with figure, adding figcaption to all those images that have title in the MD
+                addPathToAllRelativeHref(articleElement, tutorialEntryInManifest.filename); //adding the path for all HREFs that are relative based on the filename in manifest                
+                movePreInsideLi(articleElement); //moving the pre elements a layer up for stylesheet matching
+                $(articleElement).find('a').attr('target', '_blank'); //setting target for all ahrefs to _blank	
+                $(articleElement).find('ul li p:first-child').contents().unwrap(); //removing the p tag from first li child as CSS changes the formatting											                
 
-					$(tutorialHtml[i]).find('html').attr('lang', 'en');
-					$(tutorialHtml[i]).find('#bookContainer').html(articleElement);
-				}).done(function () { //do the following after all the above operations are complete
-					//updateh1Title function
-					var articleH1Title = $(tutorialHtml[i]).find('article>h1').text();
-					var templateH1Title = $(tutorialHtml[i]).find("#content>h1").text();
-					var replacedH1Html = $(tutorialHtml[i]).find("#content>h1").html().replace(templateH1Title, articleH1Title);
-					$(tutorialHtml[i]).find("#content>h1").html(replacedH1Html);
-					$(tutorialHtml[i]).find('article>h1').remove();
+                var htmlDoc = document.implementation.createHTMLDocument();
+                htmlDoc.head.innerHTML = $($(htmlTemplate).find('head')[0]).html();
+                htmlDoc.body.innerHTML = $($(htmlTemplate).find('body')[0]).html();
+                $(htmlDoc).find('html').attr('lang', 'en');
+                $(htmlDoc).find('#bookContainer').html(articleElement);
 
-					//update head content
-					$(tutorialHtml[i]).find('title').text(tutorialEntryInManifest.title);
-					$(tutorialHtml[i]).find('meta[name=contentid]').attr("content", tutorialEntryInManifest.contentid);
-					$(tutorialHtml[i]).find('meta[name=description]').attr("content", tutorialEntryInManifest.description);
-					$(tutorialHtml[i]).find('meta[name=partnumber]').attr("content", tutorialEntryInManifest.partnumber);
-					$(tutorialHtml[i]).find('meta[name=publisheddate]').attr("content", tutorialEntryInManifest.publisheddate);
+                //updateh1Title function
+                $(htmlDoc).find('#content>h1').append($(htmlDoc).find('article>h1').text());
+                $(htmlDoc).find('article>h1').remove();
 
-					//add right navigation for contents
-					setupRightSideNavForDownload(JSON.parse(localStorageManifest), tutorialHtml[i], i);
-					var animatedOpenSideNav = document.createElement('script');
-					animatedOpenSideNav.innerHTML = "$('#mySidenav').attr('style', 'width: 250px;')";
-					$(animatedOpenSideNav).appendTo($(tutorialHtml[i]).find('body'));
+                //update head content
+                $(htmlDoc).find('title').text(tutorialEntryInManifest.title);
+                $(htmlDoc).find('meta[name=contentid]').attr("content", tutorialEntryInManifest.contentid);
+                $(htmlDoc).find('meta[name=description]').attr("content", tutorialEntryInManifest.description);
+                $(htmlDoc).find('meta[name=partnumber]').attr("content", tutorialEntryInManifest.partnumber);
+                $(htmlDoc).find('meta[name=publisheddate]').attr("content", tutorialEntryInManifest.publisheddate);
 
-					if (i === 0)
-						zip.file("index.html", "<!DOCTYPE html>\n" + tutorialHtml[i].documentElement.outerHTML);
-					else {
-						var folder = zip.folder(createShortNameFromTitle(tutorialEntryInManifest.title));
-						folder.file("index.html", "<!DOCTYPE html>\n" + tutorialHtml[i].documentElement.outerHTML);
-					}
+                //add right navigation for contents
+                if (allTutorials["length"] > 1) {
+                    setupRightSideNavForDownload(JSON.parse(localStorageManifest), htmlDoc, tutorialNo);
+                    var sideNavControl = document.createElement('script');
+                    $(sideNavControl).append("function openNav() { $('#mySidenav').attr('style', 'width: 250px; overflow-y: auto;'); $('#mySidenav > .selected:eq(0)').focus().blur();}");
+                    $(sideNavControl).append("function closeNav() { $('#mySidenav').attr('style', 'width: 0px; overflow-y: hidden;');}");
+                    $(sideNavControl).append('openNav();');
+                    $(sideNavControl).appendTo($(htmlDoc).find('body'));
+                }
 
-					if (i === allTutorials["length"] - 1) {
-						zip.generateAsync({
-							type: "blob"
-						}).then(function (content) {
-							// see FileSaver.js
-							saveAs(content, allTutorials[0].partnumber + ".zip");
-						});
 
-					}
-				});
-			});
-		});
+                //capture all images used in the tutorial
+                var imageSrcs = [];
+                $(htmlDoc).find('img').each(function () {
+                    imageSrcs.push($(this).attr('src'));
+                });
+                imgCount += $(imageSrcs).length;
 
-	});
+                $(imageSrcs).each(function (i, imgSrc) {
+                    var img = new Image();
+                    var imgname = imgSrc.split('/').pop();
+                    img.crossOrigin = "anonymous";
+                    img.onload = function () {
+                        var canvas = document.createElement('canvas');
+                        $(canvas).attr({
+                            height: this.height,
+                            width: this.width
+                        });
+                        canvas.getContext('2d').drawImage(this, 0, 0);
+                        var imgContent = canvas.toDataURL("image/png").replace(/^data:image\/(png|jpg);base64,/, "");
+
+                        if (tutorialNo === 0) {
+                            zip.folder("html").folder("img").file(decodeURI(imgname), imgContent, { base64: true });
+                        }
+                        else {
+                            zip.folder("html").folder(createShortNameFromTitle(tutorialEntryInManifest.title)).folder("img").file(decodeURI(imgname), imgContent, { base64: true });
+                        }
+                        imgDone++;
+                        $(log).append("\n[img] Added to zip: " + imgSrc);
+                    };
+                    img.onerror = function () {
+                        $(log).append("\n<span style='color:red;'>[img] File doesn't exist: " + imgSrc + "</span>");
+                        imgFailed++;
+                    };
+                    img.src = imgSrc;
+                });
+
+                //replace image path with relative path
+                $(htmlDoc).find('img').each(function () {
+                    var imgRelativeUrl = $(this).attr('src').split('/');
+                    imgRelativeUrl = "./" + imgRelativeUrl[imgRelativeUrl.length - 2] + "/" + imgRelativeUrl[imgRelativeUrl.length - 1];
+                    $(this).attr('src', imgRelativeUrl);
+                });
+
+                //download links, and scripts referenced in the head of the OBE
+                //scripts and links are downloaded only for the main tutorial. All other tutorial refer to the same css and scripts.              
+                if (tutorialNo === 0) {
+                    $(htmlDoc).find('head>link').each(function () {
+                        var linkSrc = $(this).attr('href');
+                        var location = linkSrc.split('/');
+                        var filename = location[$(location).length - 1];
+                        var foldername = location[$(location).length - 2];
+                        if (foldername === "css") {
+                            linkCount++;
+                            $.get(linkSrc, function (fileContent) {
+                                zip.folder("html").folder(foldername).file(decodeURI(filename), fileContent);
+                                linkDone++;
+                            }).done(function () {
+                                $(log).append("\n[css] Added to zip: " + linkSrc);
+                            }).fail(function () {
+                                linkFailed++;
+                                $(log).append("\n<span style='color:red;'>[css] File doesn't exist: " + linkSrc + "</span>");
+                            });
+                        }
+                    });
+                    $(htmlDoc).find('head>script').each(function () {
+                        let scriptSrc = $(this).attr('src');
+                        var location = scriptSrc.split('/');
+                        var filename = location[$(location).length - 1];
+                        var foldername = location[$(location).length - 2];
+                        if (foldername === "js") {
+                            scriptCount++;
+                            $.get(scriptSrc, function (fileContent) {
+                                zip.folder("html").folder(foldername).file(decodeURI(filename), fileContent);
+                                scriptDone++;
+                            }).done(function () {
+                                $(log).append("\n[js] Added to zip: " + scriptSrc);
+                            }).fail(function () {
+                                scriptFailed++;
+                                $(log).append("\n<span style='color:red;'>[js] File doesn't exist: " + scriptSrc + "</span>");
+                            });
+                        }
+                    });
+                }
+
+                //replacing links with relative URL
+                $(htmlDoc).find('head>link').each(function () {
+                    var location = $(this).attr('href').split('/');
+                    var filename = location[$(location).length - 1];
+                    var foldername = location[$(location).length - 2];
+                    var relativeUrl;
+                    if (foldername === "css") {
+                        if (tutorialNo === 0) {
+                            relativeUrl = "./" + foldername + "/" + filename;
+                        }
+                        else {
+                            relativeUrl = "../" + foldername + "/" + filename;
+                        }
+                    }
+
+                    $(this).attr('href', relativeUrl);
+                });
+
+                //replacing scripts with relative URL
+                $(htmlDoc).find('head>script').each(function () {
+                    var location = $(this).attr('src').split('/');
+                    var filename = location[$(location).length - 1];
+                    var foldername = location[$(location).length - 2];
+                    var relativeUrl;
+                    if (foldername === "js") {
+                        if (tutorialNo === 0) {
+                            relativeUrl = "./" + foldername + "/" + filename;
+                        }
+                        else {
+                            relativeUrl = "../" + foldername + "/" + filename;
+                        }
+                    }
+                    $(this).attr('src', relativeUrl);
+                });
+
+                //download files referenced in the OBE
+                $($(htmlDoc).find('#bookContainer')).find('a').each(function () {
+                    var fileSrc = $(this).attr('href');
+                    var location = fileSrc.split('/');
+                    var filename = location[$(location).length - 1];
+                    var foldername = location[$(location).length - 2];
+                    if (foldername === "files") {
+                        fileCount++;
+                        $.get(fileSrc, function (fileContent) {
+                            if (tutorialNo === 0) {
+                                zip.folder("html").folder(foldername).file(decodeURI(filename), fileContent);
+                            }
+                            else {
+                                zip.folder("html").folder(createShortNameFromTitle(tutorialEntryInManifest.title)).folder(foldername).file(decodeURI(filename), fileContent);
+                            }
+                            fileDone++;
+                        }).done(function () {
+                            $(log).append("\n[files] Added to zip: " + fileSrc);
+                        }).fail(function () {
+                            $(log).append("\n<span style='color:red;'>[files] File doesn't exist: " + fileSrc + '</span>');
+                            fileFailed++;
+                        });
+                    }
+                });
+
+                //replacing files with relative URL
+                $($(htmlDoc).find('#bookContainer')).find('a').each(function () {
+                    var location = $(this).attr('href').split('/');
+                    var filename = location[$(location).length - 1];
+                    var foldername = location[$(location).length - 2];
+                    var relativeUrl;
+                    if (foldername === "files") {
+                        relativeUrl = "./" + foldername + "/" + filename;
+                    }
+                    $(this).attr('href', relativeUrl);
+                });
+
+                //add html files to the zip
+                if (tutorialNo === 0) {
+                    zip.folder("html").file("index.html", beautifier.html("<!DOCTYPE html>\n" + htmlDoc.documentElement.outerHTML));
+                    $(log).append("\n[html] Added to zip: index.html");
+                    zip.folder("html").file("manifest.json", JSON.stringify(JSON.parse(localStorageManifest), null, "\t"));
+                    $(log).append("\n[manifest] Added to zip: manifest.json");
+                }
+                else {
+                    var folder = zip.folder("html").folder(createShortNameFromTitle(tutorialEntryInManifest.title));
+                    folder.file("index.html", beautifier.html("<!DOCTYPE html>\n" + htmlDoc.documentElement.outerHTML));
+                    $(log).append("\n[html] Added to zip: " + createShortNameFromTitle(tutorialEntryInManifest.title) + "/index.html");
+                }
+            }).done(function () {
+                tutorialsDone++;
+            }).fail(function () {
+                tutorialsFailed++;
+                $(log).append("\n<span style='color:red;'>[html] File doesn't exist: " + tutorialEntryInManifest.filename + '</span>');
+            });
+        });
+
+        var completionCheck = setInterval(function () {
+            if (tutorialsDone === allTutorials["length"] && imgCount === imgDone && linkCount === linkDone && scriptCount === scriptDone && fileCount === fileDone) {
+                zip.generateAsync({
+                    type: "blob"
+                }).then(function (content) {
+                    // see FileSaver.js 
+                    saveAs(content, allTutorials[0].partnumber + ".zip");
+                });
+                enableDownloadButton();
+                $(log).append("\n\nDownloading zip file...");
+                clearInterval(completionCheck);
+            }
+            else if (tutorialsDone + tutorialsFailed === allTutorials["length"] && imgCount === imgDone + imgFailed && linkCount === linkDone + linkFailed && scriptCount === scriptDone + scriptFailed && fileCount === fileDone + fileFailed) {
+                $(log).append("\n\nFailed to generate ZIP file. Please check log and retry.");
+                if (tutorialsFailed !== 0) {
+                    $(log).append("\nTutorials Failed: " + tutorialsFailed + " / " + allTutorials["length"]);
+                }
+                if (imgFailed !== 0) {
+                    $(log).append("\nImages Failed: " + imgFailed + " / " + imgCount);
+                }
+                if (linkFailed !== 0) {
+                    $(log).append("\nCSS Failed: " + linkFailed + " / " + linkCount);
+                }
+                if (scriptFailed !== 0) {
+                    $(log).append("\nJS Failed: " + scriptFailed + " / " + scriptCount);
+                }
+                if (fileFailed !== 0) {
+                    $(log).append("\nFiles Failed: " + fileFailed + " / " + fileCount);
+                }
+                clearInterval(completionCheck);
+                setTimeout(function () {
+                    enableDownloadButton();
+                }, 2000);
+            }
+        }, 3000);
+    });
+}
+
+function enableDownloadButton() {
+    $('#download_zip').removeAttr('disabled');
+    $('#downlad_zip > span').remove();
+    $('#download_zip').text('Download ZIP');
+}
+
+function disableDownloadButton() {
+    var spinner = document.createElement('span');
+    $(spinner).attr('class', 'spinner-grow spinner-grow-sm');
+    $('#download_zip').html(spinner);
+    $('#download_zip').append(" Downloading...");
+    $('#download_zip').attr('disabled', 'true');
+}
+
+function enterJsonData(evt) {
+    var files = evt.target.files;
+    var file = files[0];
+    var reader = new FileReader();
+    var json;
+    var valid = true;
+    reader.onload = (function (theFile) {
+        return function (e) {
+            try {
+                json = JSON.parse(e.target.result);
+            }
+            catch (exception) {
+                alert("Invalid JSON file");
+                valid = false;
+            }
+        };
+    })(file);
+    reader.onloadend = function () {
+        if (valid) {
+            $('#reset_manifest').click();
+            window.localStorage.setItem("manifestValue", JSON.stringify(JSON.stringify(json)));
+            manifestInit();
+        }
+
+    }
+    reader.readAsText(file);
 }

@@ -35,7 +35,9 @@ img {
 #download_html,
 #download_manifest,
 #reset_manifest,
-#btn_image_files {
+#btn_image_files,
+#download_zip,
+#enter_json {
     font-size: 0.8rem;
     line-height: 0.8;
     padding: .5rem .7rem;
@@ -117,4 +119,9 @@ textarea {
 
 #manifestForm * {
     -webkit-appearance: none;
+}
+.spinner-grow {
+    width: 0.5rem !important;
+    height: 0.5rem !important;
+    vertical-align: unset !important;
 }
