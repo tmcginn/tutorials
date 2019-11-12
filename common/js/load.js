@@ -30,8 +30,8 @@ function wrapImgWithFigure(articleElement) {
 /* When MD file is converted to HTML, the pre tags (all codeblocks) are usually outside the li tag due to which the output 
 of the pre tag doesn't have the correct indentation. The following function moves the pre tags inside the li.*/
 function movePreInsideLi(articleElement) {
-    $(articleElement).find('pre').each(function () {
-        $(this).appendTo($(this).prev());
+    $(articleElement).find('section > pre').each(function () {
+        $(this).attr('style', 'margin-left: 62px;');
     });
 }
 /* The following function adds numbering icons before the h2 tag*/

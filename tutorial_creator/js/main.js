@@ -528,7 +528,7 @@ function downloadZip() {
     $.when(
         $.getScript("https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js"),
         $.getScript("https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.2/FileSaver.min.js"),
-        $.getScript("https://ashwin-agarwal.github.io/tutorials/common/js/load.js"),
+        $.getScript("https://ashwin-agarwal.github.io/tutorials/common/js/load.js"),        
         $.get("https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/template/download.html", function (downloadFile) {
             htmlTemplate.innerHTML = downloadFile;
         })
@@ -552,11 +552,10 @@ function downloadZip() {
                 wrapSectionTagAndAddHorizonatalLine(articleElement); //adding each section within section tag and adding HR line
                 addH2ImageIcons(articleElement); //Adding image, class, width, and height to the h2 title img
                 wrapImgWithFigure(articleElement); //Wrapping images with figure, adding figcaption to all those images that have title in the MD
-                //fixFigCaptions(articleElement, tutorialEntryInManifest.filename); //Fixing figcaptions for those images that were loaded from the localstorage as the src of the localstorage is like a junk value
-                addPathToAllRelativeHref(articleElement, tutorialEntryInManifest.filename); //adding the path for all HREFs that are relative based on the filename in manifest
+                addPathToAllRelativeHref(articleElement, tutorialEntryInManifest.filename); //adding the path for all HREFs that are relative based on the filename in manifest                
                 movePreInsideLi(articleElement); //moving the pre elements a layer up for stylesheet matching
                 $(articleElement).find('a').attr('target', '_blank'); //setting target for all ahrefs to _blank	
-                $(articleElement).find('ul li p:first-child').contents().unwrap(); //removing the p tag from first li child as CSS changes the formatting											
+                $(articleElement).find('ul li p:first-child').contents().unwrap(); //removing the p tag from first li child as CSS changes the formatting											                
 
                 var htmlDoc = document.implementation.createHTMLDocument();
                 htmlDoc.head.innerHTML = $($(htmlTemplate).find('head')[0]).html();
