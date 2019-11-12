@@ -528,7 +528,8 @@ function downloadZip() {
     $.when(
         $.getScript("https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js"),
         $.getScript("https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.2/FileSaver.min.js"),
-        $.getScript("https://ashwin-agarwal.github.io/tutorials/common/js/load.js"),        
+        $.getScript("https://ashwin-agarwal.github.io/tutorials/common/js/load.js"),
+        $.getScript("https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.8.9/beautifier.min.js"),
         $.get("https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/template/download.html", function (downloadFile) {
             htmlTemplate.innerHTML = downloadFile;
         })
@@ -738,8 +739,10 @@ function downloadZip() {
 
                 //add html files to the zip
                 if (tutorialNo === 0) {
-                    zip.folder("html").file("index.html", "<!DOCTYPE html>\n" + htmlDoc.documentElement.outerHTML);
+                    zip.folder("html").file("index.html", beautifier.html("<!DOCTYPE html>\n" + htmlDoc.documentElement.outerHTML));                    
                     $(log).append("\n[html] Added to zip: index.html");
+                    zip.folder("html").file("manifest.json", JSON.stringify(JSON.parse(localStorageManifest), null, "\t"));
+                    $(log).append("\n[manifest] Added to zip: manifest.json");
                 }
                 else {
                     var folder = zip.folder("html").folder(createShortNameFromTitle(tutorialEntryInManifest.title));
