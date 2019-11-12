@@ -36,7 +36,8 @@ img {
 #download_manifest,
 #reset_manifest,
 #btn_image_files,
-#download_zip {
+#download_zip,
+#enter_json {
     font-size: 0.8rem;
     line-height: 0.8;
     padding: .5rem .7rem;

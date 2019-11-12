@@ -122,12 +122,21 @@ $(function () {
             tutorialsno++;
         }
 
+        
+        if ($('#tutorials-nav .nav-link').length >= 2) {
+            if ($('#tutorials-nav .nav-link:eq(0) > .close').length == 0) {
+                var close_firsttab = document.createElement('span');
+                $(close_firsttab).html('&times;');
+                $(close_firsttab).attr('class', 'close');
+                $('#tutorials-nav .nav-link:eq(0)').append(close_firsttab);
+            }
+        }
 
         $(newtab).attr({
             class: 'tab-pane container fade',
             id: 'tutorial' + tutorialsno
         });
-        $(newtab).html($('#tutorial1').html());
+        $(newtab).html($('#tab-content .tab-pane:eq(0)').html());
         $(newtutorial).attr('class', 'nav-item');
         $(link).attr({
             class: 'nav-link',
@@ -154,9 +163,16 @@ $(function () {
 
     $('#main').on('click', '#tabs-container .nav-link .close', function () {
         var href = $(this).parent().attr("href");
-        $(href).remove();
+        $(href).remove();            
         $('#tabs-container a[href="' + $(this).parent().parent().prev().children().attr("href") + '"]').tab('show');
         $(this).parent().parent().remove();
+        
+        if ($('#tutorials-nav .nav-link').length <= 2) {
+            if ($('#tutorials-nav .nav-link:eq(0) > .close').length == 1) {                                                
+                $('#tutorials-nav .nav-link:eq(0) > .close').remove();
+            }
+        }
+
         getFormData();
     });
 
@@ -177,6 +193,7 @@ $(function () {
         while ($('#tabs-container .nav-link .close').length > 0) {
             $('#tabs-container .nav-link .close:last').click();
         }
+        $('#upload_json').val("");
         getFormData();
     });
 
@@ -186,6 +203,10 @@ $(function () {
     });
     $('#main').on('click', '#download_zip', function () {
         downloadZip();
+    });
+    $('#main').on('change', '#upload_json', enterJsonData);
+    $('#main').on('click', '#enter_json', function () {
+        $('#upload_json').click();
     });
 });
 
@@ -513,11 +534,16 @@ function downloadZip() {
         })
     ).done(function () {
         var zip = new JSZip();
-        var tutorialsDone = 0;
-        var imgCount = 0, imgDone = 0;
-        var linkCount = 0, linkDone = 0;
-        var scriptCount = 0, scriptDone = 0;
-        var fileCount = 0, fileDone = 0;
+        var tutorialsDone = 0, tutorialsFailed = 0;
+        var imgCount = 0, imgDone = 0, imgFailed = 0;
+        var linkCount = 0, linkDone = 0, linkFailed = 0;
+        var scriptCount = 0, scriptDone = 0, scriptFailed = 0;
+        var fileCount = 0, fileDone = 0, fileFailed = 0;
+        var logWindow = window.open("", "log", "width=1100,height=500");
+        logWindow.document.body.innerHTML = "";
+        logWindow.document.write('<pre>Creating zip file. Please wait...</pre>');
+        var log = logWindow.document.getElementsByTagName('pre')[0];
+
         $(allTutorials).each(function (tutorialNo, tutorialEntryInManifest) {
             $.get(tutorialEntryInManifest.filename, function (markdownContent) { //reading MD file in the manifest and storing content in markdownContent variable
                 var articleElement = document.createElement('article');
@@ -582,7 +608,11 @@ function downloadZip() {
                             zip.folder("html").folder(createShortNameFromTitle(tutorialEntryInManifest.title)).folder("img").file(decodeURI(imgname), imgContent, { base64: true });
                         }
                         imgDone++;
-                        generateAndDownload(zip, allTutorials, tutorialsDone, imgCount, imgDone, linkCount, linkDone, scriptCount, scriptDone, fileCount, fileDone);
+                        $(log).append("\n[img] Added to zip: " + imgSrc);
+                    };
+                    img.onerror = function () {
+                        $(log).append("\n<span style='color:red;'>[img] File doesn't exist: " + imgSrc + "</span>");
+                        imgFailed++;
                     };
                     img.src = imgSrc;
                 });
@@ -598,28 +628,38 @@ function downloadZip() {
                 //scripts and links are downloaded only for the main tutorial. All other tutorial refer to the same css and scripts.              
                 if (tutorialNo === 0) {
                     $(htmlDoc).find('head>link').each(function () {
-                        var location = $(this).attr('href').split('/');
+                        var linkSrc = $(this).attr('href');
+                        var location = linkSrc.split('/');
                         var filename = location[$(location).length - 1];
                         var foldername = location[$(location).length - 2];
                         if (foldername === "css") {
                             linkCount++;
-                            $.get($(this).attr('href'), function (fileContent) {
+                            $.get(linkSrc, function (fileContent) {
                                 zip.folder("html").folder(foldername).file(decodeURI(filename), fileContent);
                                 linkDone++;
-                                generateAndDownload(zip, allTutorials, tutorialsDone, imgCount, imgDone, linkCount, linkDone, scriptCount, scriptDone, fileCount, fileDone);
+                            }).done(function () {
+                                $(log).append("\n[css] Added to zip: " + linkSrc);
+                            }).fail(function () {
+                                linkFailed++;
+                                $(log).append("\n<span style='color:red;'>[css] File doesn't exist: " + linkSrc + "</span>");
                             });
                         }
                     });
                     $(htmlDoc).find('head>script').each(function () {
-                        var location = $(this).attr('src').split('/');
+                        let scriptSrc = $(this).attr('src');
+                        var location = scriptSrc.split('/');
                         var filename = location[$(location).length - 1];
                         var foldername = location[$(location).length - 2];
                         if (foldername === "js") {
                             scriptCount++;
-                            $.get($(this).attr('src'), function (fileContent) {
+                            $.get(scriptSrc, function (fileContent) {
                                 zip.folder("html").folder(foldername).file(decodeURI(filename), fileContent);
                                 scriptDone++;
-                                generateAndDownload(zip, allTutorials, tutorialsDone, imgCount, imgDone, linkCount, linkDone, scriptCount, scriptDone, fileCount, fileDone);
+                            }).done(function () {
+                                $(log).append("\n[js] Added to zip: " + scriptSrc);
+                            }).fail(function () {
+                                scriptFailed++;
+                                $(log).append("\n<span style='color:red;'>[js] File doesn't exist: " + scriptSrc + "</span>");
                             });
                         }
                     });
@@ -662,12 +702,13 @@ function downloadZip() {
 
                 //download files referenced in the OBE
                 $($(htmlDoc).find('#bookContainer')).find('a').each(function () {
-                    var location = $(this).attr('href').split('/');
+                    var fileSrc = $(this).attr('href');
+                    var location = fileSrc.split('/');
                     var filename = location[$(location).length - 1];
                     var foldername = location[$(location).length - 2];
                     if (foldername === "files") {
                         fileCount++;
-                        $.get($(this).attr('href'), function (fileContent) {
+                        $.get(fileSrc, function (fileContent) {
                             if (tutorialNo === 0) {
                                 zip.folder("html").folder(foldername).file(decodeURI(filename), fileContent);
                             }
@@ -675,7 +716,11 @@ function downloadZip() {
                                 zip.folder("html").folder(createShortNameFromTitle(tutorialEntryInManifest.title)).folder(foldername).file(decodeURI(filename), fileContent);
                             }
                             fileDone++;
-                            generateAndDownload(zip, allTutorials, tutorialsDone, imgCount, imgDone, linkCount, linkDone, scriptCount, scriptDone, fileCount, fileDone);
+                        }).done(function () {
+                            $(log).append("\n[files] Added to zip: " + fileSrc);
+                        }).fail(function () {
+                            $(log).append("\n<span style='color:red;'>[files] File doesn't exist: " + fileSrc + '</span>');
+                            fileFailed++;
                         });
                     }
                 });
@@ -695,29 +740,57 @@ function downloadZip() {
                 //add html files to the zip
                 if (tutorialNo === 0) {
                     zip.folder("html").file("index.html", "<!DOCTYPE html>\n" + htmlDoc.documentElement.outerHTML);
+                    $(log).append("\n[html] Added to zip: index.html");
                 }
                 else {
                     var folder = zip.folder("html").folder(createShortNameFromTitle(tutorialEntryInManifest.title));
                     folder.file("index.html", "<!DOCTYPE html>\n" + htmlDoc.documentElement.outerHTML);
+                    $(log).append("\n[html] Added to zip: " + createShortNameFromTitle(tutorialEntryInManifest.title) + "/index.html");
                 }
             }).done(function () {
                 tutorialsDone++;
-                generateAndDownload(zip, allTutorials, tutorialsDone, imgCount, imgDone, linkCount, linkDone, scriptCount, scriptDone, fileCount, fileDone);
+            }).fail(function () {
+                tutorialsFailed++;
+                $(log).append("\n<span style='color:red;'>[html] File doesn't exist: " + tutorialEntryInManifest.filename + '</span>');
             });
         });
-    });
-}
 
-function generateAndDownload(zip, allTutorials, tutorialsDone, imgCount, imgDone, linkCount, linkDone, scriptCount, scriptDone, fileCount, fileDone) {
-    if (tutorialsDone === allTutorials["length"] && imgCount === imgDone && linkCount === linkDone && scriptCount === scriptDone && fileCount === fileDone) {
-        zip.generateAsync({
-            type: "blob"
-        }).then(function (content) {
-            // see FileSaver.js
-            saveAs(content, allTutorials[0].partnumber + ".zip");
-        });
-        enableDownloadButton();
-    }
+        var completionCheck = setInterval(function () {
+            if (tutorialsDone === allTutorials["length"] && imgCount === imgDone && linkCount === linkDone && scriptCount === scriptDone && fileCount === fileDone) {
+                zip.generateAsync({
+                    type: "blob"
+                }).then(function (content) {
+                    // see FileSaver.js
+                    saveAs(content, allTutorials[0].partnumber + ".zip");
+                });
+                enableDownloadButton();
+                $(log).append("\n\nDownloading zip file...");
+                clearInterval(completionCheck);
+            }
+            else if (tutorialsDone + tutorialsFailed === allTutorials["length"] && imgCount === imgDone + imgFailed && linkCount === linkDone + linkFailed && scriptCount === scriptDone + scriptFailed && fileCount === fileDone + fileFailed) {
+                $(log).append("\n\nFailed to generate ZIP file. Please check log and retry.");
+                if (tutorialsFailed !== 0) {
+                    $(log).append("\nTutorials Failed: " + tutorialsFailed + " / " + allTutorials["length"]);
+                }
+                if (imgFailed !== 0) {
+                    $(log).append("\nImages Failed: " + imgFailed + " / " + imgCount);
+                }
+                if (linkFailed !== 0) {
+                    $(log).append("\nCSS Failed: " + linkFailed + " / " + linkCount);
+                }
+                if (scriptFailed !== 0) {
+                    $(log).append("\nJS Failed: " + scriptFailed + " / " + scriptCount);
+                }
+                if (fileFailed !== 0) {
+                    $(log).append("\nFiles Failed: " + fileFailed + " / " + fileCount);
+                }
+                clearInterval(completionCheck);
+                setTimeout(function () {
+                    enableDownloadButton();
+                }, 2000);
+            }
+        }, 3000);
+    });
 }
 
 function enableDownloadButton() {
@@ -732,4 +805,32 @@ function disableDownloadButton() {
     $('#download_zip').html(spinner);
     $('#download_zip').append(" Downloading...");
     $('#download_zip').attr('disabled', 'true');
+}
+
+function enterJsonData(evt) {
+    var files = evt.target.files;
+    var file = files[0];
+    var reader = new FileReader();
+    var json;
+    var valid = true;
+    reader.onload = (function (theFile) {
+        return function (e) {
+            try {
+                json = JSON.parse(e.target.result);
+            }
+            catch (exception) {
+                alert("Invalid JSON file");
+                valid = false;
+            }
+        };
+    })(file);
+    reader.onloadend = function () {
+        if (valid) {
+            $('#reset_manifest').click();
+            window.localStorage.setItem("manifestValue", JSON.stringify(JSON.stringify(json)));
+            manifestInit();
+        }
+
+    }
+    reader.readAsText(file);
 }
