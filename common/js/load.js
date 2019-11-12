@@ -188,6 +188,7 @@ function wrapSectionTagAndAddHorizonatalLine(articleElement) {
 /* The following function increases the width of the side navigation div to open it. */
 function openRightSideNav() {
     $('#mySidenav').attr("style", "width: 250px; overflow-y: auto;");
+    $('#mySidenav > .selected:eq(0)').focus().blur();
 }
 /* The following function decreases the width of the side navigation div to close it. */
 function closeRightSideNav() {

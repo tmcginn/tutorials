@@ -606,7 +606,7 @@ function downloadZip() {
                 //add right navigation for contents
                 setupRightSideNavForDownload(JSON.parse(localStorageManifest), htmlDoc, tutorialNo);
                 var animatedOpenSideNav = document.createElement('script');
-                animatedOpenSideNav.innerHTML = "$('#mySidenav').attr('style', 'width: 250px;')";
+                animatedOpenSideNav.innerHTML = "$('#mySidenav').attr('style', 'width: 250px;');\n$('#mySidenav > .selected:eq(0)').focus().blur();";
                 $(animatedOpenSideNav).appendTo($(htmlDoc).find('body'));
 
                 //capture all images used in the tutorial
@@ -774,7 +774,7 @@ function downloadZip() {
                 }
                 else {
                     var folder = zip.folder("html").folder(createShortNameFromTitle(tutorialEntryInManifest.title));
-                    folder.file("index.html", "<!DOCTYPE html>\n" + htmlDoc.documentElement.outerHTML);
+                    folder.file("index.html", beautifier.html("<!DOCTYPE html>\n" + htmlDoc.documentElement.outerHTML));
                     $(log).append("\n[html] Added to zip: " + createShortNameFromTitle(tutorialEntryInManifest.title) + "/index.html");
                 }
             }).done(function () {
