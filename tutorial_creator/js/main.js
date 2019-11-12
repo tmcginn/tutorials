@@ -40,6 +40,7 @@ $(function () {
     $('#main').on('click', '#preview_from_manifest', function () {
         var data = JSON.parse(window.localStorage.getItem("manifestValue"));
         var flag = false;
+        var titles = [];
         data = JSON.parse(data).tutorials;
 
         $(data).each(function (i) {
@@ -58,9 +59,15 @@ $(function () {
                     alert('Enter MD File Path in the manifest tab to preview in HTML.');
                     flag = true;
                 }
+                else if ($.inArray(title, titles) !== -1) {
+                    console.log($.inArray(title, titles));
+                    alert('Tutorial Titles cannot be same. Please ensure that the titles are unique and try again.');
+                    flag = true;
+                }
                 if (flag) {
                     $('#tabs-container .nav-link:eq(' + i + ')').tab('show');
                 }
+                titles.push(title);
             }
         });
 
@@ -203,9 +210,8 @@ $(function () {
     });
     $('#main').on('click', '#download_zip', function () {
         var flag = false;
-
+        var titles = [];
         var data = JSON.parse(window.localStorage.getItem("manifestValue"));
-        var flag = false;
         data = JSON.parse(data).tutorials;
 
         $(data).each(function (i) {
@@ -224,12 +230,19 @@ $(function () {
                     alert('Enter MD File Path in the manifest tab to download ZIP file.');
                     flag = true;
                 }
+                else if ($.inArray(title, titles) !== -1) {
+                    console.log($.inArray(title, titles));
+                    alert('Tutorial Titles cannot be same. Please ensure that the titles are unique and try again.');
+                    flag = true;
+                }
                 if (flag) {
                     $('#tabs-container .nav-link:eq(' + i + ')').tab('show');
                 }
+                titles.push(title);
             }
         });
-        if(!flag) {
+
+        if (!flag) {
             downloadZip();
         }
     });
@@ -493,7 +506,7 @@ function setupRightSideNavForDownload(manifestFileContent, tutorialHtml, tutoria
         var openbtn_div = $(document.createElement('div')).attr("id", "openbtn_div");
         var openbtn = $(document.createElement('span')).attr({
             class: "openbtn",
-            onclick: "$('#mySidenav').attr('style', 'width: 250px; overflow-y: auto;')"
+            onclick: "openNav();"
         });
 
         $(openbtn).html("&#9776;"); //this add the hamburger icon
@@ -512,7 +525,7 @@ function setupRightSideNavForDownload(manifestFileContent, tutorialHtml, tutoria
         var closebtn = $(document.createElement('a')).attr({
             href: "javascript:void(0)",
             class: "closebtn",
-            onclick: "$('#mySidenav').attr('style', 'width: 0px; overflow-y: hidden;')"
+            onclick: "closeNav()"
         });
         $(closebtn).html("&times;"); //adds a cross icon to the header
         $(closebtn).appendTo(sideNavHeaderDiv);
@@ -547,7 +560,7 @@ function setupRightSideNavForDownload(manifestFileContent, tutorialHtml, tutoria
 
 function downloadZip() {
     //disabling download button    
-    disableDownloadButton();        
+    disableDownloadButton();
     var localStorageManifest = JSON.parse(window.localStorage.getItem("manifestValue"));
     var allTutorials = JSON.parse(localStorageManifest).tutorials;
     var htmlTemplate = document.createElement('html');
@@ -604,10 +617,15 @@ function downloadZip() {
                 $(htmlDoc).find('meta[name=publisheddate]').attr("content", tutorialEntryInManifest.publisheddate);
 
                 //add right navigation for contents
-                setupRightSideNavForDownload(JSON.parse(localStorageManifest), htmlDoc, tutorialNo);
-                var animatedOpenSideNav = document.createElement('script');
-                animatedOpenSideNav.innerHTML = "$('#mySidenav').attr('style', 'width: 250px;');\n$('#mySidenav > .selected:eq(0)').focus().blur();";
-                $(animatedOpenSideNav).appendTo($(htmlDoc).find('body'));
+                if (allTutorials["length"] > 1) {
+                    setupRightSideNavForDownload(JSON.parse(localStorageManifest), htmlDoc, tutorialNo);
+                    var sideNavControl = document.createElement('script');
+                    $(sideNavControl).append("function openNav() { $('#mySidenav').attr('style', 'width: 250px; overflow-y: auto;'); $('#mySidenav > .selected:eq(0)').focus().blur();}");
+                    $(sideNavControl).append("function closeNav() { $('#mySidenav').attr('style', 'width: 0px; overflow-y: hidden;');}");
+                    $(sideNavControl).append('openNav();');
+                    $(sideNavControl).appendTo($(htmlDoc).find('body'));
+                }
+
 
                 //capture all images used in the tutorial
                 var imageSrcs = [];
