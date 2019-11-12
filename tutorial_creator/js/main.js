@@ -122,7 +122,7 @@ $(function () {
             tutorialsno++;
         }
 
-        
+
         if ($('#tutorials-nav .nav-link').length >= 2) {
             if ($('#tutorials-nav .nav-link:eq(0) > .close').length == 0) {
                 var close_firsttab = document.createElement('span');
@@ -163,12 +163,12 @@ $(function () {
 
     $('#main').on('click', '#tabs-container .nav-link .close', function () {
         var href = $(this).parent().attr("href");
-        $(href).remove();            
+        $(href).remove();
         $('#tabs-container a[href="' + $(this).parent().parent().prev().children().attr("href") + '"]').tab('show');
         $(this).parent().parent().remove();
-        
+
         if ($('#tutorials-nav .nav-link').length <= 2) {
-            if ($('#tutorials-nav .nav-link:eq(0) > .close').length == 1) {                                                
+            if ($('#tutorials-nav .nav-link:eq(0) > .close').length == 1) {
                 $('#tutorials-nav .nav-link:eq(0) > .close').remove();
             }
         }
@@ -202,7 +202,36 @@ $(function () {
         $('#image_files')[0].click();
     });
     $('#main').on('click', '#download_zip', function () {
-        downloadZip();
+        var flag = false;
+
+        var data = JSON.parse(window.localStorage.getItem("manifestValue"));
+        var flag = false;
+        data = JSON.parse(data).tutorials;
+
+        $(data).each(function (i) {
+            if (!flag) {
+                var title = $.trim(data[i].title);
+                var filename = $.trim(data[i].filename);
+                if (title.length === 0 && filename.length === 0) {
+                    alert('Enter both Title and MD File Path in the manifest tab to download ZIP file.');
+                    flag = true;
+                }
+                else if (title.length === 0) {
+                    alert('Enter Title in the manifest tab to download ZIP file.');
+                    flag = true;
+                }
+                else if (filename.length === 0) {
+                    alert('Enter MD File Path in the manifest tab to download ZIP file.');
+                    flag = true;
+                }
+                if (flag) {
+                    $('#tabs-container .nav-link:eq(' + i + ')').tab('show');
+                }
+            }
+        });
+        if(!flag) {
+            downloadZip();
+        }
     });
     $('#main').on('change', '#upload_json', enterJsonData);
     $('#main').on('click', '#enter_json', function () {
@@ -518,9 +547,7 @@ function setupRightSideNavForDownload(manifestFileContent, tutorialHtml, tutoria
 
 function downloadZip() {
     //disabling download button    
-    disableDownloadButton();
-    var previewType = window.localStorage.getItem("preview");
-    if (previewType !== "manifest") { return; }
+    disableDownloadButton();        
     var localStorageManifest = JSON.parse(window.localStorage.getItem("manifestValue"));
     var allTutorials = JSON.parse(localStorageManifest).tutorials;
     var htmlTemplate = document.createElement('html');
@@ -541,8 +568,9 @@ function downloadZip() {
         var scriptCount = 0, scriptDone = 0, scriptFailed = 0;
         var fileCount = 0, fileDone = 0, fileFailed = 0;
         var logWindow = window.open("", "log", "width=1100,height=500");
+        logWindow.document.title = "Tutorial Creator: Creating zip file";
         logWindow.document.body.innerHTML = "";
-        logWindow.document.write('<pre>Creating zip file. Please wait...</pre>');
+        logWindow.document.write('<pre>Packaging files. Please wait...</pre>');
         var log = logWindow.document.getElementsByTagName('pre')[0];
 
         $(allTutorials).each(function (tutorialNo, tutorialEntryInManifest) {
@@ -739,7 +767,7 @@ function downloadZip() {
 
                 //add html files to the zip
                 if (tutorialNo === 0) {
-                    zip.folder("html").file("index.html", beautifier.html("<!DOCTYPE html>\n" + htmlDoc.documentElement.outerHTML));                    
+                    zip.folder("html").file("index.html", beautifier.html("<!DOCTYPE html>\n" + htmlDoc.documentElement.outerHTML));
                     $(log).append("\n[html] Added to zip: index.html");
                     zip.folder("html").file("manifest.json", JSON.stringify(JSON.parse(localStorageManifest), null, "\t"));
                     $(log).append("\n[manifest] Added to zip: manifest.json");
@@ -762,7 +790,7 @@ function downloadZip() {
                 zip.generateAsync({
                     type: "blob"
                 }).then(function (content) {
-                    // see FileSaver.js
+                    // see FileSaver.js 
                     saveAs(content, allTutorials[0].partnumber + ".zip");
                 });
                 enableDownloadButton();
