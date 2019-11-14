@@ -25,7 +25,9 @@ $(function () {
     $('#lastmodified').text(document.lastModified);
     loadFile(nav_pages[0].html);
 
-    $('#main').on('change', '#show_images, #simple_view', showMdInHtml);
+    $('#main').on('change', '#show_images, #simple_view', function() {
+        setTimeout(showMdInHtml, 0)
+    });
 
 
     // The following event listeners are for shortcut buttons
@@ -250,6 +252,14 @@ $(function () {
     $('#main').on('click', '#enter_json', function () {
         $('#upload_json').click();
     });
+    $('#main').on('click', '#view_md_template', function() {
+        var template_window = window.open('template.md', 'template');
+
+    });
+    $('#main').on('click', '#import_md', function() {
+        $('#upload_md').click();
+    });
+    $('#main').on('change', '#upload_md', enterMdData);
 });
 
 function homeInit() {
@@ -265,6 +275,7 @@ function manifestInit() {
         setFormData();
         getFormData();
     }
+    $('#manifestForm input').trigger('input');
 }
 function loadFile(filename) {
     var xhr = new XMLHttpRequest();
@@ -319,11 +330,13 @@ function setFormData() {
 function readImageContent(evt) {
     var files = evt.target.files; // FileList object
     var uploaded_images = [];
+    var total = 0, loaded = 0, failed = 0;
     $.each(files, function () {
         var file = $(this)[0];
         if (file.type.match('image.*')) {
             var reader = new FileReader();
             reader.onload = (function (theFile) {
+                total++;
                 return function (e) {
                     var obj = {};
                     obj['filename'] = escape(theFile.name);
@@ -332,8 +345,19 @@ function readImageContent(evt) {
                 };
             })(file);
             reader.onloadend = function () {
-                window.localStorage.setItem("imagesValue", JSON.stringify(uploaded_images));
-                loadImages();
+                try {
+                    window.localStorage.setItem("imagesValue", JSON.stringify(uploaded_images));
+                    loadImages();
+                    loaded++;
+                } catch(e) {                    
+                    failed++;
+                }
+                if(total == loaded) {
+                    alert(total + " image(s) successfully uploaded for preview.");                    
+                }
+                else if(total == loaded + failed) {
+                    alert("Failed to load " + failed + " image(s) out of " + total + " as browser's local storage is full.");
+                }                
             };
             reader.readAsDataURL(file);
         }
@@ -864,6 +888,7 @@ function enterJsonData(evt) {
     reader.onload = (function (theFile) {
         return function (e) {
             try {
+                
                 json = JSON.parse(e.target.result);
             }
             catch (exception) {
@@ -880,5 +905,23 @@ function enterJsonData(evt) {
         }
 
     }
+    reader.readAsText(file);
+}
+
+function enterMdData(evt) {
+    var files = evt.target.files;
+    var file = files[0];
+    var reader = new FileReader();
+    var md;
+    reader.onload = (function (theFile) {
+        return function (e) {
+            md = e.target.result;
+        };
+    })(file);
+    reader.onloadend = function () {
+        $('#mdBox').val(md);
+        $('#mdBox').trigger('input');     
+    }
+    $('#upload_md').val("");
     reader.readAsText(file);
 }

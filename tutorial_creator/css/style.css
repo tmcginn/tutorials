@@ -37,7 +37,9 @@ img {
 #reset_manifest,
 #btn_image_files,
 #download_zip,
-#enter_json {
+#enter_json,
+#import_md, 
+#view_md_template {
     font-size: 0.8rem;
     line-height: 0.8;
     padding: .5rem .7rem;

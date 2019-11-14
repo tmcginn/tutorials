@@ -23,16 +23,20 @@ Section 1 opening paragraph.
 One line with code example `HelloWorld.java`.
 
 1. Ordered list item 1.
-2. Ordered list item 2 with image below.
-3. Image title must be entered to show the figcaption.
+2. Ordered list item 2 with image in step 3.
+3. Image title must be entered to show the figcaption. You must create a txt file for each figcaption.
 
     ![Image alt text](img/screenshot1.png "image title")
 
-4. Do not enter image title for inline icons ![Navigation icon](img/navigation_icon.png).
+4. If you have a screenshot to add, and you don't want to create txt file for each figcaption, enter title as empty space.
 
-4. One example with bold **text**.
+    ![Image alt text](img/screenshot1.png " ")    
 
-   If you add another paragraph, add 3 spaces before the line.
+4. Do not enter image title for inline icons ![Navigation icon](img/navigation_icon.png). Steps numbering in ordered lists don't really matter. Even if the numbering is same, it renders correctly in HTML.
+
+5. One example with bold **text**.
+
+    If you add another paragraph, add 4 spaces before the line for proper indentation.
 
 Section conclusion can come here.
 
@@ -42,11 +46,12 @@ Section conclusion can come here.
 
 2. List item 2.
 
-```
-Adding code examples
-Multiple lines of code
-One more line
-```
+    ```
+    Adding code examples
+    Multiple lines of code
+    Indented to the right so it appears inside step 2.
+    ```
+
 Conclusion of section 2 here.
 
 
