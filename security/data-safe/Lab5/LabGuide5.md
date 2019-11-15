@@ -1,4 +1,4 @@
-# Lab 5: Discovering and Masking Sensitive Data
+# Discovering and Masking Sensitive Data
 
 ## Before You Begin
 ### Objectives

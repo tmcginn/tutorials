@@ -1,4 +1,4 @@
-# Lab 4: Analyzing Alerts and Audit Reports
+# Analyzing Alerts and Audit Reports
 
 ## Before You Begin
 ### Objectives
@@ -13,10 +13,10 @@ To complete this lab, you need to have the following:
 - Login credentials and a tenancy name for the Oracle Cloud Infrastructure Console
 - Oracle Data Safe enabled in a region of your tenancy
 - A registered target database in Oracle Data Safe with sample data
-- Audit collection started on your target database in Oracle Data Safe. If not, see [Lab 2: Provision Audit and Alert Policies](../Lab2/LabGuide2.md)
+- Audit collection started on your target database in Oracle Data Safe. If not, see **Provision Audit and Alert Policies**.
 
 ### Assumptions
-This lab assumes that you are signed in to the Oracle Data Safe Console. If not, see [Lab 1: Viewing a Registered Target Database](../Lab1/LabGuide1.md), steps 1 and 2.
+This lab assumes that you are signed in to the Oracle Data Safe Console. If not, see **Viewing a Registered Target Database**, steps 1 and 2.
 
 Your data values may be different than those shown in the screenshots in this lab.
 
