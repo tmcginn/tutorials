@@ -1,4 +1,4 @@
-# Analyzing Alerts and Audit Reports
+# Analyze Alerts and Audit Reports
 
 ## Before You Begin
 ### Objectives
@@ -16,7 +16,7 @@ To complete this lab, you need to have the following:
 - Audit collection started on your target database in Oracle Data Safe. If not, see **Provision Audit and Alert Policies**.
 
 ### Assumptions
-This lab assumes that you are signed in to the Oracle Data Safe Console. If not, see **Viewing a Registered Target Database**, steps 1 and 2.
+This lab assumes that you are signed in to the Oracle Data Safe Console. If not, see **View a Registered Target Database**, steps 1 and 2.
 
 Your data values may be different than those shown in the screenshots in this lab.
 

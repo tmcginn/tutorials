@@ -1,4 +1,4 @@
-# Viewing a Registered Target Database
+# View a Registered Target Database
 
 ## Before You Begin
 ### Objectives
