@@ -1,4 +1,4 @@
-# Assessing Database Configurations and Users
+# Assess Database Configurations and Users
 
 ## Before You Begin
 ### Objectives
@@ -18,7 +18,7 @@ To complete this lab, you need to have the following:
 
 ### Assumptions
 
-This lab assumes that you are signed in to the Oracle Data Safe Console. If not, see **Viewing a Registered Target Database**, steps 1 and 2.
+This lab assumes that you are signed in to the Oracle Data Safe Console. If not, see **View a Registered Target Database**, steps 1 and 2.
 
 ## **STEP 1**: Run a Security Assessment job against a target database
 You can use Security Assessment to evaluate the current security state of your target databases and receive recommendations on how to mitigate the identified risks.

@@ -1,4 +1,4 @@
-# Discovering and Masking Sensitive Data
+# Discover and Mask Sensitive Data
 
 ## Before You Begin
 ### Objectives
