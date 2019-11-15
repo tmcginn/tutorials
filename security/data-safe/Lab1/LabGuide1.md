@@ -1,4 +1,4 @@
-# Lab 1: Viewing a Registered Target Database
+# Viewing a Registered Target Database
 
 ## Before You Begin
 ### Objectives

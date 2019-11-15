@@ -1,4 +1,4 @@
-# Lab 2: Provisioning Audit and Alert Policies
+# Provisioning Audit and Alert Policies
 
 ## Before You Begin
 ### Objectives
@@ -13,7 +13,7 @@ To complete this lab, you need to have the following:
 - A registered target database in Oracle Data Safe with sample audit data
 
 ### Assumptions
-This lab assumes that you are already signed in to the Oracle Data Safe Console. If not, see [Lab 1: Viewing a Registered Target Database](../Lab1/LabGuide1.md), steps 1 and 2.
+This lab assumes that you are already signed in to the Oracle Data Safe Console. If not, see **Viewing a Registered Target Database**, steps 1 and 2.
 
 ## **STEP 1**: Provision audit and alert policies on a target database by using the Activity Auditing wizard
 
