@@ -1,4 +1,4 @@
-# Assess Database Configurations and Users on Orale Data Safe
+# Assess Database Configurations and Users on Oracle Data Safe
 
 ## Before You Begin
 ### Objectives
