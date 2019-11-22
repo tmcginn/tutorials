@@ -1,0 +1,12 @@
+{
+    "tutorials": [
+		{         
+            "title": "Create Data Visualizations",
+            "description": "Create data visualizations with Oracle Analytics Cloud to review sales performance and better understand the factors that affect good credit.",
+            "partnumber": "Ennnnn_01",
+            "publisheddate": "10/14/2019",
+            "contentid": "12nnnn",
+            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/adw4dev_HOL/Lab400/content.md"
+        }
+    ]
+}

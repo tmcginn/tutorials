@@ -1,5 +1,4 @@
-# Lab 400: Create Data Visualizations
-![](./img/001.png)
+# Create Data Visualizations in Oracle Analytics Cloud
 
 ## Introduction
 In this Lab you will assume the persona of Emma, the marketing analyst.  She will be using Oracle Advanced Analytics to review current and historical sales patterns, and use the results of Heather's (data scientist) machine learning to support a new marketing project that targets high value/high credit customers.  She is working with others on her team, some of which have already been using Oracle Advanced Analytics to review sales data.  She wants to review the Data Visualization content before creating some insights herself.  She will begin by importing content from another analyst and reviewing sales perspectives, and will then build out visualizations on the sales credit machine learning results that were created by Heather.

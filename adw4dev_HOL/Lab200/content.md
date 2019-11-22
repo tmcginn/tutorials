@@ -1,5 +1,4 @@
-# Lab 200: Review Query Performance
-![](./img/001.png)
+# Review Query Performance for Autonomous Data Warehouse
 
 ## Introduction
 
