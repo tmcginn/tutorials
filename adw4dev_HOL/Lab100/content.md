@@ -1,5 +1,4 @@
-# Provisioning ADW and Getting Started
-![](./img/001.png)
+# Provision Autonomous Data Warehouse
 
 ## Introduction
 

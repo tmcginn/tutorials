@@ -1,0 +1,12 @@
+{
+    "tutorials": [
+		{            
+            "title": "Review Query Performance",
+            "description": "Run sample queries against a 100 million row current data set and a six billion row historic data set.",
+            "partnumber": "Ennnnn_01",
+            "publisheddate": "10/14/2019",
+            "contentid": "12nnnn",
+            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/adw4dev_HOL/Lab200/content.md"
+        }
+    ]
+}
