@@ -1,4 +1,4 @@
-# Review Query Performance for Autonomous Data Warehouse
+# Review Query Performance for Oracle Autonomous Data Warehouse
 
 ## Introduction
 
