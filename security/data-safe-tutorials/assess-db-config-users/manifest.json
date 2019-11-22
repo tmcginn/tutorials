@@ -1,0 +1,12 @@
+{
+    "tutorials": [
+		{         
+            "title": "Assess Database Configurations and Users",
+            "description": "Assess Database Configurations and Users",
+            "partnumber": "Ennnnn_01",
+            "publisheddate": "10/31/2019",
+            "contentid": "12nnnn",
+            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/security/data-safe-tutorials/assess-db-config-users/content.md"
+        }
+    ]
+}

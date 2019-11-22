@@ -1,4 +1,4 @@
-# Provision Autonomous Data Warehouse
+# Provision Oracle Autonomous Data Warehouse
 
 ## Introduction
 

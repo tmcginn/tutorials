@@ -1,0 +1,12 @@
+{
+    "tutorials": [
+        {         
+            "title": "Discover and Mask Sensitive Data",
+            "description": "Discover and Mask Sensitive Data",
+            "partnumber": "Ennnnn_01",
+            "publisheddate": "10/31/2019",
+            "contentid": "12nnnn",
+            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/security/data-safe-tutorials/discover-mask-data/content.md"
+        }
+    ]
+}
