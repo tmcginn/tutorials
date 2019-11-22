@@ -1,4 +1,4 @@
-# Provision Audit and Alert Policies on Orale Data Safe
+# Provision Audit and Alert Policies on Oracle Data Safe
 
 ## Before You Begin
 ### Objectives

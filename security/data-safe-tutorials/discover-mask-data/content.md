@@ -1,4 +1,4 @@
-# Discover and Mask Sensitive Data on Orale Data Safe
+# Discover and Mask Sensitive Data on Oracle Data Safe
 
 ## Before You Begin
 ### Objectives

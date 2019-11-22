@@ -1,4 +1,4 @@
-# View a Registered Target Database on Orale Data Safe
+# View a Registered Target Database on Oracle Data Safe
 
 ## Before You Begin
 ### Objectives
