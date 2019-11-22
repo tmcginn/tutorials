@@ -1,4 +1,4 @@
-# ADWC Lab 100: Provisioning and Getting Started
+# Provisioning ADW and Getting Started
 ![](./img/001.png)
 
 ## Introduction

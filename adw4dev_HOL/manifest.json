@@ -6,10 +6,10 @@
             "partnumber": "Ennnnn_01",
             "publisheddate": "10/14/2019",
             "contentid": "12nnnn",
-            "filename":"https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/adw4dev/content.md"
+            "filename":"https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/adw4dev/Intro/content.md"
         },
         {            
-            "title": "Lab 100: Introduction",
+            "title": "Lab 100: Provisioning ADW and Getting Started",
             "description": "Create and access an Autonomous Database Cloud Service",
             "partnumber": "Ennnnn_01",
             "publisheddate": "10/14/2019",
