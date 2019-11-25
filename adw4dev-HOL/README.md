@@ -1,6 +1,6 @@
 # Welcome to the Oracle Autonomous Data Warehouse For Developers Hands-on Lab!
 ## Access the Labs on the Repo
-Get hand-on experience with Oracle Autonomous Data Warehouse through these hands-on labs. [Click here](https://ashwin-agarwal.github.io/tutorials/adw4dev-HOL/) to use our easy to navigate HTML format.
+Get hand-on experience with Oracle Autonomous Data Warehouse through these hands-on labs. **[Click here](https://ashwin-agarwal.github.io/tutorials/adw4dev-HOL/)** to use our easy to navigate HTML format.
 
 Alternatively, you can follow the labs on this repo:
 - [About this lab](./about-this-lab/content.md)
