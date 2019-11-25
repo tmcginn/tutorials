@@ -6,7 +6,7 @@
             "partnumber": "Ennnnn_01",
             "publisheddate": "10/14/2019",
             "contentid": "12nnnn",
-            "filename":"https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/adw4dev-HOL/Intro/content.md"
+            "filename":"https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/adw4dev-HOL/about-this-lab/content.md"
         },
         {            
             "title": "Lab 100: Provision ADW and Get Started",
@@ -14,7 +14,7 @@
             "partnumber": "Ennnnn_01",
             "publisheddate": "10/14/2019",
             "contentid": "12nnnn",
-            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/adw4dev-HOL/Lab100/content.md"
+            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/adw4dev-HOL/intro-provision/content.md"
         },
 		{            
             "title": "Lab 200: Review Query Performance",
@@ -22,7 +22,7 @@
             "partnumber": "Ennnnn_01",
             "publisheddate": "10/14/2019",
             "contentid": "12nnnn",
-            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/adw4dev-HOL/Lab200/content.md"
+            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/adw4dev-HOL/review-query-performance/content.md"
         },
 		{         
             "title": "Lab 300: Machine Learning",
@@ -30,7 +30,7 @@
             "partnumber": "Ennnnn_01",
             "publisheddate": "10/14/2019",
             "contentid": "12nnnn",
-            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/adw4dev-HOL/Lab300/content.md"
+            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/adw4dev-HOL/machine-learning/content.md"
         },
 		{         
             "title": "Lab 400: Create Data Visualizations",
@@ -38,7 +38,7 @@
             "partnumber": "Ennnnn_01",
             "publisheddate": "10/14/2019",
             "contentid": "12nnnn",
-            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/adw4dev-HOL/Lab400/content.md"
+            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/adw4dev-HOL/create-data-visualizations/content.md"
         }
     ]
 }
