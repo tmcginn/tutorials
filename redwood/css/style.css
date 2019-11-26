@@ -562,17 +562,20 @@ html {
   }
   
   pre {
-    margin: .4rem .4rem .4rem 25px;
+    margin-top: 20px;
+    margin-right: .4rem;
+    margin-bottom: 25px;
+    margin-left: 25px;
   }
-  
-  img,
+    
+  figure > img,
   canvas,
   iframe,
   video,
   select,
   textarea {
     display: block;
-    max-width: 100%;
+    max-width: 95%;
     height: auto;
     padding: 4px;
     border-radius: 4px;
@@ -580,6 +583,14 @@ html {
     background-color: #fff;
     box-shadow: 0 24px 48px -24px rgba(0, 0, 0, .3);
   }
+
+  figure {
+    margin-left: 0;
+  }
+  img:not(figure) {
+    display: inline !important;
+  }
+
   blockquote {
     border-left: 8px solid #fafafa;
     padding: 1rem;
