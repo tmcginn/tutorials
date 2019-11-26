@@ -6,7 +6,7 @@ $(function () {
         var tutorialEntryInManifest = selectMdFileToDisplay(manifestFileContent); //selects which MD file to display
         var articleElement = document.createElement('article'); //creating an article that would contain MD to HTML converted content
         $.get(tutorialEntryInManifest.filename, function (markdownContent) { //reading MD file in the manifest and storing content in markdownContent variable
-            $(articleElement).html(new showdown.Converter().makeHtml(markdownContent)); //converting markdownContent to HTML by using showndown plugin
+            $(articleElement).html(new showdown.Converter({ tables: true }).makeHtml(markdownContent)); //converting markdownContent to HTML by using showndown plugin
 			addPathToImageSrc(articleElement, tutorialEntryInManifest.filename); //adding the path for the image based on the filename in manifest
             updateH1Title(articleElement); //replacing the h1 title in the Tutorial and removing it from the article Element
 			wrapSectionTagAndAddHorizonatalLine(articleElement); //adding each section within section tag and adding HR line
