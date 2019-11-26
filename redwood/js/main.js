@@ -26,7 +26,7 @@ $(document).ready(function () {
 /* The following function increases the width of the side navigation div to open it. */
 function openRightSideNav() {
     $('#mySidenav').attr("style", "width: 270px; overflow-y: auto; box-shadow: 0 0 48px 24px rgba(0, 0, 0, .3);");
-    $('#mySidenav').scrollTop($('#mySidenav li.selected:eq(0)').position().top);
+    document.getElementsByClassName('selected')[0].scrollIntoView(false);
 }
 /* The following function decreases the width of the side navigation div to close it. */
 function closeRightSideNav() {
