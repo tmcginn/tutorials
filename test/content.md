@@ -7,7 +7,7 @@ o	OCI Object Storage Bucket name and OCI Tenancy name
 
 
 ## Getting Started
-There are a few tasks that are required to get started with Big Data Service.  Several of these tasks need to be performed by the Cloud Administrator for your tenancy.  There are also optional tasks that make it easier to manage your environment.  For example, creating compartments and groups will simplify administration tasks as your environment exapnds.
+There are a few tasks that are required to get started with Big Data Service.  Several of these tasks need to be performed by the Cloud Administrator for your tenancy.  There are also optional tasks that make it easier to manage your environment.  For example, creating compartments and groups will simplify administration tasks as your environment exapnds. Check [Create a Compartment for BDS Resources](#CreateaCompartment).
 
 | User | Task | Purpose | Required | How to |
 |:----|:----|:----|:----|:----|

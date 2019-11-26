@@ -170,7 +170,10 @@ function addPathToAllRelativeHref(articleElement, myUrl) {
 }
 /*the following function sets target for all HREFs to _blank */
 function addTargetBlank(articleElement) {
-    $(articleElement).find('a').attr('target', '_blank');
+	$(articleElement).find('a').each(function () {
+		if($(this).attr('href').indexOf('#') > 1)
+			$(this).attr('target', '_blank'); //setting target for all ahrefs to _blank
+	});
     return articleElement;
 }
 /* Sets the title, contentid, description, partnumber, and publisheddate attributes in the HTML page. 
