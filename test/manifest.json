@@ -63,6 +63,14 @@
 			"partnumber": "E98132_04",
 			"publisheddate": "2019-04-01",
 			"contentid": ""
-		}
+		},
+		{            
+            "title": "Authorization Requirements",
+            "description": "Authorization requirements for managing and using your BDS cluster.",
+            "partnumber": "0",
+            "publisheddate": "11/21/2019",
+            "contentid": "0",
+            "filename": "content.md"
+        }
     ]
 }
