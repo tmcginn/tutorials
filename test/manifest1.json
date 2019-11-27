@@ -1,0 +1,84 @@
+{
+    "tutorials": [
+        {
+            "title": "Oracle Data Safe Workshop",
+            "description":"Introduction to the workshop",
+            "partnumber": "Ennnnn_01",
+            "publisheddate": "10/31/2019",
+            "contentid": "12nnnn",
+            "filename":"https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/security/data-safe-HOL/about-this-lab/content.md"
+        },
+        {            
+            "title": "Lab 1: View a Registered Target Database",
+            "description":"View a Registered Target Database",
+            "partnumber": "Ennnnn_01",
+            "publisheddate": "10/31/2019",
+            "contentid": "12nnnn",
+            "filename":"https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/security/data-safe-tutorials/view-registered-target-db/content.md"
+        },
+		{            
+            "title": "Lab 2: Provision Audit and Alert Policies",
+            "description": "Provision Audit and Alert Policies",
+            "partnumber": "Ennnnn_01",
+            "publisheddate": "10/31/2019",
+            "contentid": "12nnnn",
+            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/security/data-safe-tutorials/provision-audit-alert-policies/content.md"
+        },
+		{         
+            "title": "Lab 3: Assess Database Configurations and Users",
+            "description": "Assess Database Configurations and Users",
+            "partnumber": "Ennnnn_01",
+            "publisheddate": "10/31/2019",
+            "contentid": "12nnnn",
+            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/security/data-safe-tutorials/assess-db-config-users/content.md"
+        },
+		{         
+            "title": "Lab 4: Analyze Alerts and Audit Reports",
+            "description": "Analyze Alerts and Audit Reports",
+            "partnumber": "Ennnnn_01",
+            "publisheddate": "10/31/2019",
+            "contentid": "12nnnn",
+            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/security/data-safe-tutorials/analyze-alerts-audit-reports/content.md"
+        },
+        {         
+            "title": "Lab 5: Discover and Mask Sensitive Data",
+            "description": "Discover and Mask Sensitive Data",
+            "partnumber": "Ennnnn_01",
+            "publisheddate": "10/31/2019",
+            "contentid": "12nnnn",
+            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/security/data-safe-tutorials/discover-mask-data/content.md"
+        },		
+		{
+			"title": "Create a Table in Oracle NoSQL Database Cloud Service Using Java",
+			"description": "This 15-minute tutorial walks you through the steps to connect to Oracle NoSQL Database Cloud Service and create a table using a sample application.",
+			"filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/ansct/content.md",
+			"partnumber": "",
+			"publisheddate": "2019-04-01",
+			"contentid": ""
+		},
+		{
+			"title": "Get Started with Oracle NoSQL Database Cloud Service",
+			"description": "This tutorial demonstrates how to sign in to Oracle NoSQL Database Cloud Service console for the first time, create a user, and copy client credentials. This tutorial takes approximately 15 minutes to complete.",
+			"filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/gsnsd/content.md",
+			"partnumber": "E98132_04",
+			"publisheddate": "2019-04-01",
+			"contentid": ""
+		},
+		{            
+            "title": "Authorization Requirements",
+            "description": "Authorization requirements for managing and using your BDS cluster.",
+            "partnumber": "0",
+            "publisheddate": "11/21/2019",
+            "contentid": "0",
+            "filename": "content.md"
+        },
+		{
+			"title": "Clone PDBs using DBCA in Silent Mode",
+			"description": "Learn how to clone PDBs using DBCA in silent mode.",
+			"filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/NF_19c/content.md",
+			"partnumber": "F11839-01",
+			"publisheddate": "2019-01-15",
+			"contentid": "26693"
+		}
+    ]
+}
