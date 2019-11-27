@@ -14,6 +14,7 @@ $(document).ready(function () {
             articleElement = wrapSectionTagAndAddHorizonatalLine(articleElement); //adding each section within section tag and adding HR line
             articleElement = wrapImgWithFigure(articleElement); //Wrapping images with figure, adding figcaption to all those images that have title in the MD
             articleElement = addPathToAllRelativeHref(articleElement, selectedTutorial.filename); //adding the path for all HREFs that are relative based on the filename in manifest
+			articleElement = makeAnchorLinksWork(articleElement); //if there are links to anchors (for example: #hash-name), this function will enable it work
             articleElement = addTargetBlank(articleElement); //setting target for all ahrefs to _blank
             updateHeadContent(selectedTutorial); //changing document head based on the manifest
         }).done(function () {
@@ -169,6 +170,19 @@ function addPathToAllRelativeHref(articleElement, myUrl) {
         });
     }
     return articleElement;
+}
+/* the following function makes anchor links work by adding an event to all href="#...." */
+function makeAnchorLinksWork(articleElement) {
+	$(articleElement).find('a[href^="#"]').each(function() {
+		var href = $(this).attr('href');
+		if(href !== "#") {			
+			$(this).click(function() {
+				$('div[name="' + href.split('#')[1] + '"]')[0].scrollIntoView();
+				window.scrollTo(0, window.scrollY - 70);
+			});
+		}
+	});
+	return articleElement;
 }
 /*the following function sets target for all HREFs to _blank */
 function addTargetBlank(articleElement) {

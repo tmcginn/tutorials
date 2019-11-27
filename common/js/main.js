@@ -13,6 +13,7 @@ $(function () {
             addH2ImageIcons(articleElement); //Adding image, class, width, and height to the h2 title img
             wrapImgWithFigure(articleElement); //Wrapping images with figure, adding figcaption to all those images that have title in the MD
 			addPathToAllRelativeHref(articleElement, tutorialEntryInManifest.filename); //adding the path for all HREFs that are relative based on the filename in manifest
+			makeAnchorLinksWork(articleElement); //if there are links to anchors (for example: #hash-name), this function will enable it work
             movePreInsideLi(articleElement); //moving the pre elements a layer up for stylesheet matching  
 			$(articleElement).find('a').each(function () {
 				if($(this).attr('href').indexOf("http") === 0) //ignoring # hrefs

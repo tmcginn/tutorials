@@ -217,3 +217,14 @@ function selectTocItemBasedOnHash() {
             $(this).click();
     });
 }
+/* the following function makes anchor links work by adding an event to all href="#...." */
+function makeAnchorLinksWork(articleElement) {
+	$(articleElement).find('a[href^="#"]').each(function() {
+		var href = $(this).attr('href');
+		if(href !== "#") {			
+			$(this).click(function() {
+				$('div[name="' + href.split('#')[1] + '"]')[0].scrollIntoView();				
+			});
+		}
+	});
+}

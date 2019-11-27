@@ -14,7 +14,7 @@
             "partnumber": "0",
             "publisheddate": "11/21/2019",
             "contentid": "0",
-            "filename":"https://martygubar.github.io/bds-getting-started/lab-prepare/prepare-for-bds.md"
+            "filename":"content.md"
         },
         {            
             "title": "Create a Hadoop Admin User",
