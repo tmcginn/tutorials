@@ -207,7 +207,7 @@ function setupLeftNav() {
         selectors: "h2, h3, h4"
     }).data("toc-tocify");
     //scrollHistory: true
-    toc.setOptions({ extendPage: false, smoothScroll: false, scrollTo: 70, highlightDefault: true, showEffect: "fadeIn" });
+    toc.setOptions({ extendPage: false, smoothScroll: false, scrollTo: 70, highlightDefault: true, showEffect: "fadeIn", hashGenerator: "pretty" });
 
     $('.tocify-item').each(function () {
         var itemName = $(this).attr('data-unique');
