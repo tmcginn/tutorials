@@ -1,5 +1,7 @@
 "use strict";
 var manifestFileName = "manifest.json";
+var expandText = "Expand All Parts";
+var collapseText = "Collapse All Parts";
 
 $(document).ready(function () {
     $.getJSON(manifestFileName, function (manifestFileContent) { //reading the manifest file and storing content in manifestFileContent variable
@@ -170,10 +172,10 @@ function addPathToAllRelativeHref(articleElement, myUrl) {
 }
 /*the following function sets target for all HREFs to _blank */
 function addTargetBlank(articleElement) {
-	$(articleElement).find('a').each(function () {
-		if($(this).attr('href').indexOf("http") === 0) //ignoring # hrefs
-			$(this).attr('target', '_blank'); //setting target for ahrefs to _blank
-	});
+    $(articleElement).find('a').each(function () {
+        if ($(this).attr('href').indexOf("http") === 0) //ignoring # hrefs
+            $(this).attr('target', '_blank'); //setting target for ahrefs to _blank
+    });
     return articleElement;
 }
 /* Sets the title, contentid, description, partnumber, and publisheddate attributes in the HTML page. 
@@ -188,14 +190,15 @@ function updateHeadContent(tutorialEntryInManifest) {
 /* Setup left navigation and tocify */
 function setupLeftNav() {
     var toc = $("#toc").tocify({
-        selectors: "h2, h3[style='display: block;']"
+        selectors: "h2, h3, h4"
     }).data("toc-tocify");
-    toc.setOptions({ extendPage: false, smoothScroll: false, scrollTo: 70, scrollHistory: true, highlightDefault: true, showEffect: "fadeIn" });
+    //scrollHistory: true
+    toc.setOptions({ extendPage: false, smoothScroll: false, scrollTo: 70, highlightDefault: true, showEffect: "fadeIn" });
 
     $('.tocify-item').each(function () {
         var itemName = $(this).attr('data-unique');
         $(this).click(function () {
-            if($('div[name="' + itemName + '"]').next().hasClass("plus")) {
+            if ($('div[name="' + itemName + '"]').next().hasClass("plus")) {
                 $('div[name="' + itemName + '"]').next().click();
             }
             $(this).blur();
@@ -211,32 +214,54 @@ function setupLeftNav() {
 }
 /* Enables collapse/expand feature for the steps */
 function setupContentNav() {
-    setTimeout(function () {        
-        $("#module-content h2").nextUntil("#module-content h1, #module-content h2").hide(); //change to show to display the content expanded
-        $("#module-content h2").addClass('plus');
+    setTimeout(function () {
+        $("#module-content h2:eq(1)")
+            .before('<button id="btn_toggle" class="hol-ToggleRegions plus">Expand All Parts</button>')
+            .prev().on('click', function (e) {
+                if ($(this).text() === expandText) {
+                    $("#module-content h2:not(:eq(0))").nextUntil("#module-content h1, #module-content h2").show();
+                    $(this).text(collapseText);
+                    $("#btn_toggle, #module-content h2:not(:eq(0))").addClass('minus');
+                    $("#btn_toggle, #module-content h2:not(:eq(0))").removeClass('plus');
+                }
+                else {
+                    $("#module-content h2:not(:eq(0))").nextUntil("#module-content h1, #module-content h2").hide();
+                    $(this).text(expandText);
+                    $("#btn_toggle, #module-content h2:not(:eq(0))").removeClass('minus');
+                    $("#btn_toggle, #module-content h2:not(:eq(0))").addClass('plus');
+                }
+                heightAdjust();
+            });
+        //change to hide to display the content collapsed | change to show to display the content expanded        
+        $("#module-content h2:not(:eq(0))").nextUntil("#module-content h1, #module-content h2").hide();
+        $("#module-content h2:not(:eq(0))").addClass('plus');
         $("#module-content h2").click(function (e) {
-            if ($(this).hasClass('plus')) {
-                fadeInStep($(this));
+            if ($(this).hasClass('plus')) { //expands the clicked part
+                $(this).nextUntil("#module-content h1, #module-content h2").fadeIn(heightAdjust);
+                $(this).addClass('minus');
+                $(this).removeClass('plus');
             }
-            else if ($(this).hasClass('minus')) {
-                fadeOutStep($(this));
+            else if ($(this).hasClass('minus')) { //collapse the clicked part
+                $(this).nextUntil("#module-content h1, #module-content h2").fadeOut(heightAdjust);
+                $(this).addClass('plus');
+                $(this).removeClass('minus');
+            }
+            
+            
+            if ($("#module-content h2.minus").length === 0) {
+                $('#btn_toggle').text(expandText);                
+                $("#btn_toggle").addClass('plus');
+                $("#btn_toggle").removeClass('minus');
+            }
+            else if ($("#module-content h2.plus").length === 0) {
+                $('#btn_toggle').text(collapseText);
+                $("#btn_toggle").addClass('minus');
+                $("#btn_toggle").removeClass('plus');
             }
         });
         window.scrollTo(0, 0);
         heightAdjust();
     }, 0);
-}
-/* Collapses the clicked part */
-function fadeOutStep(step) {
-    $(step).nextUntil("#module-content h1, #module-content h2").fadeOut(heightAdjust);
-    $(step).addClass('plus');
-    $(step).removeClass('minus');
-}
-/* Expands the clicked part */
-function fadeInStep(step) {
-    $(step).nextUntil("#module-content 3h1, #module-content h2").fadeIn(heightAdjust);
-    $(step).addClass('minus');
-    $(step).removeClass('plus');
 }
 /* Manage contentBox height */
 function heightAdjust() {

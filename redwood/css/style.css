@@ -344,6 +344,7 @@ html {
     color: #100F0E;
     border: 1px solid #3F3A36;
     min-width: 160px;
+    /*margin-left: -16px;*/
   }
   
   .hol-ToggleRegions:hover {
@@ -379,7 +380,7 @@ html {
     font-size: 24px;
     line-height: 32px;
     cursor: pointer;
-    margin: 16px 0;
+    margin: 16px -16px;
     padding-left: 48px;
     position: relative;
     transition: background-color .2s ease;
