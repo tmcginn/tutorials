@@ -156,7 +156,7 @@ function addPathToAllRelativeHref(articleElement, myUrl) {
     if (myUrl.indexOf("http") >= 0) { //checking if url is absolute path
         myUrl = myUrl.replace(/\/[^\/]+$/, "/"); //removing filename from the url        
         $(articleElement).find('a').each(function () {
-            if ($(this).attr("href").indexOf("://") == -1) {
+            if ($(this).attr("href").indexOf("http") == -1 && $(this).attr("href").indexOf("?") !== 0 && $(this).attr("href").indexOf("#") !== 0) {
                 $(this).attr("href", myUrl + $(this).attr("href"));
             }
         });
