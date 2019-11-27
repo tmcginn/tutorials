@@ -15,7 +15,7 @@ $(function () {
 			addPathToAllRelativeHref(articleElement, tutorialEntryInManifest.filename); //adding the path for all HREFs that are relative based on the filename in manifest
             movePreInsideLi(articleElement); //moving the pre elements a layer up for stylesheet matching  
 			$(articleElement).find('a').each(function () {
-				if($(this).attr('href').indexOf('#') > 1)
+				if($(this).attr('href').indexOf('#') !== 0)
 					$(this).attr('target', '_blank'); //setting target for all ahrefs to _blank
 			});
 			$(articleElement).find('ul li p:first-child').contents().unwrap(); //removing the p tag from first li child as CSS changes the formatting			
