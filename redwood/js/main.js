@@ -188,12 +188,20 @@ function updateHeadContent(tutorialEntryInManifest) {
 /* Setup left navigation and tocify */
 function setupLeftNav() {
     var toc = $("#toc").tocify({
-        selectors: "h2,h3,h4,h5"
+        selectors: "h2, h3[style='display: block;']"
     }).data("toc-tocify");
-    toc.setOptions({ extendPage: false, smoothScroll: false, scrollTo: 70, showEffect: "slideDown" });
+    toc.setOptions({ extendPage: false, smoothScroll: false, scrollTo: 70, scrollHistory: true, highlightDefault: true, showEffect: "fadeIn" });
 
     $('.tocify-item').each(function () {
-        if ($(this).attr('data-unique') === location.hash.slice(1)) {
+        var itemName = $(this).attr('data-unique');
+        $(this).click(function () {
+            if($('div[name="' + itemName + '"]').next().hasClass("plus")) {
+                $('div[name="' + itemName + '"]').next().click();
+            }
+            $(this).blur();
+            heightAdjust();
+        });
+        if (itemName === location.hash.slice(1)) {
             var click = $(this);
             setTimeout(function () {
                 $(click).click();
@@ -204,8 +212,8 @@ function setupLeftNav() {
 /* Enables collapse/expand feature for the steps */
 function setupContentNav() {
     setTimeout(function () {        
-        $("#module-content h2").nextUntil("#module-content h1, #module-content h2").show();
-        $("#module-content h2").addClass('minus');        
+        $("#module-content h2").nextUntil("#module-content h1, #module-content h2").hide(); //change to show to display the content expanded
+        $("#module-content h2").addClass('plus');
         $("#module-content h2").click(function (e) {
             if ($(this).hasClass('plus')) {
                 fadeInStep($(this));
@@ -215,24 +223,24 @@ function setupContentNav() {
             }
         });
         window.scrollTo(0, 0);
+        heightAdjust();
     }, 0);
 }
 /* Collapses the clicked part */
 function fadeOutStep(step) {
-    $(step).nextUntil("#module-content h1, #module-content h2").fadeOut(function () {
-        if ($('#contentBox').height() < $('#leftNav').height())
-            $('#contentBox').height($('#leftNav').height());
-    });
+    $(step).nextUntil("#module-content h1, #module-content h2").fadeOut(heightAdjust);
     $(step).addClass('plus');
     $(step).removeClass('minus');
 }
 /* Expands the clicked part */
 function fadeInStep(step) {
-    $(step).nextUntil("#module-content 3h1, #module-content h2").fadeIn(function () {
-        $('#contentBox').height('100%');
-        if ($('#contentBox').height() < $('#leftNav').height())
-            $('#contentBox').height($('#leftNav').height());
-    });
+    $(step).nextUntil("#module-content 3h1, #module-content h2").fadeIn(heightAdjust);
     $(step).addClass('minus');
     $(step).removeClass('plus');
+}
+/* Manage contentBox height */
+function heightAdjust() {
+    $('#contentBox').height('100%');
+    if ($('#contentBox').height() < $('#leftNav').height())
+        $('#contentBox').height($('#leftNav').height());
 }
