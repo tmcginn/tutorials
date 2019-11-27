@@ -94,10 +94,10 @@ function addPathToImageSrc(articleElement, myUrl) {
 	/*the following if condition is passed only when a path is specified in the filename of the manifest.
 	if "/" is not specified in the filename, it would mean that the index.html file is in the same location as the MD,
 	hence there is no need to replace relative images src */
-    if (myUrl.indexOf("/") >= 0) { //checking if url is absolute path
+    if (myUrl.indexOf("http") >= 0) { //checking if url is absolute path
         myUrl = myUrl.replace(/\/[^\/]+$/, "/"); //removing filename from the url        
         $(articleElement).find('img').each(function () {
-            if ($(this).attr("src").indexOf("://") == -1) {
+            if ($(this).attr("src").indexOf("http") == -1) {
                 $(this).attr("src", myUrl + $(this).attr("src"));
             }
         });
@@ -160,10 +160,10 @@ function addPathToAllRelativeHref(articleElement, myUrl) {
 	/*the following if condition is passed only when a path is specified in the filename of the manifest.
 	if "/" is not specified in the filename, it would mean that the index.html file is in the same location as the MD,
 	hence there is no need to replace relative hrefs */
-    if (myUrl.indexOf("/") >= 0) { //checking if url is absolute path
+    if (myUrl.indexOf("http") >= 0) { //checking if url is absolute path
         myUrl = myUrl.replace(/\/[^\/]+$/, "/"); //removing filename from the url        
         $(articleElement).find('a').each(function () {
-            if ($(this).attr("href").indexOf("://") == -1) {
+            if ($(this).attr("href").indexOf("http") == -1 && $(this).attr("href").indexOf("?") !== 0 && $(this).attr("href").indexOf("#") !== 0) {
                 $(this).attr("href", myUrl + $(this).attr("href"));
             }
         });

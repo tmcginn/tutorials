@@ -140,7 +140,7 @@ function addPathToImageSrc(articleElement, myUrl) {
     if (myUrl.indexOf("http") >= 0) { //checking if url is absolute path
         myUrl = myUrl.replace(/\/[^\/]+$/, "/"); //removing filename from the url        
         $(articleElement).find('img').each(function () {
-            if ($(this).attr("src").indexOf("://") == -1) {
+			if ($(this).attr("src").indexOf("http") == -1) {            
                 $(this).attr("src", myUrl + $(this).attr("src"));
             }
         });

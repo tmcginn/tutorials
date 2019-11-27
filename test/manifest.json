@@ -1,84 +1,61 @@
 {
     "tutorials": [
-        {
-            "title": "Oracle Data Safe Workshop",
-            "description":"Introduction to the workshop",
-            "partnumber": "Ennnnn_01",
-            "publisheddate": "10/31/2019",
-            "contentid": "12nnnn",
-            "filename":"https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/security/data-safe-HOL/about-this-lab/content.md"
-        },
         {            
-            "title": "Lab 1: View a Registered Target Database",
-            "description":"View a Registered Target Database",
-            "partnumber": "Ennnnn_01",
-            "publisheddate": "10/31/2019",
-            "contentid": "12nnnn",
-            "filename":"https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/security/data-safe-tutorials/view-registered-target-db/content.md"
-        },
-		{            
-            "title": "Lab 2: Provision Audit and Alert Policies",
-            "description": "Provision Audit and Alert Policies",
-            "partnumber": "Ennnnn_01",
-            "publisheddate": "10/31/2019",
-            "contentid": "12nnnn",
-            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/security/data-safe-tutorials/provision-audit-alert-policies/content.md"
-        },
-		{         
-            "title": "Lab 3: Assess Database Configurations and Users",
-            "description": "Assess Database Configurations and Users",
-            "partnumber": "Ennnnn_01",
-            "publisheddate": "10/31/2019",
-            "contentid": "12nnnn",
-            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/security/data-safe-tutorials/assess-db-config-users/content.md"
-        },
-		{         
-            "title": "Lab 4: Analyze Alerts and Audit Reports",
-            "description": "Analyze Alerts and Audit Reports",
-            "partnumber": "Ennnnn_01",
-            "publisheddate": "10/31/2019",
-            "contentid": "12nnnn",
-            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/security/data-safe-tutorials/analyze-alerts-audit-reports/content.md"
-        },
-        {         
-            "title": "Lab 5: Discover and Mask Sensitive Data",
-            "description": "Discover and Mask Sensitive Data",
-            "partnumber": "Ennnnn_01",
-            "publisheddate": "10/31/2019",
-            "contentid": "12nnnn",
-            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/security/data-safe-tutorials/discover-mask-data/content.md"
-        },		
-		{
-			"title": "Create a Table in Oracle NoSQL Database Cloud Service Using Java",
-			"description": "This 15-minute tutorial walks you through the steps to connect to Oracle NoSQL Database Cloud Service and create a table using a sample application.",
-			"filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/ansct/content.md",
-			"partnumber": "",
-			"publisheddate": "2019-04-01",
-			"contentid": ""
-		},
-		{
-			"title": "Get Started with Oracle NoSQL Database Cloud Service",
-			"description": "This tutorial demonstrates how to sign in to Oracle NoSQL Database Cloud Service console for the first time, create a user, and copy client credentials. This tutorial takes approximately 15 minutes to complete.",
-			"filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/gsnsd/content.md",
-			"partnumber": "E98132_04",
-			"publisheddate": "2019-04-01",
-			"contentid": ""
-		},
-		{            
-            "title": "Authorization Requirements",
-            "description": "Authorization requirements for managing and using your BDS cluster.",
+            "title": "Migrating to BDS",
+            "description": "Migrating to Big Data Service.  Why?  How?",
             "partnumber": "0",
             "publisheddate": "11/21/2019",
             "contentid": "0",
-            "filename": "content.md"
+            "filename": "https://martygubar.github.io/bds-getting-started/lab-migrating-to-bds/migrating-to-bds.md"
         },
-		{
-			"title": "Clone PDBs using DBCA in Silent Mode",
-			"description": "Learn how to clone PDBs using DBCA in silent mode.",
-			"filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/NF_19c/content.md",
-			"partnumber": "F11839-01",
-			"publisheddate": "2019-01-15",
-			"contentid": "26693"
-		}
+        {            
+            "title": "Preparing for Big Data Service",
+            "description": "Prerequisite steps required for Big Data Service deployments.",
+            "partnumber": "0",
+            "publisheddate": "11/21/2019",
+            "contentid": "0",
+            "filename":"https://martygubar.github.io/bds-getting-started/lab-prepare/prepare-for-bds.md"
+        },
+        {            
+            "title": "Create a Hadoop Admin User",
+            "description": "Create a Hadoop admin user that will be used for the BDS.  This Hadoop superuser will have access to all data on the cluster an all Hive metadata.",
+            "partnumber": "0",
+            "publisheddate": "11/21/2019",
+            "contentid": "0",
+            "filename": "https://martygubar.github.io/bds-getting-started/lab-create-user/create-user.md"
+        },
+        {            
+            "title": "Backup Hadoop Cluster to Object Storage",
+            "description": "Backup HDFS data and Hive metadata to Oracle Object Storage",
+            "partnumber": "1",
+            "publisheddate": "11/21/2019",
+            "contentid": "1",
+            "filename": "https://martygubar.github.io/bds-getting-started/lab-backuphadoop/bdr-to-objstore.md"
+        },
+        {            
+            "title": "Create a BDS Hadoop Cluster",
+            "description": "Use the BDS console to create a highly available and secure hadoop cluster.",
+            "partnumber": "2",
+            "publisheddate": "11/21/2019",
+            "contentid": "2",
+            "filename": "https://martygubar.github.io/bds-getting-started/lab-createcluster/create-cluster.md"
+        },
+        {            
+            "title": "Access a BDS Utility Node Using a Public IP",
+            "description": "Create a public IP address and assign it to a BDS Utility Node",
+            "partnumber": "2",
+            "publisheddate": "11/21/2019",
+            "contentid": "2",
+            "filename": "https://martygubar.github.io/bds-getting-started/lab-publicip/access-node-public-ip.md"
+        },
+        {            
+            "title": "Restore Hadoop Cluster from Object Store",
+            "description": "Restore HDFS data and Hive metadata from Oracle Object Storage",
+            "partnumber": "2",
+            "publisheddate": "11/21/2019",
+            "contentid": "2",
+            "filename": "https://martygubar.github.io/bds-getting-started/lab-restorehadoop/bdr-to-hadoop.md"
+        }
+
     ]
 }
