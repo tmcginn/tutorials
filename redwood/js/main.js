@@ -2,6 +2,7 @@
 var manifestFileName = "manifest.json";
 var expandText = "Expand All Parts";
 var collapseText = "Collapse All Parts";
+var anchorOffset = 70;
 
 $(document).ready(function () {
     $.getJSON(manifestFileName, function (manifestFileContent) { //reading the manifest file and storing content in manifestFileContent variable
@@ -14,13 +15,14 @@ $(document).ready(function () {
             articleElement = wrapSectionTagAndAddHorizonatalLine(articleElement); //adding each section within section tag and adding HR line
             articleElement = wrapImgWithFigure(articleElement); //Wrapping images with figure, adding figcaption to all those images that have title in the MD
             articleElement = addPathToAllRelativeHref(articleElement, selectedTutorial.filename); //adding the path for all HREFs that are relative based on the filename in manifest
-			articleElement = makeAnchorLinksWork(articleElement); //if there are links to anchors (for example: #hash-name), this function will enable it work
+            articleElement = makeAnchorLinksWork(articleElement); //if there are links to anchors (for example: #hash-name), this function will enable it work
             articleElement = addTargetBlank(articleElement); //setting target for all ahrefs to _blank
             updateHeadContent(selectedTutorial); //changing document head based on the manifest
         }).done(function () {
             $("main").html(articleElement); //placing the article element inside the main tag of the Tutorial template                        
-            setupContentNav();
-            $('#openNav').click();
+            setTimeout(setupContentNav, 0); //sets up the collapse/expand button and open/close section feature
+            collapseSection($("#module-content h2:not(:eq(0))"), "hide"); //collapses all sections by default
+            $('#openNav').click(); //open the right side nav by default
             setupLeftNav();
         });
     });
@@ -173,16 +175,15 @@ function addPathToAllRelativeHref(articleElement, myUrl) {
 }
 /* the following function makes anchor links work by adding an event to all href="#...." */
 function makeAnchorLinksWork(articleElement) {
-	$(articleElement).find('a[href^="#"]').each(function() {
-		var href = $(this).attr('href');
-		if(href !== "#") {			
-			$(this).click(function() {
-				$('div[name="' + href.split('#')[1] + '"]')[0].scrollIntoView();
-				window.scrollTo(0, window.scrollY - 70);
-			});
-		}
-	});
-	return articleElement;
+    $(articleElement).find('a[href^="#"]').each(function () {
+        var href = $(this).attr('href');
+        if (href !== "#") { //eliminating all plain # links
+            $(this).click(function () {
+                expandSectionBasedOnHash(href.split('#')[1]);
+            });
+        }
+    });
+    return articleElement;
 }
 /*the following function sets target for all HREFs to _blank */
 function addTargetBlank(articleElement) {
@@ -206,20 +207,18 @@ function setupLeftNav() {
     var toc = $("#toc").tocify({
         selectors: "h2, h3, h4"
     }).data("toc-tocify");
-    
-    toc.setOptions({ extendPage: false, smoothScroll: false, scrollTo: 70, highlightDefault: true, showEffect: "fadeIn", scrollHistory: true });
+    //scrollHistory: true
+    toc.setOptions({ extendPage: false, smoothScroll: false, scrollTo: anchorOffset, highlightDefault: true, showEffect: "fadeIn" });
 
     $('.tocify-item').each(function () {
         var itemName = $(this).attr('data-unique');
-        $(this).click(function () {
-            if ($('div[name="' + itemName + '"]').next().hasClass("plus")) {
-                $('div[name="' + itemName + '"]').next().click();
-            }
-            $(this).blur();
-            heightAdjust();
-        });
-        if (itemName === location.hash.slice(1)) {
-            var click = $(this);
+        if ($(this) !== $('.tocify-item:eq(0)')) {
+            $(this).click(function () { //if left nav item is clicked, the corresponding section expands
+                expandSectionBasedOnHash(itemName);
+            });
+        }
+        if (itemName === location.hash.slice(1)) { //if the hash value matches, it clicks it after some time.
+            let click = $(this);
             setTimeout(function () {
                 $(click).click();
             }, 1000)
@@ -228,58 +227,74 @@ function setupLeftNav() {
 }
 /* Enables collapse/expand feature for the steps */
 function setupContentNav() {
-    setTimeout(function () {
-        $("#module-content h2:eq(1)")
-            .before('<button id="btn_toggle" class="hol-ToggleRegions plus">Expand All Parts</button>')
-            .prev().on('click', function (e) {
-                if ($(this).text() === expandText) {
-                    $("#module-content h2:not(:eq(0))").nextUntil("#module-content h1, #module-content h2").show();
-                    $(this).text(collapseText);
-                    $("#btn_toggle, #module-content h2:not(:eq(0))").addClass('minus');
-                    $("#btn_toggle, #module-content h2:not(:eq(0))").removeClass('plus');
-                }
-                else {
-                    $("#module-content h2:not(:eq(0))").nextUntil("#module-content h1, #module-content h2").hide();
-                    $(this).text(expandText);
-                    $("#btn_toggle, #module-content h2:not(:eq(0))").removeClass('minus');
-                    $("#btn_toggle, #module-content h2:not(:eq(0))").addClass('plus');
-                }
-                heightAdjust();
-            });
-        //change to hide to display the content collapsed | change to show to display the content expanded        
-        $("#module-content h2:not(:eq(0))").nextUntil("#module-content h1, #module-content h2").hide();
-        $("#module-content h2:not(:eq(0))").addClass('plus');
-        $("#module-content h2").click(function (e) {
-            if ($(this).hasClass('plus')) { //expands the clicked part
-                $(this).nextUntil("#module-content h1, #module-content h2").fadeIn(heightAdjust);
-                $(this).addClass('minus');
-                $(this).removeClass('plus');
-            }
-            else if ($(this).hasClass('minus')) { //collapse the clicked part
-                $(this).nextUntil("#module-content h1, #module-content h2").fadeOut(heightAdjust);
-                $(this).addClass('plus');
-                $(this).removeClass('minus');
-            }
-            
-            
-            if ($("#module-content h2.minus").length === 0) {
-                $('#btn_toggle').text(expandText);                
-                $("#btn_toggle").addClass('plus');
-                $("#btn_toggle").removeClass('minus');
-            }
-            else if ($("#module-content h2.plus").length === 0) {
-                $('#btn_toggle').text(collapseText);
-                $("#btn_toggle").addClass('minus');
-                $("#btn_toggle").removeClass('plus');
-            }
+    //adds the expand collapse button before the second h2 element
+    $("#module-content h2:eq(1)")
+        .before('<button id="btn_toggle" class="hol-ToggleRegions plus">' + expandText + '</button>')
+        .prev().on('click', function (e) {
+            ($(this).text() === expandText) ? expandSection($("#module-content h2:not(:eq(0))"), "show") : collapseSection($("#module-content h2:not(:eq(0))"), "hide");
+            changeButtonState(); //enables the expand all parts and collapse all parts button
         });
-        window.scrollTo(0, 0);
-        heightAdjust();
-    }, 0);
+    //enables the feature that allows expand collapse of sections
+    $("#module-content h2").click(function (e) {
+        ($(this).hasClass('plus')) ? expandSection(this, "fade") : collapseSection(this, "fade");
+        changeButtonState();
+    });
+    window.scrollTo(0, 0);
 }
 /* Manage contentBox height */
 function heightAdjust() {
     $('#contentBox').height('100%');
-    if ($('#contentBox').height() < $('#leftNav').height())
+    if ($('#contentBox').height() < $('#leftNav').height()) {
         $('#contentBox').height($('#leftNav').height());
+    }
+}
+/* Expands the section */
+function expandSection(anchorElement, effect) {
+    if (effect === "show") {
+        $(anchorElement).nextUntil("#module-content h1, #module-content h2").show(heightAdjust); //expand the section incase it is collapsed
+    }
+    else if (effect === "fade") {
+        $(anchorElement).nextUntil("#module-content h1, #module-content h2").fadeIn(heightAdjust);
+    }
+    if ($(anchorElement).hasClass('plus') || $(anchorElement).hasClass('minus')) {
+        $(anchorElement).addClass("minus");
+        $(anchorElement).removeClass("plus");
+    }
+}
+/* Collapses the section */
+function collapseSection(anchorElement, effect) {
+    if (effect === "hide") {
+        $(anchorElement).nextUntil("#module-content h1, #module-content h2").hide(heightAdjust); //collapses the section incase it is expanded
+    }
+    else if (effect === "fade") {
+        $(anchorElement).nextUntil("#module-content h1, #module-content h2").fadeOut(heightAdjust);
+    }
+    $(anchorElement).addClass('plus');
+    $(anchorElement).removeClass('minus');
+}
+/* Detects the state of the collapse/expand button and changes it if required */
+function changeButtonState() {
+    if ($("#module-content h2.minus").length === 0) { //if all sections are expanded, it changes text to expandText
+        $('#btn_toggle').text(expandText);
+        $("#btn_toggle").addClass('plus');
+        $("#btn_toggle").removeClass('minus');
+    }
+    else if ($("#module-content h2.plus").length === 0) { //if all sections are collapsed, it changes text to collapseText
+        $('#btn_toggle').text(collapseText);
+        $("#btn_toggle").addClass('minus');
+        $("#btn_toggle").removeClass('plus');
+    }
+}
+/* Expands section on page load based on the hash. Expands section when the leftnav item is clicked */
+function expandSectionBasedOnHash(itemName) {
+    var anchorElement = $('div[name="' + itemName + '"]').next(); //anchor element is always the next of div (eg. h2 or h3)
+
+    if ($(anchorElement).hasClass('hol-ToggleRegions')) //if the next element is the collpase/expand button
+        anchorElement = $(anchorElement).next();
+    expandSection(anchorElement, "fade");
+    if ($(anchorElement)[0].tagName !== 'H2') {
+        $(anchorElement).siblings('h2').nextUntil("#module-content h1, #module-content h2").show(); //expand the section incase it is collapsed                                                          
+    }
+    $(anchorElement)[0].scrollIntoView();
+    window.scrollTo(0, window.scrollY - anchorOffset);
 }
