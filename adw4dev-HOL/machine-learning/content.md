@@ -98,14 +98,14 @@ To log issues and view the Lab Guide source, go to the [github oracle](https://g
 
 - Paste the following into SQLDeveloper.
 ```
-BEGIN
+<copy>BEGIN
   DBMS_CLOUD.CREATE_CREDENTIAL(
     credential_name => 'adwc_token',
     username => '<your cloud username>',
     password => '<generated auth token>'
   );
 END;
-/
+/</copy>
 ```
   ![](./img/038.png)
 
@@ -115,7 +115,7 @@ END;
 
 - First create your table.  Enter the following in SQLDeveloper.
 ```
-create table admin.credit_scoring_100k 
+<copy>create table admin.credit_scoring_100k 
    (	customer_id number(38,0), 
 	age number(4,0), 
 	income number(38,0), 
@@ -204,7 +204,7 @@ create table admin.credit_scoring_100k
 	credit_score_bin varchar2(100 byte)
    );
 
-	 grant select any table to public;
+	 grant select any table to public;</copy>
 ```
 - Execute the query
 
@@ -217,7 +217,7 @@ create table admin.credit_scoring_100k
 - Enter the following code snippit.
 
 ```
-begin
+<copy>begin
  dbms_cloud.copy_data(
     table_name =>'credit_scoring_100k',
     credential_name =>'adwc_token',
@@ -225,7 +225,7 @@ begin
     format => json_object('ignoremissingcolumns' value 'true', 'removequotes' value 'true', 'dateformat' value 'YYYY-MM-DD HH24:MI:SS', 'blankasnull' value 'true', 'delimiter' value ',', 'skipheaders' value '1')
  );
 end;
-/
+/</copy>
 ```
 - And execute it.
 
