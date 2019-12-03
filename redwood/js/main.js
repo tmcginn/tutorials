@@ -6,7 +6,20 @@ var anchorOffset = 70;
 var copyButtonText = "Copy";
 
 $(document).ready(function() {
-    $.getJSON(manifestFileName, function(manifestFileContent) { //reading the manifest file and storing content in manifestFileContent variable
+    /* The following code is for Google Analytics tracking */
+    $.getScript("https://www.googletagmanager.com/gtag/js?id=UA-153767729-1");
+    window.dataLayer = window.dataLayer || [];
+    gtag('js', new Date());
+    gtag('config', 'UA-153767729-1');
+    /* Google Analytics code ends here */
+
+    var manifestFileContent;
+    $.when(
+        $.getScript("https://ashwin-agarwal.github.io/tutorials/redwood/js/showdown.min.js"),
+        $.getJSON(manifestFileName, function(manifestFile) {
+            manifestFileContent = manifestFile; //reading the manifest file and storing content in manifestFileContent variable
+        })
+    ).done(function() {
         var selectedTutorial = setupRightNav(manifestFileContent); //populate side navigation based on content in the manifestFile
         var articleElement = document.createElement('article'); //creating an article that would contain MD to HTML converted content
         $.get(selectedTutorial.filename, function(markdownContent) { //reading MD file in the manifest and storing content in markdownContent variable
@@ -29,7 +42,10 @@ $(document).ready(function() {
         });
     });
 });
-
+/* The following function is used for Google Analytics */
+function gtag() {
+    dataLayer.push(arguments);
+}
 /* The following function increases the width of the side navigation div to open it. */
 function openRightSideNav() {
     $('#mySidenav').attr("style", "width: 270px; overflow-y: auto; box-shadow: 0 0 48px 24px rgba(0, 0, 0, .3);");
@@ -302,13 +318,8 @@ function allowCodeCopy(articleElement) {
         if ($(code).has('copy').length) {
             $(code).find('copy').contents().unwrap().wrap('<span class="copy-code">');
             $(this).html($(code).html());
+            // $(this).parent().wrap('<div>').before('<button class="copy-button" title="Copy text to clipboard">' + copyButtonText + '</button>');
             $(this).before('<button class="copy-button" title="Copy text to clipboard">' + copyButtonText + '</button>');
-            $(this).parent().mouseover(function() {
-                $(this).find('.copy-button').show();
-            });
-            $(this).parent().mouseout(function() {
-                $(this).find('.copy-button').hide();
-            });
         }
     });
     $(articleElement).find('.copy-button').click(function() {

@@ -40,7 +40,7 @@ The Big Data Service creates VMs, creates VNICs and adds them to the customer su
 
 In the OCI Console navigation menu, select **Identity >> Policies**.  Ensure that you are in the **root** compartment.  Click **Create Policy** and name it `your-bds-policy`.  Then, add the following policy statement:
     
-    allow service bds to VNIC_READ, VNIC_ATTACH, VNIC_CREATE, VNIC_ATTACHMENT_READ, SUBNET_READ, SUBNET_ATTACH in compartment your-compartment
+    <copy>allow service bds to VNIC_READ, VNIC_ATTACH, VNIC_CREATE, VNIC_ATTACHMENT_READ, SUBNET_READ, SUBNET_ATTACH in compartment your-compartment</copy>
 
 ## Create a Virtual Cloud Network 
 In this section, you will set up the Virtal Cloud Network that will be used by your Big Data Service.  Note, you may also leverage an existing VCN if you already have one.  If you have an existing VCN, ensure it is using a Regional subnet and that the appropriate ports are opened.

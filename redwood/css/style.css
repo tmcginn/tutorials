@@ -10,7 +10,8 @@ html {
 
 html,
 body {
-    background-color: #F7F5F3;
+    /* background-color: #F7F5F3; */
+    background-color: rgb(255, 255, 255);
     color: #1A1816;
 }
 
@@ -410,6 +411,10 @@ h2.minus {
     transition: background-color .2s ease;
 }
 
+h2.minus {
+    font-weight: 600;
+}
+
 @media (max-width: 768px) {
     h2.plus,
     h2.minus {
@@ -418,9 +423,10 @@ h2.minus {
     }
 }
 
-h2.minus {
+
+/* h2.minus {
     background-color: #fff;
-}
+} */
 
 h3 strong {
     font-weight: 600;
@@ -532,12 +538,12 @@ h1 {
 
 h2 {
     font-weight: 400;
-    font-size: 28px;
+    font-size: 24px;
     line-height: 40px;
     margin-bottom: 20px;
     margin-top: 36px;
-    margin-left: -16px;
-    background-color: #FCFBFA;
+    margin-left: -11px;
+    /* background-color: #FCFBFA; */
     padding-left: 10px;
     padding-top: 10px;
 }
@@ -546,15 +552,20 @@ h2:first-of-type {
     margin-top: 0px;
 }
 
+h2:not(.plus):not(.minus) {
+    font-weight: 600;
+    font-size: 26px;
+}
+
 h3 {
-    font-weight: 300;
-    font-size: 24px;
+    font-weight: 450;
+    font-size: 22px;
     line-height: 40px;
     margin-bottom: 20px;
 }
 
 h4 {
-    font-weight: 900;
+    font-weight: 700;
     font-size: 20px;
     line-height: 28px;
     margin-bottom: 14px;
@@ -577,20 +588,33 @@ h6 {
 pre,
 code {
     font-family: monospace;
-    background-color: #fff;
+    background-color: #ffffff;
 }
 
 pre {
-    padding: .5rem;
     line-height: 1.25;
-    overflow-x: auto;
+    /* overflow-x: auto; */
+    padding: 18px;
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.44;
+    letter-spacing: normal;
+    text-align: left;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
 }
 
 pre {
     margin-top: 20px;
     margin-right: .4rem;
     margin-bottom: 25px;
-    margin-left: 25px;
+    /* margin-left: 25px; */
+    border: solid 2px #dedad6;
 }
 
 figure>img,
@@ -680,6 +704,7 @@ blockquote {
 #toc .tocify-item.active,
 .selected {
     background-color: rgba(0, 0, 0, .05);
+    border-left: 3px solid #AE562C;
 }
 
 pre code span.copy-code {
@@ -687,7 +712,6 @@ pre code span.copy-code {
 }
 
 pre .copy-button {
-    display: none;
     float: right;
     cursor: pointer;
     font-size: 14px;
@@ -696,11 +720,19 @@ pre .copy-button {
     padding: 5px 5px;
     background-color: #fff;
     color: #100F0E;
-    border: 1px solid #3F3A36;
+    border: 2px solid #dedad6;
     min-width: 60px;
+    margin-top: -20px;
+    margin-right: -20px;
 }
 
 pre .copy-button:hover {
     color: #fcfbfa;
     background-color: #45413E;
 }
+
+
+/* div>pre {
+    margin-top: 0px;
+    clear: both;
+} */
