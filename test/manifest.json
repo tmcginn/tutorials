@@ -75,7 +75,7 @@
 		{
 			"title": "Clone PDBs using DBCA in Silent Mode",
 			"description": "Learn how to clone PDBs using DBCA in silent mode.",
-			"filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/NF_19c/content.md",
+			"filename": "clone_pdb.md",
 			"partnumber": "F11839-01",
 			"publisheddate": "2019-01-15",
 			"contentid": "26693"

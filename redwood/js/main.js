@@ -4,15 +4,9 @@ var expandText = "Expand All Parts";
 var collapseText = "Collapse All Parts";
 var anchorOffset = 70;
 var copyButtonText = "Copy";
+var queryParam = "?lab=";
 
 $(document).ready(function () {
-    /* The following code is for Google Analytics tracking */
-    $.getScript("https://www.googletagmanager.com/gtag/js?id=UA-153767729-1");
-    window.dataLayer = window.dataLayer || [];
-    gtag('js', new Date());
-    gtag('config', 'UA-153767729-1');
-    /* Google Analytics code ends here */
-
     var manifestFileContent;
     $.when(
         $.getScript("https://ashwin-agarwal.github.io/tutorials/redwood/js/showdown.min.js", function () {
@@ -28,6 +22,7 @@ $(document).ready(function () {
         var selectedTutorial = setupRightNav(manifestFileContent); //populate side navigation based on content in the manifestFile
         var articleElement = document.createElement('article'); //creating an article that would contain MD to HTML converted content
         $.get(selectedTutorial.filename, function (markdownContent) { //reading MD file in the manifest and storing content in markdownContent variable
+            setupAnalytics(); //enabling analytics
             console.log(selectedTutorial.filename + " loaded!");
             $(articleElement).html(new showdown.Converter({ tables: true }).makeHtml(markdownContent)); //converting markdownContent to HTML by using showndown plugin
             articleElement = addPathToImageSrc(articleElement, selectedTutorial.filename); //adding the path for the image based on the filename in manifest
@@ -50,14 +45,22 @@ $(document).ready(function () {
         });
     });
 });
-/* The following function is used for Google Analytics */
+/* The following functions are used for Google Analytics */
+function setupAnalytics() {
+    $.getScript("https://www.googletagmanager.com/gtag/js?id=UA-153767729-1");
+    window.dataLayer = window.dataLayer || [];
+    gtag('js', new Date());
+    gtag('config', 'UA-153767729-1');
+}
 function gtag() {
     dataLayer.push(arguments);
 }
 /* The following function increases the width of the side navigation div to open it. */
 function openRightSideNav() {
     $('#mySidenav').attr("style", "width: 270px; overflow-y: auto; box-shadow: 0 0 48px 24px rgba(0, 0, 0, .3);");
-    document.getElementsByClassName('selected')[0].scrollIntoView(false);
+    setTimeout(function () {
+        document.getElementsByClassName('selected')[0].scrollIntoView(false);
+    }, 1000);
 }
 /* The following function decreases the width of the side navigation div to close it. */
 function closeRightSideNav() {
@@ -77,10 +80,10 @@ function setupRightNav(manifestFileContent) {
         $(allTutorials).each(function (i, tutorial) {
             var shortTitle = createShortNameFromTitle(tutorial.title);
             var li = $(document.createElement('li')).click(function () {
-                location.href = "?" + shortTitle;
+                location.href = queryParam + shortTitle;
             });
             $(li).text(tutorial.title); //The title specified in the manifest appears in the side nav as navigation                    
-            if (window.location.search.split('?')[1] === shortTitle) { //the selected class is added if the title is currently selected
+            if (window.location.search.split(queryParam)[1] === shortTitle) { //the selected class is added if the title is currently selected
                 $(li).attr("class", "selected");
                 selectedTutorial = tutorial;
             }

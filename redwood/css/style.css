@@ -595,8 +595,7 @@ pre {
     line-height: 1.25;
     /* overflow-x: auto; */
     padding: 18px;
-    font-size: 16px;
-    font-weight: normal;
+    font-size: 15px;
     font-style: normal;
     font-stretch: normal;
     line-height: 1.44;
@@ -708,7 +707,8 @@ blockquote {
 }
 
 pre code span.copy-code {
-    font-weight: 500;
+    font-weight: 550;
+    font-size: 16px;
 }
 
 pre .copy-button {

@@ -207,8 +207,8 @@ region=your-bds-region</copy>
 Below is an example with all of the fields completed:
 ```INI
 [DEFAULT]
-<copy>user=ocid1.user.oc1..aaaaaaaaqbbbbccccccddddeeeefffgggg</copy>
-fingerprint=a1:2b:65:a1:31:1c:ae:4f:43:8a:1c:75:d3:gg:94:ea
+<copy>user=ocid1.user.oc1..aaaaaaaaqbbbbccccccddddeeeefffgggg
+</copy>fingerprint=a1:2b:65:a1:31:1c:ae:4f:43:8a:1c:75:d3:gg:94:ea
 key_file=~/.oci/oci_api_key.pem
 <copy>tenancy=ocid1.tenancy.oc1..aaaabbbbbcccccddddddeeeeeefffff
 region=us-ashburn-1</copy>
