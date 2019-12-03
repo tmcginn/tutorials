@@ -1,77 +1,53 @@
 {
     "tutorials": [
         {
-            "title": "Introduction",
-            "description":"Autonomous Data Warehouse Cloud Service for Developers workshop",
+            "title": "Oracle Data Safe Workshop",
+            "description":"Introduction to the workshop",
             "partnumber": "Ennnnn_01",
-            "publisheddate": "2019-10-14",
+            "publisheddate": "10/31/2019",
             "contentid": "12nnnn",
-            "filename":"https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/adw4dev/content.md"
+            "filename":"https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/security/data-safe-HOL/about-this-lab/content.md"
         },
         {            
-            "title": "Lab 100: Introduction",
-            "description": "Create and access an Autonomous Database Cloud Service",
+            "title": "Lab 1: View a Registered Target Database",
+            "description":"View a Registered Target Database",
             "partnumber": "Ennnnn_01",
-            "publisheddate": "2019-10-14",
+            "publisheddate": "10/31/2019",
             "contentid": "12nnnn",
-            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/adw4dev/Lab100/content.md"
+            "filename":"https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/security/data-safe-tutorials/view-registered-target-db/content.md"
         },
 		{            
-            "title": "Lab 200: Review Query Performance",
-            "description": "Run sample queries against a 100 million row current data set and a six billion row historic data set.",
+            "title": "Lab 2: Provision Audit and Alert Policies",
+            "description": "Provision Audit and Alert Policies",
             "partnumber": "Ennnnn_01",
-            "publisheddate": "2019-10-14",
+            "publisheddate": "10/31/2019",
             "contentid": "12nnnn",
-            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/adw4dev/Lab200/content.md"
+            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/security/data-safe-tutorials/provision-audit-alert-policies/content.md"
         },
 		{         
-            "title": "Lab 300: Machine Learning",
-            "description": "Work with an Apache Zepplin notebook and create a Machine Learning model to predict customer good credit.",
+            "title": "Lab 3: Assess Database Configurations and Users",
+            "description": "Assess Database Configurations and Users",
             "partnumber": "Ennnnn_01",
-            "publisheddate": "2019-10-14",
+            "publisheddate": "10/31/2019",
             "contentid": "12nnnn",
-            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/adw4dev/Lab300/content.md"
+            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/security/data-safe-tutorials/assess-db-config-users/content.md"
         },
 		{         
-            "title": "Lab 400: Create Data Visualizations",
-            "description": "Create data visualizations with Oracle Analytics Cloud to review sales performance and better understand the factors that affect good credit.",
+            "title": "Lab 4: Analyze Alerts and Audit Reports",
+            "description": "Analyze Alerts and Audit Reports",
             "partnumber": "Ennnnn_01",
-            "publisheddate": "2019-10-14",
+            "publisheddate": "10/31/2019",
             "contentid": "12nnnn",
-            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/adw4dev/Lab400/content.md"
+            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/security/data-safe-tutorials/analyze-alerts-audit-reports/content.md"
         },
-		{			
-			"title": "Get Started with Oracle NoSQL Database Cloud Service",
-			"description": "This tutorial describes how to get started with the Oracle NoSQL Database Cloud Service.",
-			"partnumber": "E98132-03",
-			"publisheddate": "2019-10-14",
-			"contentid": "24207",
-			"filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/ansct/content.md"
-		},
-		{            
-            "title": "Adding a Pie Chart",
-            "description": "This tutorial shows you how to create a pie chart in a new page in an application.",
-            "partnumber": "E99846-01",
-            "publisheddate": "2018-09-01",
-            "contentid": "24551",
-            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/charts/piechart/content.md"
-        },
-		{            
-            "title": "Adding a Bar Chart",
-            "description": "This 15-minute tutorial shows you how to edit a chart.",
-            "partnumber": "E99848-01",
-            "publisheddate": "2018-09-01",
-            "contentid": "24552",
-            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/charts/barchart/content.md"
-        },
-		{            
-            "title": "Changing Chart Appearance with JavaScript",
-            "description": "This 5-minute tutorial shows you how to create a custom JavaScript to change the appearance of a chart.",
-            "partnumber": "E99849-01",
-            "publisheddate": "2018-09-01",
-            "contentid": "24553",
-            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/charts/chart-custom-js/content.md"
-        },
+        {         
+            "title": "Lab 5: Discover and Mask Sensitive Data",
+            "description": "Discover and Mask Sensitive Data",
+            "partnumber": "Ennnnn_01",
+            "publisheddate": "10/31/2019",
+            "contentid": "12nnnn",
+            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/security/data-safe-tutorials/discover-mask-data/content.md"
+        },		
 		{
 			"title": "Create a Table in Oracle NoSQL Database Cloud Service Using Java",
 			"description": "This 15-minute tutorial walks you through the steps to connect to Oracle NoSQL Database Cloud Service and create a table using a sample application.",
@@ -81,52 +57,28 @@
 			"contentid": ""
 		},
 		{
-            "title": "Oracle Data Safe Workshop",
-            "description":"Introduction to the workshop",
-            "partnumber": "Ennnnn_01",
-            "publisheddate": "2018-09-01",
-            "contentid": "12nnnn",
-            "filename":"https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/security/data-safe/README.md"
-        },
-        {            
-            "title": "Lab 1: Viewing a Registered Target Database",
-            "description":"Viewing a Registered Target Database",
-            "partnumber": "Ennnnn_01",
-            "publisheddate": "2018-09-01",
-            "contentid": "12nnnn",
-            "filename":"https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/security/data-safe/Lab1/LabGuide1.md"
-        },
+			"title": "Get Started with Oracle NoSQL Database Cloud Service",
+			"description": "This tutorial demonstrates how to sign in to Oracle NoSQL Database Cloud Service console for the first time, create a user, and copy client credentials. This tutorial takes approximately 15 minutes to complete.",
+			"filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/gsnsd/content.md",
+			"partnumber": "E98132_04",
+			"publisheddate": "2019-04-01",
+			"contentid": ""
+		},
 		{            
-            "title": "Lab 2: Provisioning Audit and Alert Policies",
-            "description": "Provisioning Audit and Alert Policies",
-            "partnumber": "Ennnnn_01",
-            "publisheddate": "2018-09-01",
-            "contentid": "12nnnn",
-            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/security/data-safe/Lab2/LabGuide2.md"
+            "title": "Authorization Requirements",
+            "description": "Authorization requirements for managing and using your BDS cluster.",
+            "partnumber": "0",
+            "publisheddate": "11/21/2019",
+            "contentid": "0",
+            "filename": "content.md"
         },
-		{         
-            "title": "Lab 3: Assessing Database Configurations and Users",
-            "description": "Assessing Database Configurations and Users",
-            "partnumber": "Ennnnn_01",
-            "publisheddate": "2018-09-01",
-            "contentid": "12nnnn",
-            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/security/data-safe/Lab3/LabGuide3.md"
-        },
-		{         
-            "title": "Lab 4: Analyzing Alerts and Audit Reports",
-            "description": "Analyzing Alerts and Audit Reports",
-            "partnumber": "Ennnnn_01",
-            "publisheddate": "2018-09-01",
-            "contentid": "12nnnn",
-            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/security/data-safe/Lab4/LabGuide4.md"
-        },
-        {         
-            "title": "Lab 5: Discovering and Masking Sensitive Data",
-            "description": "Discovering and Masking Sensitive Data",
-            "partnumber": "Ennnnn_01",
-            "publisheddate": "2018-09-01",
-            "contentid": "12nnnn",
-            "filename": "https://raw.githubusercontent.com/ashwin-agarwal/tutorials/master/security/data-safe/Lab5/LabGuide5.md"
-        }
+		{
+			"title": "Clone PDBs using DBCA in Silent Mode",
+			"description": "Learn how to clone PDBs using DBCA in silent mode.",
+			"filename": "clone_pdb.md",
+			"partnumber": "F11839-01",
+			"publisheddate": "2019-01-15",
+			"contentid": "26693"
+		}
     ]
 }

@@ -44,7 +44,10 @@ function prepareMd(markdownContent, tutorialEntryInManifest, articleElement) {
 	}
 
 	movePreInsideLi(articleElement); //moving the pre elements a layer up for stylesheet matching
-	$(articleElement).find('a').attr('target', '_blank'); //setting target for all ahrefs to _blank	
+	$(articleElement).find('a').each(function () {
+		if($(this).attr('href').indexOf("http") === 0) //ignoring # hrefs
+			$(this).attr('target', '_blank'); //setting target for all ahrefs to _blank
+	});
 	$(articleElement).find('ul li p:first-child').contents().unwrap(); //removing the p tag from first li child as CSS changes the formatting				
 	document.title = "Preview: " + document.title; //adding Preview in the title
 }

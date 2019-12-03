@@ -620,7 +620,10 @@ function downloadZip() {
                 wrapImgWithFigure(articleElement); //Wrapping images with figure, adding figcaption to all those images that have title in the MD
                 addPathToAllRelativeHref(articleElement, tutorialEntryInManifest.filename); //adding the path for all HREFs that are relative based on the filename in manifest                
                 movePreInsideLi(articleElement); //moving the pre elements a layer up for stylesheet matching
-                $(articleElement).find('a').attr('target', '_blank'); //setting target for all ahrefs to _blank	
+                $(articleElement).find('a').each(function () {
+					if($(this).attr('href').indexOf("http") === 0) //ignoring # hrefs
+						$(this).attr('target', '_blank'); //setting target for all ahrefs to _blank
+				});
                 $(articleElement).find('ul li p:first-child').contents().unwrap(); //removing the p tag from first li child as CSS changes the formatting											                
 
                 var htmlDoc = document.implementation.createHTMLDocument();
