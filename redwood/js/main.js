@@ -355,7 +355,7 @@ function allowCodeCopy(articleElement) {
     });
     $(articleElement).find('.copy-button').click(function () {
         var copyText = $(this).next().find('.copy-code').text().trim();
-        var dummy = $('<textarea>').val(copyText).appendTo('body').select();
+        var dummy = $('<textarea>').val(copyText).appendTo(this).select();
         document.execCommand('copy');
         $(dummy).remove();
         $(this).parent().animate({ opacity: 0.2 }).animate({ opacity: 1 });
