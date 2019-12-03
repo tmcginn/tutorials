@@ -5,7 +5,7 @@ var collapseText = "Collapse All Parts";
 var anchorOffset = 70;
 var copyButtonText = "Copy";
 
-$(document).ready(function() {
+$(document).ready(function () {
     /* The following code is for Google Analytics tracking */
     $.getScript("https://www.googletagmanager.com/gtag/js?id=UA-153767729-1");
     window.dataLayer = window.dataLayer || [];
@@ -15,17 +15,23 @@ $(document).ready(function() {
 
     var manifestFileContent;
     $.when(
-        $.getScript("https://ashwin-agarwal.github.io/tutorials/redwood/js/showdown.min.js"),
-        $.getJSON(manifestFileName, function(manifestFile) {
+        $.getScript("https://ashwin-agarwal.github.io/tutorials/redwood/js/showdown.min.js", function () {
+            console.log("Showdown library loaded!");
+        }),
+        $.getJSON(manifestFileName, function (manifestFile) {
             manifestFileContent = manifestFile; //reading the manifest file and storing content in manifestFileContent variable
+            console.log("Manifest file loaded!");
+        }).fail(function () {
+            alert("manifest.json file not found. The manifest file should be co-located with the index.html file.");
         })
-    ).done(function() {
+    ).done(function () {
         var selectedTutorial = setupRightNav(manifestFileContent); //populate side navigation based on content in the manifestFile
         var articleElement = document.createElement('article'); //creating an article that would contain MD to HTML converted content
-        $.get(selectedTutorial.filename, function(markdownContent) { //reading MD file in the manifest and storing content in markdownContent variable
+        $.get(selectedTutorial.filename, function (markdownContent) { //reading MD file in the manifest and storing content in markdownContent variable
+            console.log(selectedTutorial.filename + " loaded!");
             $(articleElement).html(new showdown.Converter({ tables: true }).makeHtml(markdownContent)); //converting markdownContent to HTML by using showndown plugin
             articleElement = addPathToImageSrc(articleElement, selectedTutorial.filename); //adding the path for the image based on the filename in manifest
-            articleElement = updateH1Title(articleElement); //replacing the h1 title in the Tutorial and removing it from the article Element
+            articleElement = updateH1Title(articleElement); //adding the h1 title in the Tutorial before the container div and removing it from the articleElement
             articleElement = wrapSectionTagAndAddHorizonatalLine(articleElement); //adding each section within section tag and adding HR line
             articleElement = wrapImgWithFigure(articleElement); //Wrapping images with figure, adding figcaption to all those images that have title in the MD
             articleElement = addPathToAllRelativeHref(articleElement, selectedTutorial.filename); //adding the path for all HREFs that are relative based on the filename in manifest
@@ -33,12 +39,14 @@ $(document).ready(function() {
             articleElement = addTargetBlank(articleElement); //setting target for all ahrefs to _blank
             articleElement = allowCodeCopy(articleElement); //adds functionality to copy code from codeblocks
             updateHeadContent(selectedTutorial); //changing document head based on the manifest
-        }).done(function() {
+        }).done(function () {
             $("main").html(articleElement); //placing the article element inside the main tag of the Tutorial template                        
             setTimeout(setupContentNav, 0); //sets up the collapse/expand button and open/close section feature
             collapseSection($("#module-content h2:not(:eq(0))"), "hide"); //collapses all sections by default
             $('#openNav').click(); //open the right side nav by default
             setupLeftNav();
+        }).fail(function () {
+            alert(selectedTutorial.filename + ' not found! Please check that the file is available in the location provided in the manifest file.');
         });
     });
 });
@@ -66,9 +74,9 @@ function setupRightNav(manifestFileContent) {
     } else if (allTutorials.length > 1) { //means it is a workshop           
         $('.rightNav').show();
         //adding tutorials from JSON and linking them with ?shortnames
-        $(allTutorials).each(function(i, tutorial) {
+        $(allTutorials).each(function (i, tutorial) {
             var shortTitle = createShortNameFromTitle(tutorial.title);
-            var li = $(document.createElement('li')).click(function() {
+            var li = $(document.createElement('li')).click(function () {
                 location.href = "?" + shortTitle;
             });
             $(li).text(tutorial.title); //The title specified in the manifest appears in the side nav as navigation                    
@@ -92,13 +100,17 @@ function setupRightNav(manifestFileContent) {
 }
 /* The following function creates shortname from title */
 function createShortNameFromTitle(title) {
+    if (!title) {
+        alert("The title in the manifest file cannot be blank!");
+        return "ErrorTitle";
+    }
     var removeFromTitle = ["-a-", "-in-", "-of-", "-the-", "-to-", "-an-", "-is-", "-your-", "-you-", "-and-", "-from-", "-with-"];
     var folderNameRestriction = ["<", ">", ":", "\"", "/", "\\\\", "|", "\\?", "\\*"];
     var shortname = title.toLowerCase().replace(/ /g, '-').trim().substr(0, 50);
-    $.each(folderNameRestriction, function(i, value) {
+    $.each(folderNameRestriction, function (i, value) {
         shortname = shortname.replace(new RegExp(value, 'g'), '');
     });
-    $.each(removeFromTitle, function(i, value) {
+    $.each(removeFromTitle, function (i, value) {
         shortname = shortname.replace(new RegExp(value, 'g'), '-');
     });
     if (shortname.length > 40) {
@@ -115,7 +127,7 @@ function addPathToImageSrc(articleElement, myUrl) {
     hence there is no need to replace relative images src */
     if (myUrl.indexOf("http") >= 0) { //checking if url is absolute path
         myUrl = myUrl.replace(/\/[^\/]+$/, "/"); //removing filename from the url        
-        $(articleElement).find('img').each(function() {
+        $(articleElement).find('img').each(function () {
             if ($(this).attr("src").indexOf("http") == -1) {
                 $(this).attr("src", myUrl + $(this).attr("src"));
             }
@@ -123,10 +135,10 @@ function addPathToImageSrc(articleElement, myUrl) {
     }
     return articleElement;
 }
-/* The following function replaces the h1 title boiler plate in the HTML template with the h1 value in the MD file.
-Then it removes the h1 title from the HTML file generated from the MD. */
+/* The following function adds the h1 title before the container div. It picks up the h1 value from the MD file. */
 function updateH1Title(articleElement) {
-    $('body > h1').text($(articleElement).find('h1').text());
+    var h1 = document.createElement('h1');
+    $('#container').before($(h1).text($(articleElement).find('h1').text()));
     $(articleElement).find('h1').remove(); //Removing h1 from the articleElement as it has been added to the HTML file already
     return articleElement;
 }
@@ -158,10 +170,10 @@ function wrapSectionTagAndAddHorizonatalLine(articleElement) {
 The figcaption is in the format Description of illustration [filename].
 The image description files must be added inside the files folder in the same location as the MD file.*/
 function wrapImgWithFigure(articleElement) {
-    $(articleElement).find("img").each(function() {
+    $(articleElement).find("img").each(function () {
         if ($(this).attr("title") !== undefined) { //only images with titles are wrapped with figure tags            
             $(this).wrap("<figure></figure>"); //wrapping image tags with figure tags
-            if ($.trim($(this).attr("title")).length > 0) {
+            if ($.trim($(this).attr("title"))) {
                 var imgFileNameWithoutExtn = $(this).attr("src").split("/").pop().split('.').shift(); //extracting the image filename without extension
                 $(this).parent().append('<figcaption><a href="files/' + imgFileNameWithoutExtn + '.txt">Description of illustration [' + imgFileNameWithoutExtn + ']</figcaption>');
             } else {
@@ -180,7 +192,7 @@ function addPathToAllRelativeHref(articleElement, myUrl) {
     hence there is no need to replace relative hrefs */
     if (myUrl.indexOf("http") >= 0) { //checking if url is absolute path
         myUrl = myUrl.replace(/\/[^\/]+$/, "/"); //removing filename from the url        
-        $(articleElement).find('a').each(function() {
+        $(articleElement).find('a').each(function () {
             if ($(this).attr("href").indexOf("http") == -1 && $(this).attr("href").indexOf("?") !== 0 && $(this).attr("href").indexOf("#") !== 0) {
                 $(this).attr("href", myUrl + $(this).attr("href"));
             }
@@ -190,10 +202,10 @@ function addPathToAllRelativeHref(articleElement, myUrl) {
 }
 /* the following function makes anchor links work by adding an event to all href="#...." */
 function makeAnchorLinksWork(articleElement) {
-    $(articleElement).find('a[href^="#"]').each(function() {
+    $(articleElement).find('a[href^="#"]').each(function () {
         var href = $(this).attr('href');
         if (href !== "#") { //eliminating all plain # links
-            $(this).click(function() {
+            $(this).click(function () {
                 expandSectionBasedOnHash(href.split('#')[1]);
             });
         }
@@ -202,7 +214,7 @@ function makeAnchorLinksWork(articleElement) {
 }
 /*the following function sets target for all HREFs to _blank */
 function addTargetBlank(articleElement) {
-    $(articleElement).find('a').each(function() {
+    $(articleElement).find('a').each(function () {
         if ($(this).attr('href').indexOf("http") === 0) //ignoring # hrefs
             $(this).attr('target', '_blank'); //setting target for ahrefs to _blank
     });
@@ -212,10 +224,29 @@ function addTargetBlank(articleElement) {
 The content is picked up from the manifest file entry*/
 function updateHeadContent(tutorialEntryInManifest) {
     document.title = tutorialEntryInManifest.title;
-    $('meta[name=contentid]').attr("content", tutorialEntryInManifest.contentid);
-    $('meta[name=description').attr("content", tutorialEntryInManifest.description);
-    $('meta[name=partnumber').attr("content", tutorialEntryInManifest.partnumber);
-    $('meta[name=publisheddate').attr("content", tutorialEntryInManifest.publisheddate);
+    var metaProperties = [{
+        name: "contentid",
+        content: tutorialEntryInManifest.contentid
+    },
+    {
+        name: "description",
+        content: tutorialEntryInManifest.description
+    },
+    {
+        name: "partnumber",
+        content: tutorialEntryInManifest.partnumber
+    },
+    {
+        name: "publisheddate",
+        content: tutorialEntryInManifest.publisheddate
+    }
+    ];
+    $(metaProperties).each(function (i, metaProp) {
+        if (metaProp.content) {
+            var metaTag = document.createElement('meta');
+            $(metaTag).attr(metaProp).prependTo('head');
+        }
+    });
 }
 /* Setup left navigation and tocify */
 function setupLeftNav() {
@@ -225,16 +256,16 @@ function setupLeftNav() {
     //scrollHistory: true
     toc.setOptions({ extendPage: false, smoothScroll: false, scrollTo: anchorOffset, highlightDefault: true, showEffect: "fadeIn" });
 
-    $('.tocify-item').each(function() {
+    $('.tocify-item').each(function () {
         var itemName = $(this).attr('data-unique');
         if ($(this) !== $('.tocify-item:eq(0)')) { //as the first section is not expandable or collapsible            
-            $(this).click(function() { //if left nav item is clicked, the corresponding section expands
+            $(this).click(function () { //if left nav item is clicked, the corresponding section expands
                 expandSectionBasedOnHash(itemName);
             });
         }
         if (itemName === location.hash.slice(1)) { //if the hash value matches, it clicks it after some time.
             let click = $(this);
-            setTimeout(function() {
+            setTimeout(function () {
                 $(click).click();
             }, 1000)
         }
@@ -245,13 +276,13 @@ function setupContentNav() {
     //adds the expand collapse button before the second h2 element
     $("#module-content h2:eq(1)")
         .before('<button id="btn_toggle" class="hol-ToggleRegions plus">' + expandText + '</button>')
-        .prev().on('click', function(e) {
-            ($(this).text() === expandText) ? expandSection($("#module-content h2:not(:eq(0))"), "show"): collapseSection($("#module-content h2:not(:eq(0))"), "hide");
+        .prev().on('click', function (e) {
+            ($(this).text() === expandText) ? expandSection($("#module-content h2:not(:eq(0))"), "show") : collapseSection($("#module-content h2:not(:eq(0))"), "hide");
             changeButtonState(); //enables the expand all parts and collapse all parts button
         });
     //enables the feature that allows expand collapse of sections
-    $("#module-content h2:not(:eq(0))").click(function(e) {
-        ($(this).hasClass('plus')) ? expandSection(this, "fade"): collapseSection(this, "fade");
+    $("#module-content h2:not(:eq(0))").click(function (e) {
+        ($(this).hasClass('plus')) ? expandSection(this, "fade") : collapseSection(this, "fade");
         changeButtonState();
     });
     window.scrollTo(0, 0);
@@ -313,7 +344,7 @@ function expandSectionBasedOnHash(itemName) {
 }
 /* adds code copy functionality in codeblocks. The code that needs to be copied needs to be wrapped in <copy> </copy> tag */
 function allowCodeCopy(articleElement) {
-    $(articleElement).find('pre code').each(function() {
+    $(articleElement).find('pre code').each(function () {
         var code = $(document.createElement('code')).html($(this).text());
         if ($(code).has('copy').length) {
             $(code).find('copy').contents().unwrap().wrap('<span class="copy-code">');
@@ -322,7 +353,7 @@ function allowCodeCopy(articleElement) {
             $(this).before('<button class="copy-button" title="Copy text to clipboard">' + copyButtonText + '</button>');
         }
     });
-    $(articleElement).find('.copy-button').click(function() {
+    $(articleElement).find('.copy-button').click(function () {
         var copyText = $(this).next().find('.copy-code').text().trim();
         var dummy = $('<textarea>').val(copyText).appendTo('body').select();
         document.execCommand('copy');
